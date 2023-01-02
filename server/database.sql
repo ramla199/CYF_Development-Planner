@@ -21,5 +21,16 @@ CREATE TABLE messages (
   user_id UUID,
   message_text VARCHAR(500) NOT NULL,
   PRIMARY KEY (message_id),
-  FOREIGN KEY (user_id) REFERENCES users(user_id)
+  FOREIGN KEY (user_id) REFERENCES users(user_id),  
 );
+
+
+CREATE TABLE feedbacks (
+  feedback_id SERIAL,
+  user_id UUID,
+  feedback_text VARCHAR(500) NOT NULL,
+  PRIMARY KEY (message_id),
+  FOREIGN KEY (user_id) REFERENCES users(user_id),
+  FOREIGN KEY (message_id) REFERENCES users(message_id),
+);
+
