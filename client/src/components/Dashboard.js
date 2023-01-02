@@ -35,18 +35,15 @@ function Dashboard({ setAuth }) {
   return (
     <>
       <header className="dash-header">
-        {" "}
         <h1>Dashboard {name}</h1>
         <button onClick={(e) => logout(e)}>Logout</button>
       </header>
       <nav className="inbox-and-files">
         <Link to="/inbox">
-          {" "}
           <h2>Inbox</h2>
           <img src={messagesIcon72} alt="messages icon" />
         </Link>
         <Link to="/files">
-          {" "}
           <h2>Files</h2>
           <img src={filesIcon72} alt="files icon" />
         </Link>
