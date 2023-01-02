@@ -15,6 +15,18 @@ app.get("/", (req, res) => {
   res.send("Hello World!");
 });
 
+app.get("/messages", async (req, res) => {
+  try {
+    const allUserMessages = await pool.query(
+      "SELECT * FROM messages WHERE user_id = $1"
+    );
+    res.json(allUserMessages.rows);
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).json("Server error");
+  }
+});
+
 //register route
 
 app.use("/auth", require("./routes/jwtAuth"));
