@@ -1,21 +1,34 @@
-import React from "react";
-
+import React, { useState, useEffect } from "react";
 import BackButton from "../BackButton";
-import { messages } from "../../data/messages";
 
 function Inbox() {
+  const [messages, setMessages] = useState([]);
+
+  const getMessages = async () => {
+    try {
+      const response = await fetch("http://localhost:4000/messages");
+      const jsonData = await response.json();
+
+      setMessages(jsonData);
+    } catch (err) {
+      console.error(err.message);
+    }
+  };
+
+  useEffect(() => {
+    getMessages();
+  }, []);
   return (
     <>
       <BackButton />
       <h1>Inbox</h1>
-      <section className="inbox-messages">
-        {messages.map((message, index) => {
-          return (
-            <ul key={index}>
-              <li>{message.sender}</li> <li>{message.message}</li>
-            </ul>
-          );
-        })}
+      <section>
+        <h2>Saved Messages</h2>
+        {messages.map((message) => (
+          <div key={message.message_id}>
+            <div>{message.message_text}</div>
+          </div>
+        ))}
       </section>
     </>
   );

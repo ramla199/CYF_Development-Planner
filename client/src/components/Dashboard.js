@@ -10,7 +10,7 @@ function Dashboard({ setAuth }) {
     try {
       const res = await fetch("http://localhost:4000/dashboard/", {
         method: "GET",
-        headers: { token: localStorage.token },
+        headers: { "Content-Type": "application/json" },
       });
 
       const parseRes = await res.json();
