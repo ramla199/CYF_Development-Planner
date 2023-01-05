@@ -1,16 +1,13 @@
 import React, { useState, useEffect } from "react";
 
-const ListMessages = ({ allMessages, setMessagesChange }) => {
-  console.log(allMessages);
+const DeleteMessages = () => {
   const [messages, setMessages] = useState([]); //empty array
 
   //delete message
-
   async function deleteMessage(id) {
     try {
       await fetch(`http://localhost:4000/messages/${id}`, {
         method: "DELETE",
-        // headers: { token: localStorage.token },
         headers: { "Content-Type": "application/json" },
       });
 
@@ -20,9 +17,7 @@ const ListMessages = ({ allMessages, setMessagesChange }) => {
     }
   }
 
-  useEffect(() => {
-    setMessagesChange(allMessages);
-  }, [allMessages]);
+  useEffect(() => {}, []);
 
   console.log(messages);
 
@@ -31,8 +26,6 @@ const ListMessages = ({ allMessages, setMessagesChange }) => {
       <table>
         <thead>
           <tr>
-            <th>Message</th>
-
             <th>Delete</th>
           </tr>
         </thead>
@@ -43,11 +36,9 @@ const ListMessages = ({ allMessages, setMessagesChange }) => {
               <tr key={message.message_id}>
                 <td>{message.message_text}</td>
 
-                <td>
-                  <button onClick={() => deleteMessage(message.message_id)}>
-                    Delete
-                  </button>
-                </td>
+                <button onClick={() => deleteMessage(message.message_id)}>
+                  Delete
+                </button>
               </tr>
             ))}
         </tbody>
@@ -56,4 +47,4 @@ const ListMessages = ({ allMessages, setMessagesChange }) => {
   );
 };
 
-export default ListMessages;
+export default DeleteMessages;

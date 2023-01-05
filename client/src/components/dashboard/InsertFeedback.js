@@ -1,7 +1,6 @@
 import React, { useState } from "react";
-import BackButton from "../BackButton";
 
-function NewFeedback() {
+function InsertFeedback() {
   const [feedbackText, setFeedbackText] = useState("");
 
   const onSubmitForm = async (e) => {
@@ -23,21 +22,18 @@ function NewFeedback() {
   };
   return (
     <>
-      <BackButton />
-
       <h1>Insert Feedback</h1>
       <form onSubmit={onSubmitForm}>
-        <button>Add</button>
-        <textarea
-          cols={120}
-          rows={50}
+        <input
+          type="text"
           placeholder="add"
           value={feedbackText}
           onChange={(e) => setFeedbackText(e.target.value)}
-        ></textarea>
+        />
+        <button>Add</button>
       </form>
     </>
   );
 }
 
-export default NewFeedback;
+export default InsertFeedback;

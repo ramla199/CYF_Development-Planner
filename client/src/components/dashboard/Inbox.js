@@ -2,14 +2,18 @@ import React, { useState, useEffect } from "react";
 import BackButton from "../BackButton";
 
 function Inbox() {
-  const [messages, setMessages] = useState([]);
+  const [allMessages, setAllMessages] = useState([]);
 
+  const [messages, setMessages] = useState([]);
   const getMessages = async () => {
     try {
-      const response = await fetch("http://localhost:4000/messages");
+      const response = await fetch("http://localhost:4000/messages", {
+        method: "GET",
+        headers: { "Content-Type": "aaplication/json" },
+      });
       const jsonData = await response.json();
 
-      setMessages(jsonData);
+      setAllMessages(jsonData);
     } catch (err) {
       console.error(err.message);
     }
@@ -18,17 +22,35 @@ function Inbox() {
   useEffect(() => {
     getMessages();
   }, []);
+  async function deleteMessage(id) {
+    try {
+      await fetch(`http://localhost:4000/messages/${id}`, {
+        method: "DELETE",
+      });
+      setMessages(messages.filter((message) => message.message_id !== id));
+    } catch (err) {
+      console.error(err.message);
+    }
+  }
+  useEffect(() => {
+    setMessages(allMessages);
+  }, [allMessages]);
   return (
     <>
       <BackButton />
       <h1>Inbox</h1>
       <section>
         <h2>Saved Messages</h2>
-        {messages.map((message) => (
-          <div key={message.message_id}>
-            <div>{message.message_text}</div>
-          </div>
-        ))}
+        {messages.length !== 0 &&
+          messages[0].message_id !== null &&
+          messages.map((message) => (
+            <div>
+              <div key={message.message_id}>{message.message_text}</div>
+              <button onClick={() => deleteMessage(message.message_id)}>
+                Delete
+              </button>
+            </div>
+          ))}
       </section>
     </>
   );

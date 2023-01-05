@@ -1,16 +1,14 @@
 import React, { useState } from "react";
 
-const InsertMessage = ({ setMessagesChange }) => {
-  const [message, setMessage] = useState("");
-  console.log(message);
+function NewMessage() {
+  const [messageText, setMessageText] = useState("");
 
   const onSubmitForm = async (e) => {
     e.preventDefault();
     try {
-      const body = { message };
+      const body = { messageText };
       const response = await fetch("http://localhost:4000/messages", {
         method: "POST",
-
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(body),
       });
@@ -18,28 +16,24 @@ const InsertMessage = ({ setMessagesChange }) => {
       const parseResponse = await response.json();
 
       console.log(parseResponse);
-
-      setMessagesChange(true);
-      setMessage("");
-      window.location = "/messages";
     } catch (err) {
       console.error(err.message);
     }
   };
   return (
     <>
-      <h1>Insert Message</h1>
+      <h1>Insert message text</h1>
       <form onSubmit={onSubmitForm}>
-        <textarea
+        <input
           type="text"
-          placeholder="insert message"
-          value={message}
-          onChange={(e) => setMessage(e.target.value)}
-        ></textarea>
+          placeholder="add"
+          value={messageText}
+          onChange={(e) => setMessageText(e.target.value)}
+        />
         <button>Add</button>
       </form>
     </>
   );
-};
+}
 
-export default InsertMessage;
+export default NewMessage;

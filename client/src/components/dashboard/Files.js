@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 import BackButton from "../BackButton";
 
 function Files() {
@@ -22,6 +23,9 @@ function Files() {
   return (
     <>
       <BackButton />
+      <Link to="/new-feedback">
+        <button>create new feedback</button>
+      </Link>
       <h1>Files</h1>
       <section>
         {feedbacks.map((feedback) => (
