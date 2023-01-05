@@ -15,6 +15,7 @@ import Files from "./components/dashboard/Files";
 import Messages from "./components/dashboard/Messages";
 import Message from "./components/dashboard/Message";
 import NewFeedback from "./components/dashboard/NewFeedback";
+import NewMessage from "./components/dashboard/NewMessage";
 
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -90,8 +91,8 @@ function App() {
         <Route path="messages" element={<Messages />} />
         <Route path="messages/:messageid" element={<Message />} />
         <Route path="files" element={<Files />} />
-
         <Route path="new-feedback" element={<NewFeedback />} />
+        <Route path="new-message" element={<NewMessage />} />
       </Routes>
     </>
   );
