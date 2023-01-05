@@ -1,17 +1,16 @@
 import React, { useState } from "react";
 import BackButton from "../BackButton";
-
 import { Editor } from "react-draft-wysiwyg";
 import "../../../node_modules/react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
 
-function NewFeedback() {
-  const [feedbackText, setFeedbackText] = useState("");
+function NewMessage() {
+  const [messageText, setMessageText] = useState("");
 
   const onSubmitForm = async (e) => {
     e.preventDefault();
     try {
-      const body = { feedbackText };
-      const response = await fetch("http://localhost:4000/feedbacks", {
+      const body = { messageText };
+      const response = await fetch("http://localhost:4000/messages", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(body),
@@ -26,24 +25,20 @@ function NewFeedback() {
   };
   return (
     <>
+      <h1>Insert message text</h1>
       <BackButton />
-
-      <h1>Insert Feedback</h1>
       <form onSubmit={onSubmitForm}>
-        <button>Add</button>
-        <textarea
+        <input
+          type="text"
           placeholder="add"
-          value={feedbackText}
-          onChange={(e) => setFeedbackText(e.target.value)}
-        ></textarea>
-
-        <Editor
-        // value={feedbackText}
-        // onChange={(e) => setFeedbackText(e.target.value)}
+          value={messageText}
+          onChange={(e) => setMessageText(e.target.value)}
         />
+        <button>Add</button>
       </form>
+      <Editor />
     </>
   );
 }
 
-export default NewFeedback;
+export default NewMessage;
