@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import BackButton from "../BackButton";
 
 const InsertMessage = ({ setMessagesChange }) => {
   const [message, setMessage] = useState("");
@@ -28,6 +29,7 @@ const InsertMessage = ({ setMessagesChange }) => {
   };
   return (
     <>
+      <BackButton />
       <h1>Insert Message</h1>
       <form onSubmit={onSubmitForm}>
         <textarea
