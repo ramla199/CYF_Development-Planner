@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import BackButton from "../BackButton";
 
 function NewMessage() {
   const [messageText, setMessageText] = useState("");
@@ -23,6 +24,7 @@ function NewMessage() {
   return (
     <>
       <h1>Insert message text</h1>
+      <BackButton />
       <form onSubmit={onSubmitForm}>
         <input
           type="text"
