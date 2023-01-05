@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from "react";
 import BackButton from "../BackButton";
+import { Link } from "react-router-dom";
 
 function Inbox() {
   const [allMessages, setAllMessages] = useState([]);
-
   const [messages, setMessages] = useState([]);
+
   const getMessages = async () => {
     try {
       const response = await fetch("http://localhost:4000/messages", {
@@ -22,6 +23,7 @@ function Inbox() {
   useEffect(() => {
     getMessages();
   }, []);
+
   async function deleteMessage(id) {
     try {
       await fetch(`http://localhost:4000/messages/${id}`, {
@@ -52,6 +54,9 @@ function Inbox() {
             </div>
           ))}
       </section>
+      <Link to="/new-message">
+        <button>insert new message</button>
+      </Link>
     </>
   );
 }
