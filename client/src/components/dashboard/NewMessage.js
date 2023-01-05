@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import BackButton from "../BackButton";
+import { Editor } from "react-draft-wysiwyg";
+import "../../../node_modules/react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
 
 function NewMessage() {
   const [messageText, setMessageText] = useState("");
@@ -34,6 +36,7 @@ function NewMessage() {
         />
         <button>Add</button>
       </form>
+      <Editor />
     </>
   );
 }

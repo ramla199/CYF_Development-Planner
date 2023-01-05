@@ -1,6 +1,9 @@
 import React, { useState } from "react";
 import BackButton from "../BackButton";
 
+import { Editor } from "react-draft-wysiwyg";
+import "../../../node_modules/react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
+
 function NewFeedback() {
   const [feedbackText, setFeedbackText] = useState("");
 
@@ -29,12 +32,15 @@ function NewFeedback() {
       <form onSubmit={onSubmitForm}>
         <button>Add</button>
         <textarea
-          cols={120}
-          rows={50}
           placeholder="add"
           value={feedbackText}
           onChange={(e) => setFeedbackText(e.target.value)}
         ></textarea>
+
+        <Editor
+        // value={feedbackText}
+        // onChange={(e) => setFeedbackText(e.target.value)}
+        />
       </form>
     </>
   );
