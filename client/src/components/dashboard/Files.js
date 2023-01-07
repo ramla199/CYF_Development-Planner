@@ -29,7 +29,7 @@ function Files() {
 
   async function deleteFeedback(id) {
     try {
-      await fetch(`http://localhost:4000/feedbacks/${id}`, {
+      await fetch(`http://localhost:4000/dashboard/feedbacks/${id}`, {
         method: "DELETE",
         headers: { token: localStorage.token },
       });
