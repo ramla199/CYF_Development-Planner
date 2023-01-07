@@ -9,10 +9,14 @@ function NewMessage() {
   const onSubmitForm = async (e) => {
     e.preventDefault();
     try {
+      const myHeaders = new Headers();
+
+      myHeaders.append("Content-Type", "application/json");
+      myHeaders.append("token", localStorage.token);
       const body = { messageText };
-      const response = await fetch("http://localhost:4000/messages", {
+      const response = await fetch("http://localhost:4000/dashboard/messages", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: myHeaders,
         body: JSON.stringify(body),
       });
 

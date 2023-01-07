@@ -7,7 +7,7 @@ function Messages() {
 
   const getMessages = async () => {
     try {
-      const response = await fetch("http://localhost:4000/messages");
+      const response = await fetch("http://localhost:4000/dashboard/messages");
       const jsonData = await response.json();
 
       setMessages(jsonData);
