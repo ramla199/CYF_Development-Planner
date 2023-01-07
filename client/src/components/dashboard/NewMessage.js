@@ -35,8 +35,12 @@ function NewMessage() {
           onChange={(e) => setMessageText(e.target.value)}
         />
         <button>Add</button>
+        <Editor
+          type="text"
+          value={messageText}
+          onChange={(e) => setMessageText(e.target.value)}
+        />
       </form>
-      <Editor />
     </>
   );
 }
