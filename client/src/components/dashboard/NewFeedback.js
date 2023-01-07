@@ -38,8 +38,8 @@ function NewFeedback() {
         ></textarea>
 
         <Editor
-        // value={feedbackText}
-        // onChange={(e) => setFeedbackText(e.target.value)}
+          value={feedbackText}
+          onChange={(e) => setFeedbackText(e.target.value)}
         />
       </form>
     </>
