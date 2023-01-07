@@ -10,7 +10,7 @@ function Inbox() {
     try {
       const response = await fetch("http://localhost:4000/messages", {
         method: "GET",
-        headers: { "Content-Type": "aaplication/json" },
+        headers: { "Content-Type": "aplication/json" },
       });
       const jsonData = await response.json();
 
