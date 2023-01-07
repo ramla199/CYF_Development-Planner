@@ -24,10 +24,6 @@ app.use("/auth", require("./routes/jwtAuth"));
 
 app.use("/dashboard", require("./routes/dashboard"));
 
-app.use("/feedbacks", require("./routes/feedbacks"));
-
-app.use("/messages", require("./routes/messages"));
-
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
 });
