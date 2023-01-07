@@ -10,7 +10,7 @@ function Dashboard({ setAuth }) {
     try {
       const res = await fetch("http://localhost:4000/dashboard/", {
         method: "GET",
-        headers: { "Content-Type": "application/json" },
+        headers: { token: localStorage.token },
       });
 
       const parseRes = await res.json();
@@ -35,7 +35,7 @@ function Dashboard({ setAuth }) {
   return (
     <>
       <header className="dash-header">
-        <h1>Dashboard {name}</h1>
+        <h1>{name}'s Dashboard</h1>
         <button onClick={(e) => logout(e)}>Logout</button>
       </header>
       <nav className="inbox-and-files">

@@ -28,5 +28,5 @@ CREATE TABLE messages (
   user_id UUID,
   message_text VARCHAR(500),
   PRIMARY KEY (message_id),
-  FOREIGN KEY (user_id) REFERENCES users(user_id),  
+  FOREIGN KEY (user_id) REFERENCES users(user_id)
 );

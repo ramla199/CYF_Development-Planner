@@ -10,7 +10,7 @@ function Files() {
     try {
       const response = await fetch("http://localhost:4000/feedbacks", {
         method: "GET",
-        HEADER: { "Content-Type": "application/json" },
+        headers: { "Content-Type": "application/json" },
       });
       const jsonData = await response.json();
 
@@ -29,6 +29,7 @@ function Files() {
       await fetch(`http://localhost:4000/feedbacks/${id}`, {
         method: "DELETE",
       });
+      setFeedbacks(feedbacks.filter((feedback) => feedback.feedback_id !== id));
     } catch (err) {
       console.log(allFeedbacks);
     }

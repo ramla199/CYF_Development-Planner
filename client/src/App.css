@@ -83,11 +83,11 @@ textarea {
     max-width: 700px;
     margin: auto;
     padding: 30px 0;
-    outline: 1px solid red;
+  
 }
 
 .inbox-and-files {  
-    outline: 1px solid red;
+
     display: flex;
     flex-direction: column;
     gap: 30px;
