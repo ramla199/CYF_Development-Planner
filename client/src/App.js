@@ -1,6 +1,6 @@
 import "./App.css";
 import React, { useState, useEffect } from "react";
-import { Routes, Route, Navigate, useLocation } from "react-router-dom";
+import { Routes, Route, Navigate } from "react-router-dom";
 // import FeedbacksForm from "./components/dashboard/FeedbacksForm";
 //components
 import Login from "./components/Login";
@@ -16,19 +16,14 @@ import Messages from "./components/dashboard/Messages";
 import Message from "./components/dashboard/Message";
 import NewFeedback from "./components/dashboard/NewFeedback";
 import NewMessage from "./components/dashboard/NewMessage";
-import Plans from "./components/dashboard/Plans";
-import PlanEditor from "./components/dashboard/PlanEditor";
-
 
 function App() {
-/*
   const [isAuthenticated, setIsAuthenticated] = useState(false);
 
   const setAuth = (boolean) => {
     setIsAuthenticated(boolean);
   };
 
-    
   async function isAuth() {
     try {
       const response = await fetch("http://localhost:4000/auth/is-verify", {
@@ -49,57 +44,9 @@ function App() {
     isAuth();
   }, []);
 
-
   return (
     <>
-      <Navbar />
-      <Routes>
-        <Route
-          path="/"
-          element={!isAuthenticated ? <Home /> : <Navigate to="/dashboard" />}
-        />
-        <Route
-          path="register"
-          element={
-            !isAuthenticated ? (
-              <Register setAuth={setAuth} />
-            ) : (
-              <Navigate to="/login" />
-            )
-          }
-        />
-        <Route
-          exact
-          path="login"
-          element={
-            !isAuthenticated ? (
-              <Login setAuth={setAuth} />
-            ) : (
-              <Navigate to="/dashboard" />
-            )
-          }
-        />
-        <Route
-          exact
-          path="dashboard"
-          element={
-            isAuthenticated ? (
-              <Dashboard setAuth={setAuth} />
-            ) : (
-              <Navigate to="/login" />
-            )
-          }
-        />
-        <Route path="/" element={<Home />} />
-        <Route path="*" element={<NoMatch />} />
-        <Route path="dashboard" element={<Dashboard />} />
-        <Route path="inbox" element={<Inbox />} />
-        <Route path="messages" element={<Messages />} />
-        <Route path="messages/:messageid" element={<Message />} />
-        <Route path="files" element={<Files />} />
-        <Route path="new-feedback" element={<NewFeedback />} />
-        <Route path="new-message" element={<NewMessage />} />
-      </Routes>
+      <h1>Welcome to CYF dev planner</h1>
     </>
   );
 }
