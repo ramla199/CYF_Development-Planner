@@ -1,30 +1,3 @@
-
--- CREATE DATABASE dev_planner;
-
-
--- CREATE TABLE users(
---     user_id SERIAL,
---     username VARCHAR(50),
---     user_password VARCHAR(50),
---     user_role VARCHAR (8),
---     PRIMARY KEY (user_id)
--- );
-
--- CREATE TABLE feedbacks(
---     feedback_id SERIAL, 
---     user_id SERIAL,
---     feedback_text VARCHAR(1000),
---     PRIMARY KEY (feedback_id),
---     FOREIGN KEY (user_id) REFERENCES users(user_id)
--- );
-
--- CREATE TABLE plans(
---     plan_id SERIAL,
---     plan_text VARCHAR(1000)
--- )
-
-
-
 CREATE DATABASE dev_planner;
 
 CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
@@ -53,13 +26,7 @@ CREATE TABLE feedbacks (
   FOREIGN KEY (user_id) REFERENCES users(user_id)
 );
 
-CREATE TABLE messages (
-  message_id SERIAL,
-  user_id UUID,
-  message_text VARCHAR(500),
-  PRIMARY KEY (message_id),
-  FOREIGN KEY (user_id) REFERENCES users(user_id)
-);
+
 
 -- Plans
 INSERT INTO users (user_fname, user_lname, username, user_email, user_password, user_role) 
