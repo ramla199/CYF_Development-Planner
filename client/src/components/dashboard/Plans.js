@@ -13,7 +13,7 @@ function Plans() {
   const getPlans = async () => {
     try {
       const response = await fetch("http://localhost:4000/plans/joeb");
-      console.log(response)
+      console.log(response);
       const jsonData = await response.json();
       console.log(jsonData);
       setAllPlansFetched(jsonData);
@@ -25,18 +25,22 @@ function Plans() {
   const handleClick = (event, theIndex, theKey = null) => {
     //  setSelectedRecordInfo({ theIndex: theIndex, theKey: theKey });
     //  setStage(2); // Second Stage: Allow User to enter/edit plan
-    console.log(event)
-    console.log(theIndex, theKey)
-    setPlanSelected({theIndex: theIndex, theKey:theKey, theUserName:theUserName})
-   };
+    console.log(event);
+    console.log(theIndex, theKey);
+    setPlanSelected({
+      theIndex: theIndex,
+      theKey: theKey,
+      theUserName: theUserName,
+    });
+  };
 
   function deletePlan(index) {
     let answer = window.confirm("Are You Sure?");
-    console.log(index)
+    console.log(index);
     console.log(allPlansFetched);
     if (answer) {
-      deletePlan2(index)
-    } 
+      deletePlan2(index);
+    }
   }
 
   async function deletePlan2(deleteIndex) {
@@ -45,8 +49,8 @@ function Plans() {
     // The second is indexed as 2, etc.
     const actualIndex = deleteIndex - 1;
     const serialId = allPlansFetched[actualIndex].plan_serial_id;
-    console.log(actualIndex,serialId)
-    console.log(deleteIndex)
+    console.log(actualIndex, serialId);
+    console.log(deleteIndex);
     try {
       await fetch(`http://localhost:4000/plans/${serialId}`, {
         method: "DELETE",
@@ -55,7 +59,7 @@ function Plans() {
       setAllPlansFetched(
         allPlansFetched.filter((_, index) => index !== actualIndex)
       );
-      console.log(allPlansFetched)
+      console.log(allPlansFetched);
     } catch (err) {
       console.error(err.message);
     }
@@ -69,10 +73,10 @@ function Plans() {
     setAllPlansFetched(allPlansFetched);
   }, [allPlansFetched]);
 
-  useEffect(() => {    
+  useEffect(() => {
     if (planSelected) {
-        navigate("/plan-editor");
-    };
+      navigate("/plan-editor");
+    }
   }, [planSelected, navigate]);
 
   const keysArray = [];
@@ -105,14 +109,13 @@ function Plans() {
   );
 
   return (
-      <>
-        <div className="username-header">{theUserName}</div>
-        <div className="main-menu-container">
-          <div className="main-menu">{orderedList}</div>
-        </div>
-      </>
-    );
-
+    <>
+      <div className="username-header">{theUserName}</div>
+      <div className="main-menu-container">
+        <div className="main-menu">{orderedList}</div>
+      </div>
+    </>
+  );
 }
 
 export default Plans;

@@ -1,65 +1,22 @@
 import "./App.css";
-import React, { useState, useEffect } from "react";
-import { Routes, Route, Navigate } from "react-router-dom";
+import React, { useState } from "react";
+import { Routes, Route } from "react-router-dom";
 // import FeedbacksForm from "./components/dashboard/FeedbacksForm";
 //components
-import Login from "./components/Login";
-import Register from "./components/Register";
-import NoMatch from "./components/NoMatch";
-import Navbar from "./components/dashboard/Navbar";
-import Home from "./components/Home";
-import Dashboard from "./components/Dashboard";
-// //dashboard components
-import Inbox from "./components/dashboard/Inbox";
-import Files from "./components/dashboard/Files";
-import Messages from "./components/dashboard/Messages";
-import Message from "./components/dashboard/Message";
-import NewFeedback from "./components/dashboard/NewFeedback";
-import NewMessage from "./components/dashboard/NewMessage";
+import Plans from "./components/dashboard/Plans";
+import PlanEditor from "./components/dashboard/PlanEditor";
+import Navbar from "./components/Navbar";
 
 function App() {
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [username, setUsername] = useState(null);
 
-  const setAuth = (boolean) => {
-    setIsAuthenticated(boolean);
-  };
-
-  async function isAuth() {
-    try {
-      const response = await fetch("http://localhost:4000/auth/is-verify", {
-        method: "GET",
-        headers: { token: localStorage.token },
-      });
-
-      const parseRes = await response.json();
-
-      parseRes === true ? setIsAuthenticated(true) : setIsAuthenticated(false);
-      console.log(parseRes);
-    } catch (err) {
-      console.error(err.message);
-    }
-  }
-
-  useEffect(() => {
-    isAuth();
-  }, []);
+  // let location = useLocation();
+  // console.log(location);
 
   return (
     <>
-      <h1>Welcome to CYF dev planner</h1>
-    </>
-  );
-}
-*/
+      {/* {location.pathname !== "/plans" && <Navbar />} */}
 
-const [username, setUsername] = useState(null);
-
-let location = useLocation();
-console.log(location);
-
-  return (
-    <>
-      {location.pathname !== "/plans" && <Navbar />}
       <Routes>
         <Route path="/" element={<Home />} />
         <Route

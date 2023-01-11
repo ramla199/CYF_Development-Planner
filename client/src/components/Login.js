@@ -29,8 +29,7 @@ function Login({ setUsername }) {
     try {
       // const body = { email, password };
 
-      const theUrl =
-        "http://localhost:4000/auth/login/" + email + "/" + password;
+      const theUrl = "/auth/login/" + email + "/" + password;
       const response = await fetch(theUrl, {
         method: "GET",
         headers: { "Content-Type": "application/json" },
@@ -38,21 +37,21 @@ function Login({ setUsername }) {
 
       const parseRes = await response.json();
       console.log(parseRes);
-      
+
       if (parseRes.length !== 0) {
-         const theUserName = parseRes[0].username; 
-         setUsername(theUserName);
-         setLoggedIn(theUserName);
+        const theUserName = parseRes[0].username;
+        setUsername(theUserName);
+        setLoggedIn(theUserName);
       } else {
-          alert("Incorrect username or password")
-          setUsername(null);
-          setInputs({ email: "", password: "" });
+        alert("Incorrect username or password");
+        setUsername(null);
+        setInputs({ email: "", password: "" });
       }
     } catch (err) {
-        console.error(err.message);
+      console.error(err.message);
     }
 
-/*
+    /*
     if (parseRes.token) {
         localStorage.setItem("token", parseRes.token);
 
@@ -64,10 +63,9 @@ function Login({ setUsername }) {
       console.error(err.message);
     }
 */
-    
   };
 
- /* 
+  /* 
   const onSubmitForm = async (e) => {
     e.preventDefault();
     try {
@@ -94,13 +92,13 @@ function Login({ setUsername }) {
 */
 
   useEffect(() => {
-     if (loggedIn) {
-      console.log(loggedIn, setUsername)
-              navigate("/dashboard", {
-                state: { username: loggedIn },
-              });
-     }
-  }, [loggedIn,navigate,setUsername]);
+    if (loggedIn) {
+      console.log(loggedIn, setUsername);
+      navigate("/dashboard", {
+        state: { username: loggedIn },
+      });
+    }
+  }, [loggedIn, navigate, setUsername]);
 
   return (
     <>

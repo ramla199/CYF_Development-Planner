@@ -12,7 +12,7 @@ function Plans() {
 
   const getPlans = async () => {
     try {
-      const response = await fetch("http://localhost:4000/plans/joeb");
+      const response = await fetch("/plans/joeb");
       const jsonData = await response.json();
       console.log(jsonData);
       setAllPlansFetched(jsonData);

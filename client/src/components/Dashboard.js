@@ -11,34 +11,6 @@ import { Link, useLocation } from "react-router-dom";
 */
 
 function Dashboard() {
-  /* 
-
-  const [name, setName] = useState("");
-
-  const getName = async () => {
-    try {
-      const res = await fetch("http://localhost:4000/dashboard/", {
-        method: "GET",
-        headers: { token: localStorage.token },
-      });
-
-      const parseRes = await res.json();
-
-      console.log(parseRes);
-      setName(parseRes.username);
-    } catch (err) {
-      console.error(err.message);
-    }
-  };
-
-  const logout = async (e) => {
-    e.preventDefault();
-    localStorage.removeItem("token");
-    setAuth(false);
-  };
-
-*/
-
   const logout = async (e) => {
     e.preventDefault();
     // setUsername(null);
@@ -46,7 +18,7 @@ function Dashboard() {
 
   const location = useLocation();
 
-  console.log(location)
+  console.log(location);
   const name = location.state.username;
   // const setUsername = location.state.setUsername;
 
