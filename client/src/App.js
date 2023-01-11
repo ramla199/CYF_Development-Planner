@@ -16,10 +16,9 @@ import Messages from "./components/dashboard/Messages";
 import Message from "./components/dashboard/Message";
 import NewFeedback from "./components/dashboard/NewFeedback";
 import NewMessage from "./components/dashboard/NewMessage";
-/* DG
 import Plans from "./components/dashboard/Plans";
 import PlanEditor from "./components/dashboard/PlanEditor";
-*/
+
 
 function App() {
 /*
@@ -113,23 +112,26 @@ console.log(location);
 
   return (
     <>
-      <Navbar />
+      {location.pathname !== "/plans" && <Navbar />}
       <Routes>
         <Route path="/" element={<Home />} />
         <Route
           path="register"
-//        element={ <Register setAuth={setAuth} /> } />
-          element={ <Register setUsername={setUsername} /> } />
+          //        element={ <Register setAuth={setAuth} /> } />
+          element={<Register setUsername={setUsername} />}
+        />
         <Route
           exact
           path="login"
-//        element={ <Login setAuth={setAuth} /> } />
-          element={ <Login setUsername={setUsername}/> } />
+          //        element={ <Login setAuth={setAuth} /> } />
+          element={<Login setUsername={setUsername} />}
+        />
         <Route
           exact
           path="dashboard"
-//        element={ <Dashboard setAuth={setAuth} /> } />
-          element={ <Dashboard setUsername={setUsername} /> } />
+          //        element={ <Dashboard setAuth={setAuth} /> } />
+          element={<Dashboard setUsername={setUsername} />}
+        />
         <Route path="/" element={<Home />} />
         <Route path="*" element={<NoMatch />} />
         <Route path="dashboard" element={<Dashboard />} />
@@ -139,6 +141,8 @@ console.log(location);
         <Route path="files" element={<Files />} />
         <Route path="new-feedback" element={<NewFeedback />} />
         <Route path="new-message" element={<NewMessage />} />
+        <Route path="plans" element={<Plans />} />
+        <Route path="plan-editor" element={<PlanEditor />} />
       </Routes>
     </>
   );

@@ -210,7 +210,6 @@ app.delete("/plans/:id", async (req, res) => {
               RETURNING *`,
       [id]
     );
-    console.log(thePlan) // DG
     res.json(thePlan.rows);
   } catch (err) {
     console.error(err.message);
