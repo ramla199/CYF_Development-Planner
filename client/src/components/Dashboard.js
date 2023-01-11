@@ -1,9 +1,18 @@
 import React, { useState, useEffect } from "react";
 import messagesIcon72 from "../images/messages-icon-72.png";
 import filesIcon72 from "../images/files-icon-72.png";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
-function Dashboard({ setAuth }) {
+/*
+   Replaced 
+   function Dashboard({ setAuth })
+   with
+   function Dashboard()   
+*/
+
+function Dashboard() {
+  /* 
+
   const [name, setName] = useState("");
 
   const getName = async () => {
@@ -28,9 +37,18 @@ function Dashboard({ setAuth }) {
     setAuth(false);
   };
 
-  useEffect(() => {
-    getName();
-  }, []);
+*/
+
+  const logout = async (e) => {
+    e.preventDefault();
+    // setUsername(null);
+  };
+
+  const location = useLocation();
+
+  console.log(location)
+  const name = location.state.username;
+  // const setUsername = location.state.setUsername;
 
   return (
     <>

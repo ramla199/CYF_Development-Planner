@@ -1,18 +1,73 @@
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { Link, useNavigate } from "react-router-dom";
 
-function Login({ setAuth }) {
+/*
+   Replaced 
+   function Login({ setAuth })
+   with
+   function Login({ setUsername })    
+*/
+
+function Login({ setUsername }) {
   const [inputs, setInputs] = useState({
     email: "",
     password: "",
   });
 
+  const [loggedIn, setLoggedIn] = useState(null);
+
   const { email, password } = inputs;
+
+  const navigate = useNavigate();
 
   const onChange = (e) => {
     setInputs({ ...inputs, [e.target.name]: e.target.value });
   };
 
+  const onSubmitForm = async (e) => {
+    e.preventDefault();
+    try {
+      // const body = { email, password };
+
+      const theUrl =
+        "http://localhost:4000/auth/login/" + email + "/" + password;
+      const response = await fetch(theUrl, {
+        method: "GET",
+        headers: { "Content-Type": "application/json" },
+      });
+
+      const parseRes = await response.json();
+      console.log(parseRes);
+      
+      if (parseRes.length !== 0) {
+         const theUserName = parseRes[0].username; 
+         setUsername(theUserName);
+         setLoggedIn(theUserName);
+      } else {
+          alert("Incorrect username or password")
+          setUsername(null);
+          setInputs({ email: "", password: "" });
+      }
+    } catch (err) {
+        console.error(err.message);
+    }
+
+/*
+    if (parseRes.token) {
+        localStorage.setItem("token", parseRes.token);
+
+        setAuth(true);
+      } else {
+        setAuth(false);
+      }
+    } catch (err) {
+      console.error(err.message);
+    }
+*/
+    
+  };
+
+ /* 
   const onSubmitForm = async (e) => {
     e.preventDefault();
     try {
@@ -36,6 +91,17 @@ function Login({ setAuth }) {
       console.error(err.message);
     }
   };
+*/
+
+  useEffect(() => {
+     if (loggedIn) {
+      console.log(loggedIn, setUsername)
+              navigate("/dashboard", {
+                state: { username: loggedIn },
+              });
+     }
+  }, [loggedIn,navigate,setUsername]);
+
   return (
     <>
       <main>

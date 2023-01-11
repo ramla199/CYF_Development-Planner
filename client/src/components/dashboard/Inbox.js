@@ -10,7 +10,7 @@ function Inbox() {
     try {
       const response = await fetch("http://localhost:4000/messages", {
         method: "GET",
-        headers: { "Content-Type": "aplication/json" },
+        headers: { "Content-Type": "application/json" },
       });
       const jsonData = await response.json();
 
@@ -28,6 +28,7 @@ function Inbox() {
     try {
       await fetch(`http://localhost:4000/messages/${id}`, {
         method: "DELETE",
+        headers: { "Content-Type": "application/json" },
       });
       setMessages(messages.filter((message) => message.message_id !== id));
     } catch (err) {
@@ -37,6 +38,10 @@ function Inbox() {
   useEffect(() => {
     setMessages(allMessages);
   }, [allMessages]);
+  console.log(allMessages)
+  console.log(messages)
+  console.log(messages.length, messages[0]);
+
   return (
     <>
       <BackButton />

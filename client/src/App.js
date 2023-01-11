@@ -1,6 +1,6 @@
 import "./App.css";
 import React, { useState, useEffect } from "react";
-import { Routes, Route, Navigate } from "react-router-dom";
+import { Routes, Route, Navigate, useLocation } from "react-router-dom";
 // import FeedbacksForm from "./components/dashboard/FeedbacksForm";
 //components
 import Login from "./components/Login";
@@ -16,14 +16,20 @@ import Messages from "./components/dashboard/Messages";
 import Message from "./components/dashboard/Message";
 import NewFeedback from "./components/dashboard/NewFeedback";
 import NewMessage from "./components/dashboard/NewMessage";
+/* DG
+import Plans from "./components/dashboard/Plans";
+import PlanEditor from "./components/dashboard/PlanEditor";
+*/
 
 function App() {
+/*
   const [isAuthenticated, setIsAuthenticated] = useState(false);
 
   const setAuth = (boolean) => {
     setIsAuthenticated(boolean);
   };
 
+    
   async function isAuth() {
     try {
       const response = await fetch("http://localhost:4000/auth/is-verify", {
@@ -43,6 +49,7 @@ function App() {
   useEffect(() => {
     isAuth();
   }, []);
+
 
   return (
     <>
@@ -84,6 +91,45 @@ function App() {
             )
           }
         />
+        <Route path="/" element={<Home />} />
+        <Route path="*" element={<NoMatch />} />
+        <Route path="dashboard" element={<Dashboard />} />
+        <Route path="inbox" element={<Inbox />} />
+        <Route path="messages" element={<Messages />} />
+        <Route path="messages/:messageid" element={<Message />} />
+        <Route path="files" element={<Files />} />
+        <Route path="new-feedback" element={<NewFeedback />} />
+        <Route path="new-message" element={<NewMessage />} />
+      </Routes>
+    </>
+  );
+}
+*/
+
+const [username, setUsername] = useState(null);
+
+let location = useLocation();
+console.log(location);
+
+  return (
+    <>
+      <Navbar />
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route
+          path="register"
+//        element={ <Register setAuth={setAuth} /> } />
+          element={ <Register setUsername={setUsername} /> } />
+        <Route
+          exact
+          path="login"
+//        element={ <Login setAuth={setAuth} /> } />
+          element={ <Login setUsername={setUsername}/> } />
+        <Route
+          exact
+          path="dashboard"
+//        element={ <Dashboard setAuth={setAuth} /> } />
+          element={ <Dashboard setUsername={setUsername} /> } />
         <Route path="/" element={<Home />} />
         <Route path="*" element={<NoMatch />} />
         <Route path="dashboard" element={<Dashboard />} />

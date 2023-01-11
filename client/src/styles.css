@@ -1,0 +1,177 @@
+:root {
+    --colour-white: #ffffff;
+    --colour-black: #000000;
+    --colour-grey: rgb(128,128,128);
+    --LESSTHAN21_COLOUR: #FF0000;
+    /* Red */
+    --expand-button-colour: rgb(255, 116, 38);
+}
+
+/* Make the placeholder italics */
+
+::placeholder {
+    color: var(--colour-black);
+    font-size: 1em;
+    font-style: italic;
+    font-weight: 700;
+    padding: 2.1em 0 0 1em;
+}
+
+/* NEED TO MODIFY TO body DG */
+
+body {
+    font-family: 'futura';
+    font-size: 1.4rem;
+}
+
+.username-header {
+    background-color: #282c34;
+    text-align: center;
+    text-transform: capitalize;
+    font-size: calc(2em);
+    padding: 0.1em;
+    color: var(--colour-white);
+}
+
+.username-header::after {
+    content: "'s Plans";
+}
+
+.main-menu-container {
+    padding-left: 2em;
+    padding-right: 2em;
+    background-color: var(--colour-grey);
+    padding-right: 15px;
+    padding-left: 15px;
+    margin-right: auto;
+    margin-left: auto;
+    width: 100%;
+}
+
+.main-menu {
+    position: relative;
+}
+
+.main-menu-items {
+    margin: 0 0 0 20px;
+    padding: 0;
+    list-style: none;
+    cursor: pointer;
+}
+
+.main-menu-item-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.main-menu-item {
+    margin: 10px 0;
+    margin-left: 20px;
+    padding-left: 20px;
+    z-index: 0;
+    list-style: none;
+    padding: 0;
+    border-radius: 50px;
+    transition: all 1s;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+}
+
+.main-menu-date,
+.main-menu-preamble {
+    display: inline-block;
+}
+
+.main-menu-preamble {
+    margin-right: 2em;
+}
+
+.main-menu-date {
+    background-color: #000;
+    color: #fff;
+    width: 100px;
+    height: 100px;
+    border-radius: 50px;
+    text-align: center;
+    flex: 0 0 auto;
+}
+
+.main-menu-date p {
+    display: inline-block;
+}
+
+.main-menu-item:hover,
+.main-menu-item:active,
+.main-menu-item:focus {
+    background-color: rgba(173, 195, 242, 0.25);
+}
+
+.datetime0-colour {
+    background-color: #2f60b5;
+}
+
+.datetime1-colour {
+    background-color: #1a7275;
+}
+
+.datetime2-colour {
+    background-color: #dd980d;
+}
+
+.datetime3-colour {
+    background-color: #2e939c;
+}
+
+.main-menu-description {
+    text-align: left;
+    padding-left: 1em;
+    padding-right: 1em;
+    margin-left: 2em;
+}
+
+.date-and-time {
+    padding-top: 1.8em;
+    font-size: 0.8em;
+}
+
+.line1,
+.line2 {
+    line-height: 1.6em;
+    font-size: 1.2em;
+}
+
+.line1::after {
+    content: "\a";
+    white-space: pre;
+}
+
+.new-plan-desc {
+    text-align: left;
+    padding-left: 1em;
+    padding-right: 1em;
+    font-size: 3em;
+}
+
+button {
+    border-radius: 3px;
+    border: none;
+    margin: 0 0.25em;
+    transition: all 0.3s;
+}
+
+button:hover {
+    box-shadow: 0 0 4px rgba(3, 3, 3, 0.8);
+    opacity: 0.9;
+}
+
+button.delete-button {
+    background: var(--delete-button-colour);
+    background: #FFFDD0;
+    margin-bottom: 1.5em;
+    font-size: 0.7em;
+    color: black;
+    margin-left: 2em;
+    border: 3px solid rgb(255, 47, 127);
+}

@@ -3,31 +3,46 @@ const app = express();
 const port = 4000;
 const cors = require("cors");
 const pool = require("./database");
+// const authorization = require("./middleware/authorization");
 
-//middleware
+// Middleware
 
 app.use(express.json()); //req.body
 app.use(cors());
 
 //ROUTES//
 
-//test
+// Test
 app.get("/", (req, res) => {
   res.send("Hello World!");
 });
 
-//get all feedbacks (mentor dashboard)
+// Does this username exist?
+app.get("/auth/login/:email/:password", async (req, res) => {
+  try {
+    const { email, password } = req.params;
+    const theUser = await pool.query(
+      "SELECT * FROM users WHERE user_email = $1 AND user_password = $2", [email, password]
+    );   
+     res.status(200).json(theUser.rows);
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).json("Server error: " + err.message);
+  }
+});
+
+// Get all feedbacks (Mentor Dashboard)
 app.get("/feedbacks", async (req, res) => {
   try {
     const allFeedbacks = await pool.query("SELECT * FROM feedbacks");
     res.json(allFeedbacks.rows);
   } catch (err) {
     console.error(err.message);
-    res.status(500).json("Server error");
+    res.status(500).json("Server error: " + err.message);
   }
 });
 
-// get one feedback (mentor dashboard)
+// Get one feedback (Mentor Dashboard)
 app.get("/feedbacks/:id", async (req, res) => {
   try {
     console.log(req.params);
@@ -40,11 +55,11 @@ app.get("/feedbacks/:id", async (req, res) => {
     res.json(feedback.rows);
   } catch (err) {
     console.error(err.message);
-    res.status(500).json("Server error");
+    res.status(500).json("Server error: " + err.message);
   }
 });
 
-//insert feedback (mentor dashboard)
+// Insert feedback (Mentor Dashboard)
 
 app.post("/feedbacks", async (req, res) => {
   try {
@@ -57,11 +72,11 @@ app.post("/feedbacks", async (req, res) => {
     res.json(newEntry.rows);
   } catch (err) {
     console.error(err.message);
-    res.status(500).json("Server error");
+    res.status(500).json("Server error: " + err.message);
   }
 });
 
-//edit feedback (mentor dashboard)
+// Edit feedback (Mentor Dashboard)
 app.put("/feedbacks/:id", async (req, res) => {
   try {
     const { id } = req.params;
@@ -73,11 +88,11 @@ app.put("/feedbacks/:id", async (req, res) => {
     res.json("updated");
   } catch (err) {
     console.error(err.message);
-    res.status(500).json("Server error");
+    res.status(500).json("Server error: " + err.message);
   }
 });
 
-//delete feedback (mentor dashboard)
+// Delete feedback (Mentor Dashboard)
 app.delete("/feedbacks/:id", async (req, res) => {
   try {
     const { id } = req.params;
@@ -89,7 +104,7 @@ app.delete("/feedbacks/:id", async (req, res) => {
     res.json("deleted");
   } catch (err) {
     console.error(err.message);
-    res.status(500).json("Server error");
+    res.status(500).json("Server error: " + err.message);
   }
 });
 
@@ -99,7 +114,7 @@ app.get("/messages", async (req, res) => {
     res.json(allMessages.rows);
   } catch (err) {
     console.error(err.message);
-    res.status(500).json("Server error");
+    res.status(500).json("Server error: " + err.message);
   }
 });
 
@@ -115,7 +130,7 @@ app.get("/messages/:id", async (req, res) => {
     res.json(feedback.rows);
   } catch (err) {
     console.error(err.message);
-    res.status(500).json("Server error");
+    res.status(500).json("Server error: " + err.message);
   }
 });
 
@@ -130,7 +145,7 @@ app.post("/messages", async (req, res) => {
     res.json(newMessage.rows);
   } catch (err) {
     console.error(err.message);
-    res.status(500).json("Server error");
+    res.status(500).json("Server error: " + err.message);
   }
 });
 
@@ -145,7 +160,7 @@ app.put("/messages/:id", async (req, res) => {
     res.json("updated");
   } catch (err) {
     console.error(err.message);
-    res.status(500).json("Server error");
+    res.status(500).json("Server error: " + err.message);
   }
 });
 
@@ -160,15 +175,54 @@ app.delete("/messages/:id", async (req, res) => {
     res.json("deleted");
   } catch (err) {
     console.error(err.message);
-    res.status(500).json("Server error");
+    res.status(500).json("Server error: " + err.message);
   }
 });
 
-//register route
+
+// Does the user have any plans?
+// Ordered from the latest to the oldest
+app.get("/plans/:id", async (req, res) => {
+  try {
+    const { id } = req.params;
+    const thePlans = await pool.query(
+      `SELECT * FROM plans 
+              WHERE username = $1
+              ORDER BY amended_timestamp DESC`,
+      [id]
+    );
+    res.json(thePlans.rows);
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).json("Server error: " + err.message);
+  }
+});
+
+// Delete the plan
+app.delete("/plans/:id", async (req, res) => {
+  //res.send("DELETE Request Called");
+  try {
+    const { id } = req.params;
+    console.log(1000,id) // DG
+    const thePlan = await pool.query(
+      `DELETE FROM plans 
+              WHERE plan_serial_id = $1
+              RETURNING *`,
+      [id]
+    );
+    console.log(thePlan) // DG
+    res.json(thePlan.rows);
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).json("Server error: " + err.message);
+  }
+});
+
+// Register route
 
 app.use("/auth", require("./routes/jwtAuth"));
 
-//dashboard route
+// Dashboard route
 
 app.use("/dashboard", require("./routes/dashboard"));
 
