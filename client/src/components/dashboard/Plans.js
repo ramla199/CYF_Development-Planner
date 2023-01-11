@@ -12,7 +12,7 @@ function Plans() {
 
   const getPlans = async () => {
     try {
-      const response = await fetch("http://localhost:4000/plans/joeb");
+      const response = await fetch("/plans/joeb");
       console.log(response);
       const jsonData = await response.json();
       console.log(jsonData);
@@ -52,9 +52,9 @@ function Plans() {
     console.log(actualIndex, serialId);
     console.log(deleteIndex);
     try {
-      await fetch(`http://localhost:4000/plans/${serialId}`, {
+      await fetch(`plans/${serialId}`, {
         method: "DELETE",
-        headers: { token: localStorage.token },
+        headers: { "Content-Type": "application/json" },
       });
       setAllPlansFetched(
         allPlansFetched.filter((_, index) => index !== actualIndex)
@@ -75,7 +75,7 @@ function Plans() {
 
   useEffect(() => {
     if (planSelected) {
-      navigate("/plan-editor");
+      navigate("../plan-editor");
     }
   }, [planSelected, navigate]);
 
