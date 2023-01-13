@@ -1,8 +1,3 @@
-
-/* Extra small devices (phones, 600px and down) */
-/* @media only screen and (max-width: 600px) {...} */
-/* Small devices (portrait tablets and large phones, 600px and up) */
-/* @media only screen and (min-width: 600px) {...} */
 /* Medium devices (landscape tablets, 768px and up) */
 /* @media only screen and (min-width: 768px) {...} */
 /* Large devices (laptops/desktops, 992px and up) */
@@ -10,8 +5,9 @@
 /* Extra large devices (large laptops and desktops, 1200px and up) */
 /* @media only screen and (min-width: 1200px) {...} */
 
+ @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;500;600;700&display=swap');
 
-*{
+ *{
     margin: 0;
     padding:0;
     box-sizing:border-box;
@@ -19,26 +15,172 @@
 }
 
 body{
- padding: 30px;
+    background-color: rgb(251, 249, 249);    
 }
 
-h1{
-  font-size: 1.7em;
-  line-height: 1.4em;
+img {
+    display: block;
+    max-width: 100%;
+    /* box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px; */
 }
 
-h2 {
-    padding: 10px 0;
+/* navbar */
+
+/* media query */
+
+/* Extra small devices (phones) */
+
+@media only screen and (max-width: 220px) {
+    .primary-nav {
+        display:flex;
+        flex-direction: column;
+        align-items: center;
+    }
 }
 
-p {
-   max-width: 700px;
-   padding: 30px 0;
+.primary-nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;   
+    gap: 20px;
+    background-color: rgb(251, 249, 249);
+    padding: 20px;
+    padding-right: 20px 30px;
+    font-size: 1.1rem;
+    color: rgb(122, 13, 15);
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 10px 15px -3px, rgba(0, 0, 0, 0.05) 0px 4px 6px -2px;
+}
+
+.logo{
+    width: 100px;
+}
+
+.nav-link {
+    display: flex;
+    flex-direction: column;
+    align-items: center;  
+    justify-content: center;
+}
+
+nav a {
+    text-decoration: none;
+    font-family: "Montserrat";
+    color: rgb(122, 13, 15);
+}
+
+nav a.active {
+    font-weight: bold; 
+    color: rgb(122, 13, 15);
+}
+
+.active {
+    font-weight: bold;
+}
+
+/* heading */
+
+@media only screen and (max-width: 495px) {
+ .heading{
+    font-size: 1.6rem;
+    max-width: 290px;
+ }
+}
+
+@media only screen and (min-width: 496px) {
+    .heading{
+        font-size: 1.8rem;
+        max-width: 350px;
+     }
+}
+
+@media only screen and (min-width: 600px) {
+    .heading{
+        font-size: 2rem;
+        max-width: 450px;
+     } 
+}
+
+.heading{
+margin: 0 auto;
+font-family: "Montserrat";
+line-height: 1.7em;
+color: #b55151;
+font-weight: 700;
+text-align: center;
+padding : 50px 20px;
+text-shadow: -4px -4px 9px rgba(98, 0, 0, 0.16);
+}
+
+/* HERO SECTION */
+
+/* subheading */
+
+.subheading {
+    font-family: "Montserrat";
+    font-size: 1.5rem;
+    font-weight: 400;
+    line-height: 2.6rem; 
+    padding: 40px 20px;
+}
+
+.header-img {
+    display: block;
+    max-width: 100%;
+    opacity: 0.7;
+    margin: 20px auto;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;    
+}
+
+@media only screen and (min-width: 1200px) {
+    .header-flex {
+        display: flex;
+        flex-direction: row-reverse;
+         align-items: center;         
+        }
+        .header-img {
+              width: 50%;
+        }
+}
+
+/* buttons */
+
+@media only screen and (min-width: 495px) {
+    .login-signin-buttons {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 20px;
+        padding: 0 0 30px 0;
+        max-width: 400px;
+        margin: auto;  
+    }
+   }
+
+.login-signin-buttons button {
+    padding: 15px 25px;  
+   background-color: rgb(219, 104, 104);
+   border-radius: 7px;
+   display: block; 
+   width: 110px;
+   margin: 20px auto;
+   text-decoration: none;
+   color:rgb(251, 249, 249);
+   font-family: "Montserrat";
+   font-weight: 700;
+   font-size: 0.9rem;
+}
+.login-signin-buttons button :hover {
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px; 
+}
+
+.login-signin-buttons a {
+text-decoration: none;
 }
 
 ul {
     list-style: none;
 }
+
 label, input, button {
     display: block;
 }
@@ -48,71 +190,7 @@ input {
     margin-bottom: 20px;
 }
 
-button {
-    padding: 10px 20px;
-    border-radius: 8px;
-}
-
-.inbox {
-border: 1px solid red;
-margin-bottom: 20px;
-  
-}
-
-.primary-nav{
-    background-color: beige;
-}
-nav a {
-    text-decoration: none;
-}
-
-.active {
-    font-weight: bold; 
-}
-
 textarea {
     resize: none;
-    overflow-y:scroll
-}
-
-.dash-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: 20px;
-    max-width: 700px;
-    margin: auto;
-    padding: 30px 0;
-  
-}
-
-.inbox-and-files {  
-
-    display: flex;
-    flex-direction: column;
-    gap: 30px;
-    justify-content: space-around;
-    text-align: center;
-    margin: 30px 0;
-}
-
-.inbox-messages ul{
-display:flex;
-justify-content: space-between;
-
-}
-/* Small devices (portrait tablets and large phones, 600px and up) */
-@media only screen and (min-width: 496px) {
-   .inbox-and-files {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-around;
-    text-align: center;
-    padding: 30px 0;
-    margin: 30px 0;
-   }
-}
-
-/* Extra small devices (phones, 600px and down) */
-@media only screen and (max-width: 600px) {
+    overflow-y: scroll;
 }

@@ -8,7 +8,7 @@ function Inbox() {
 
   const getMessages = async () => {
     try {
-      const response = await fetch("http://localhost:4000/messages", {
+      const response = await fetch("/messages", {
         method: "GET",
         headers: { "Content-Type": "application/json" },
       });
@@ -26,7 +26,7 @@ function Inbox() {
 
   async function deleteMessage(id) {
     try {
-      await fetch(`http://localhost:4000/messages/${id}`, {
+      await fetch(`/messages/${id}`, {
         method: "DELETE",
         headers: { "Content-Type": "application/json" },
       });
@@ -38,8 +38,8 @@ function Inbox() {
   useEffect(() => {
     setMessages(allMessages);
   }, [allMessages]);
-  console.log(allMessages)
-  console.log(messages)
+  console.log(allMessages);
+  console.log(messages);
   console.log(messages.length, messages[0]);
 
   return (
