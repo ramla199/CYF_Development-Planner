@@ -187,10 +187,10 @@ label, input, button {
     margin: 0 auto;
 }
 
-input {
+input[type=text], input[type=email], input[type=password] {
     padding: 5px 20px;
     margin-bottom: 20px;
-    max-width: 90%;   
+ width: 90%;   
     box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px; 
     border: none;
     padding: 10px 20px;
@@ -203,7 +203,7 @@ textarea {
 }
 
 .form {
-    max-width: 300px;
+    max-width: 400px;
     padding: 30px;
     margin: 30px auto;
     border: 4px solid rgb(186, 63, 63);
@@ -213,6 +213,7 @@ textarea {
     justify-content: center;
     align-items: center;
     box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px; 
+    
 }
 
 fieldset {
@@ -223,4 +224,11 @@ legend, label, input[type=radio] {
     display: inline;
     padding: 10px;
 
+}
+
+h1 {
+    color: #b55151;
+}
+main {
+    padding: 20px;
 }
