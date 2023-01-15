@@ -5,7 +5,7 @@ function LoginSignInButtons() {
   return (
     <>
       <div className="login-signin-buttons">
-        <Link to="/sign-in">
+        <Link to="/register">
           <button>Sign in</button>
         </Link>
 
