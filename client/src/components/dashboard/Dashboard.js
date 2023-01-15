@@ -31,7 +31,10 @@ function Dashboard({ setAuth }) {
   return (
     <>
       <h1>Dashboard {name}</h1>
-      <button onClick={(e) => logout(e)}>Logout</button>
+      <div className="login-signin-buttons">
+        {" "}
+        <button onClick={(e) => logout(e)}>Logout</button>
+      </div>
     </>
   );
 }
