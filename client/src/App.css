@@ -85,6 +85,7 @@ nav a.active {
     font-size: 1.6rem;
     max-width: 290px;
  }
+
 }
 
 @media only screen and (min-width: 496px) {
@@ -94,12 +95,7 @@ nav a.active {
      }
 }
 
-@media only screen and (min-width: 600px) {
-    .heading{
-        font-size: 2rem;
-        max-width: 450px;
-     } 
-}
+
 
 .heading{
 margin: 0 auto;
@@ -118,10 +114,11 @@ text-shadow: -4px -4px 9px rgba(98, 0, 0, 0.16);
 
 .subheading {
     font-family: "Montserrat";
-    font-size: 1.5rem;
+    font-size: 1.1rem;
     font-weight: 400;
     line-height: 2.6rem; 
-    padding: 40px 20px;
+    padding: 40px 30px;
+    margin: auto;
 }
 
 .header-img {
@@ -132,30 +129,11 @@ text-shadow: -4px -4px 9px rgba(98, 0, 0, 0.16);
     box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;    
 }
 
-@media only screen and (min-width: 1200px) {
-    .header-flex {
-        display: flex;
-        flex-direction: row-reverse;
-         align-items: center;         
-        }
-        .header-img {
-              width: 50%;
-        }
-}
+
 
 /* buttons */
 
-@media only screen and (min-width: 495px) {
-    .login-signin-buttons {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        gap: 20px;
-        padding: 0 0 30px 0;
-        max-width: 400px;
-        margin: auto;  
-    }
-   }
+
 
 .login-signin-buttons button {
     padding: 15px 25px;  
@@ -234,4 +212,41 @@ h1 {
 }
 main {
     padding: 20px;
+}
+
+
+@media only screen and (min-width: 495px) {
+    .login-signin-buttons {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 20px;
+        padding: 0 0 30px 0;
+        max-width: 400px;
+        margin: auto;  
+    }
+
+    .subheading {
+        font-size: 1.3rem;
+    }
+   }
+@media only screen and (min-width: 600px) {
+    .heading{
+        font-size: 2rem;
+        max-width: 450px;
+     } 
+     .subheading {
+        font-size: 1.4rem;
+     }
+}
+
+@media only screen and (min-width: 864px) {
+    .header-flex {
+        display: flex;
+        flex-direction: row-reverse;
+         align-items: center;         
+        }
+        .header-img {
+              width: 50%;
+        }
 }
