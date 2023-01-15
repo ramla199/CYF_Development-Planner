@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import BackButton from "../BackButton";
-import { Editor } from "react-draft-wysiwyg";
-import "../../../node_modules/react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
+// import { Editor } from "react-draft-wysiwyg";
+// import "../../node_modules/react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
 
 function NewMessage() {
   const [messageText, setMessageText] = useState("");
@@ -14,7 +14,7 @@ function NewMessage() {
       myHeaders.append("Content-Type", "application/json");
       myHeaders.append("token", localStorage.token);
       const body = { messageText };
-      const response = await fetch("http://localhost:4000/dashboard/messages", {
+      const response = await fetch("/messages", {
         method: "POST",
         headers: myHeaders,
         body: JSON.stringify(body),
@@ -39,11 +39,11 @@ function NewMessage() {
           onChange={(e) => setMessageText(e.target.value)}
         />
         <button>Add</button>
-        <Editor
+        {/* <Editor
           type="text"
           value={messageText}
           onChange={(e) => setMessageText(e.target.value)}
-        />
+        /> */}
       </form>
     </>
   );
