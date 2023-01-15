@@ -17,7 +17,7 @@ function Login({ setAuth }) {
     e.preventDefault();
     try {
       const body = { email, password };
-      const response = await fetch("/auth/login", {
+      const response = await fetch("/authentication/login", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(body),
@@ -39,7 +39,7 @@ function Login({ setAuth }) {
   return (
     <>
       <main>
-        <form onSubmit={onSubmitForm}>
+        <form onSubmit={onSubmitForm} className="form">
           <h1>Login</h1>
           <label>Email</label>
           <input
@@ -55,7 +55,9 @@ function Login({ setAuth }) {
             value={password}
             onChange={(e) => onChange(e)}
           />
-          <button>login</button>
+          <div className="login-signin-buttons">
+            <button>login</button>
+          </div>
         </form>
         <Link to="/register">Signup</Link>
       </main>
