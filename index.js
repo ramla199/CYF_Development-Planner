@@ -19,6 +19,12 @@ app.get("*", (req, res) => {
   res.sendFile(path.resolve(__dirname, "./client/build"));
 });
 
+//routes
+
+app.use("/authentication", require("./routes/jwtAuth"));
+
+app.use("/dashboard", require("./routes/dashboard"));
+
 app.listen(PORT, () => {
   console.log(`Server listening on ${PORT}`);
 });
