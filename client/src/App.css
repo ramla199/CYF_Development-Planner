@@ -15,7 +15,8 @@
 }
 
 body{
-    background-color: rgb(251, 249, 249);    
+    background-color: rgb(251, 249, 249);   
+    font-family: "Montserrat"; 
 }
 
 img {
@@ -126,7 +127,7 @@ text-shadow: -4px -4px 9px rgba(98, 0, 0, 0.16);
 .header-img {
     display: block;
     max-width: 100%;
-    opacity: 0.7;
+    /* opacity: 0.7; */
     margin: 20px auto;
     box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;    
 }
@@ -213,6 +214,7 @@ textarea {
     justify-content: center;
     align-items: center;
     box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px; 
+    font-family: "Montserrat"; 
     
 }
 
@@ -228,6 +230,7 @@ legend, label, input[type=radio] {
 
 h1 {
     color: #b55151;
+    font-family: "Montserrat"; 
 }
 main {
     padding: 20px;
