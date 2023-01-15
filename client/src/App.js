@@ -5,7 +5,7 @@ import { Routes, Route, Navigate } from "react-router-dom";
 
 //components
 
-import Login from "./components/Login";
+import Login from "./components/login-and-register/Login";
 import Register from "./components/login-and-register/Register";
 import Dashboard from "./components/dashboard/Dashboard";
 import Navbar from "./components/navbar/Navbar";
