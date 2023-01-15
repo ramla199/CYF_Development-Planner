@@ -39,34 +39,38 @@ function Register({ setAuth }) {
   return (
     <>
       <main>
-        <form onSubmit={onSubmitForm}>
+        <form onSubmit={onSubmitForm} className="form">
           <h1>Signup</h1>
-          <label>First Name</label>
+          <label htmlFor="fname">First Name</label>
           <input
+            id="fname"
             type="text"
             name="fname"
             value={fname}
             onChange={(e) => onChange(e)}
             required
           />
-          <label>Last Name</label>
+          <label htmlFor="lname">Last Name</label>
           <input
+            id="lname"
             type="text"
             name="lname"
             value={lname}
             onChange={(e) => onChange(e)}
             required
           />
-          <label>Username</label>
+          <label html="username">Username</label>
           <input
+            id="username"
             type="text"
             name="username"
             value={username}
             onChange={(e) => onChange(e)}
             required
           />
-          <label>Password</label>
+          <label htmlFor="password">Password</label>
           <input
+            id="password"
             type="password"
             name="password"
             value={password}
@@ -74,8 +78,9 @@ function Register({ setAuth }) {
             required
           />
 
-          <label>Email</label>
+          <label htnlFor="email">Email</label>
           <input
+            id="email"
             type="email"
             name="email"
             value={email}
@@ -102,8 +107,9 @@ function Register({ setAuth }) {
             ></input>
             <label htmlFor="mentor">Mentor</label>
           </fieldset>
-
-          <button>Submit</button>
+          <div className="login-signin-buttons">
+            <button>Submit</button>
+          </div>
         </form>
         <Link to="/login">Login</Link>
       </main>
