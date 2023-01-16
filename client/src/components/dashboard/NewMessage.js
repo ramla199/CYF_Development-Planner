@@ -32,7 +32,7 @@ function NewMessage() {
       <h1>Insert message text</h1>
       <BackButton />
       <form onSubmit={onSubmitForm}>
-        <input
+        <textarea
           type="text"
           placeholder="add"
           value={messageText}
