@@ -7,6 +7,9 @@ const PORT = process.env.PORT || 5000;
 app.use(cors());
 app.use(express.json());
 
+// app.use(express.static(path.join(__dirname, "client/build")));
+
+console.log(process.env.NODE_ENV);
 if (process.env.NODE_ENV === "production") {
   app.use(express.static(path.join(__dirname, "client/build")));
 }
@@ -15,9 +18,9 @@ if (process.env.NODE_ENV === "production") {
 //   res.json({ message: "Hello World!" });
 // });
 
-app.get("*", (req, res) => {
-  res.sendFile(path.resolve(__dirname, "./client/build"));
-});
+// app.get("*", (req, res) => {
+//   res.sendFile(path.resolve(__dirname, "./client/build"));
+// });
 
 //routes
 
