@@ -2,6 +2,7 @@ const express = require("express");
 const app = express();
 const cors = require("cors");
 const path = require("path");
+const authorize = require("./middleware/authorize");
 const PORT = process.env.PORT || 5000;
 
 app.use(cors());
@@ -26,7 +27,7 @@ app.get("*", (req, res) => {
 
 app.use("/authentication", require("./routes/jwtAuth"));
 
-app.use("/dashboard", require("./routes/dashboard"));
+app.use("/dashboard", authorize, require("./routes/dashboard"));
 
 app.listen(PORT, () => {
   console.log(`Server listening on ${PORT}`);

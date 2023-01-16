@@ -2,7 +2,7 @@ const router = require("express").Router();
 const authorize = require("../middleware/authorize");
 const pool = require("../db");
 
-router.post("/", authorize, async (req, res) => {
+router.get("/", authorize, async (req, res) => {
   try {
     const user = await pool.query(
       "SELECT username FROM users WHERE user_id = $1",
@@ -22,5 +22,7 @@ router.post("/", authorize, async (req, res) => {
     res.status(500).send("Server error");
   }
 });
+
+router.use("/feedbacks", require("./feedbacks"));
 
 module.exports = router;
