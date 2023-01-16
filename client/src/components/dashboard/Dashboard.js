@@ -1,5 +1,8 @@
 import React, { useState, useEffect } from "react";
 
+import Files from "./Files";
+import Inbox from "./Inbox";
+
 function Dashboard({ setAuth }) {
   const [name, setName] = useState("");
 
@@ -30,11 +33,14 @@ function Dashboard({ setAuth }) {
   }, []);
   return (
     <>
-      <h1>Dashboard {name}</h1>
-      <div className="login-signin-buttons">
-        {" "}
-        <button onClick={(e) => logout(e)}>Logout</button>
-      </div>
+      <section>
+        <h1 className="heading">Dashboard {name}</h1>
+        <div className="login-signin-buttons">
+          <button onClick={(e) => logout(e)}>Logout</button>
+        </div>
+        <Files />
+        <Inbox />
+      </section>
     </>
   );
 }
