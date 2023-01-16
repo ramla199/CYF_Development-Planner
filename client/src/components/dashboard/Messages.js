@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import BackButton from "../BackButton";
+import messagesIcon from "../../images/E-mail-icon.png";
 
 function Messages() {
   const [messages, setMessages] = useState([]);
@@ -27,6 +28,7 @@ function Messages() {
         <button>create new message</button>
       </Link>
       <h1>Messages</h1>
+      <img alt="messages icon" src={messagesIcon} />
       <section>
         {messages.map((message) => (
           <div key={message.message_id}>
