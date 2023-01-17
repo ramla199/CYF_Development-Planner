@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import BackButton from "../BackButton";
+import messagesIcon from "../../images/E-mail-icon.png";
 import { Link } from "react-router-dom";
 
 function Inbox() {
@@ -44,24 +44,31 @@ function Inbox() {
 
   return (
     <>
-      <BackButton />
-      <h1>Inbox</h1>
       <section>
-        <h2>Saved Messages</h2>
-        {messages.length !== 0 &&
-          messages[0].message_id !== null &&
-          messages.map((message) => (
-            <div>
-              <div key={message.message_id}>{message.message_text}</div>
-              <button onClick={() => deleteMessage(message.message_id)}>
-                Delete
-              </button>
-            </div>
-          ))}
+        <div className="icon-heading">
+          <h1>Inbox</h1>
+          <img alt="messages icon" src={messagesIcon} />
+        </div>
+
+        <section>
+          {messages.length !== 0 &&
+            messages[0].message_id !== null &&
+            messages.map((message) => (
+              <div>
+                <div key={message.message_id}>{message.message_text}</div>
+                <button onClick={() => deleteMessage(message.message_id)}>
+                  Delete
+                </button>
+              </div>
+            ))}
+        </section>
+
+        <div className="login-signin-buttons">
+          <Link to="/new-message">
+            <button>new message</button>
+          </Link>
+        </div>
       </section>
-      <Link to="/new-message">
-        <button>insert new message</button>
-      </Link>
     </>
   );
 }

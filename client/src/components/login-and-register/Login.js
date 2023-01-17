@@ -38,7 +38,7 @@ function Login({ setAuth }) {
   };
   return (
     <>
-      <main>
+      <section>
         <form onSubmit={onSubmitForm} className="form">
           <h1>Login</h1>
           <label>Email</label>
@@ -58,9 +58,11 @@ function Login({ setAuth }) {
           <div className="login-signin-buttons">
             <button>login</button>
           </div>
+          <Link to="/register" className="signin-login-link">
+            Signup
+          </Link>
         </form>
-        <Link to="/register">Signup</Link>
-      </main>
+      </section>
     </>
   );
 }

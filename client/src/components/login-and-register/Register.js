@@ -38,7 +38,7 @@ function Register({ setAuth }) {
   };
   return (
     <>
-      <main>
+      <section>
         <form onSubmit={onSubmitForm} className="form">
           <h1>Signup</h1>
           <label htmlFor="fname">First Name</label>
@@ -90,29 +90,37 @@ function Register({ setAuth }) {
 
           <fieldset>
             <legend>Your CYF role:</legend>
-            <input
-              id="student"
-              type="radio"
-              name="role"
-              value="student"
-              onChange={(e) => onChange(e)}
-            ></input>
-            <label htmlFor="student">Student</label>
-            <input
-              id="mentor"
-              type="radio"
-              name="role"
-              value="mentor"
-              onChange={(e) => onChange(e)}
-            ></input>
-            <label htmlFor="mentor">Mentor</label>
+
+            <label htmlFor="student">
+              Student{" "}
+              <input
+                id="student"
+                type="radio"
+                name="role"
+                value="student"
+                onChange={(e) => onChange(e)}
+              />
+            </label>
+
+            <label htmlFor="mentor">
+              Mentor{" "}
+              <input
+                id="mentor"
+                type="radio"
+                name="role"
+                value="mentor"
+                onChange={(e) => onChange(e)}
+              ></input>
+            </label>
           </fieldset>
           <div className="login-signin-buttons">
             <button>Submit</button>
           </div>
+          <Link to="/login" className="signin-login-link">
+            Login
+          </Link>
         </form>
-        <Link to="/login">Login</Link>
-      </main>
+      </section>
     </>
   );
 }
