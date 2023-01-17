@@ -20,8 +20,6 @@ export const M_PLAN = 1;
 export const A_PLAN = 2;
 export const R_PLAN = 3;
 export const T_PLAN = 4;
-// eslint-disable-next-line
-const PLAN_INPUT_IDS = ["S-input", "M-input", "A-input", "R-input", "T-input"];
 
 export const PLAN_PLACEHOLDERS = [
   "What do you want to do?",

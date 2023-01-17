@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 
 function Dashboard({ setAuth }) {
   const [name, setName] = useState("");
@@ -35,6 +36,9 @@ function Dashboard({ setAuth }) {
         {" "}
         <button onClick={(e) => logout(e)}>Logout</button>
       </div>
+      <Link to="/plans" >
+        <h2>Plans</h2>
+      </Link>
     </>
   );
 }

@@ -45,7 +45,7 @@ function Login({ setAuth }) {
           <input
             type="email"
             name="email"
-            value={email}
+            value={email.toLowerCase()}
             onChange={(e) => onChange(e)}
           />
           <label>Password</label>

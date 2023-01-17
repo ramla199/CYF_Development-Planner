@@ -1,7 +1,7 @@
 import "./App.css";
 import React, { useState, useEffect } from "react";
 
-import { Routes, Route, Navigate } from "react-router-dom";
+import { Routes, Route, Navigate, useLocation } from "react-router-dom";
 
 //components
 
@@ -19,6 +19,11 @@ import NewFeedback from "./components/dashboard/NewFeedback";
 import NewMessage from "./components/dashboard/NewMessage";
 import Plans from "./components/dashboard/Plans";
 import PlanEditor from "./components/dashboard/PlanEditor";
+import SelectMentor from "./components/dashboard/SelectMentor";
+
+// Toastify
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -46,9 +51,12 @@ function App() {
     checkAuthenticated();
   }, []);
 
+  let location = useLocation();
+
   return (
     <>
-      <Navbar />
+      {/* Don't show Home Icon for Plan's menus */}
+      {!location.pathname.startsWith("/plan") && <Navbar />}
       <Routes>
         <Route path="/" element={<Home />} />
         <Route
@@ -94,9 +102,20 @@ function App() {
         <Route path="new-message" element={<NewMessage />} />
         <Route path="plans" element={<Plans />} />
         <Route path="plan-editor" element={<PlanEditor />} />
-        <Route path="plans" element={<Plans />} />
-        <Route path="plan-editor" element={<PlanEditor />} />
+        <Route path="select-mentor" element={<SelectMentor />} />
       </Routes>
+      <ToastContainer
+        position="top-center"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="light"
+      />
     </>
   );
 }

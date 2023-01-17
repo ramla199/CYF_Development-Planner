@@ -7,14 +7,13 @@
 
  @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;500;600;700&display=swap');
 
- *{
+ * {
     margin: 0;
     padding:0;
     box-sizing:border-box;
-    /* outline: 1px solid red; */
 }
 
-body{
+body {
     background-color: rgb(251, 249, 249);   
     font-family: "Montserrat"; 
 }
@@ -52,7 +51,7 @@ img {
     box-shadow: rgba(0, 0, 0, 0.1) 0px 10px 15px -3px, rgba(0, 0, 0, 0.05) 0px 4px 6px -2px;
 }
 
-.logo{
+.logo {
     width: 100px;
 }
 
@@ -95,17 +94,15 @@ nav a.active {
      }
 }
 
-
-
-.heading{
-margin: 0 auto;
-font-family: "Montserrat";
-line-height: 1.7em;
-color: #b55151;
-font-weight: 700;
-text-align: center;
-padding : 50px 20px;
-text-shadow: -4px -4px 9px rgba(98, 0, 0, 0.16);
+.heading {
+    margin: 0 auto;
+    font-family: "Montserrat";
+    line-height: 1.7em;
+    color: #b55151;
+    font-weight: 700;
+    text-align: center;
+    padding : 50px 20px;
+    text-shadow: -4px -4px 9px rgba(98, 0, 0, 0.16);
 }
 
 /* HERO SECTION */
@@ -149,12 +146,13 @@ text-shadow: -4px -4px 9px rgba(98, 0, 0, 0.16);
    font-weight: 700;
    font-size: 0.9rem;
 }
+
 .login-signin-buttons button :hover {
     box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px; 
 }
 
 .login-signin-buttons a {
-text-decoration: none;
+    text-decoration: none;
 }
 
 ul {
@@ -203,13 +201,13 @@ fieldset {
 legend, label, input[type=radio] {
     display: inline;
     padding: 10px;
-
 }
 
 h1 {
     color: #b55151;
     font-family: "Montserrat"; 
 }
+
 main {
     padding: 20px;
 }
@@ -230,6 +228,7 @@ main {
         font-size: 1.3rem;
     }
    }
+   
 @media only screen and (min-width: 600px) {
     .heading{
         font-size: 2rem;
