@@ -1,5 +1,6 @@
 const router = require("express").Router();
 const pool = require("../db");
+const authorize = require("../middleware/authorize");
 
 // mentor dashboard: get all feedbacks
 router.get("/", async (req, res) => {
@@ -38,7 +39,7 @@ router.post("/", authorize, async (req, res) => {
     console.log(req.body);
     const { feedbackText } = req.body;
     const newFeedback = await pool.query(
-      "INSERT INTO feedbacks (feedback_text) VALUES ($1) RETIRNING *",
+      "INSERT INTO feedbacks (feedback_text) VALUES ($1) RETURNING *",
       [feedbackText]
     );
     res.json(newFeedback.rows);

@@ -23,6 +23,9 @@ app.use("/authentication", require("./routes/jwtAuth"));
 
 app.use("/dashboard", authorize, require("./routes/dashboard"));
 
+app.use("/feedbacks", require("./routes/feedbacks"));
+
+app.use("/messages", require("./routes/messages"));
 app.listen(PORT, () => {
   console.log(`Server listening on ${PORT}`);
 });
