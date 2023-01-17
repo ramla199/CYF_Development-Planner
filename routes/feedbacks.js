@@ -1,6 +1,5 @@
 const router = require("express").Router();
 const pool = require("../db");
-const authorize = require("../middleware/authorize");
 
 // mentor dashboard: get all feedbacks
 router.get("/", async (req, res) => {
@@ -19,7 +18,7 @@ router.get("/", async (req, res) => {
 
 // get one feedback
 
-router.get("/:id", authorize, async (req, res) => {
+router.get("/:id", async (req, res) => {
   const { feedbackId } = req.params;
   const selectedFeedback = await pool.query(
     "SELECT * FROM feedbacks WHERE feedback_id = $1",
@@ -34,7 +33,7 @@ router.get("/:id", authorize, async (req, res) => {
 
 // insert feedback
 
-router.post("/", authorize, async (req, res) => {
+router.post("/", async (req, res) => {
   try {
     console.log(req.body);
     const { feedbackText } = req.body;

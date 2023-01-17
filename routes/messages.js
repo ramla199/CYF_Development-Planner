@@ -1,6 +1,5 @@
 const router = require("express").Router();
 const pool = require("../db");
-const authorize = require("../middleware/authorize");
 
 // get all user messages
 router.get("/", async (req, res) => {
