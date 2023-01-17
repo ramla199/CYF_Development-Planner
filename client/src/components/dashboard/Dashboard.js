@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 
 import Files from "./Files";
 import Inbox from "./Inbox";
@@ -33,6 +34,7 @@ function Dashboard({ setAuth }) {
   }, []);
   return (
     <>
+
       <section>
         <h1 className="heading">Dashboard {name}</h1>
         <div className="login-signin-buttons">

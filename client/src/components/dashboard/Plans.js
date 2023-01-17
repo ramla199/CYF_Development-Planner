@@ -1,43 +1,51 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import PlansNavbar from "../../../src/components/dashboard/PlansNavBar";
 import DisplayListItem from "./DisplayListItem";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import "../../../src/styles.css";
+
+const PORT = process.env.PORT || 5000;
 
 function Plans() {
   const [allPlansFetched, setAllPlansFetched] = useState([]);
-  const [planSelected, setPlanSelected] = useState(null);
+  const [planSelectedInfo, setPlanSelectedInfo] = useState(null);
   const navigate = useNavigate();
 
-  const theUserName = "joeb";
+  const [name, setName] = useState(null);
 
-  const getPlans = async () => {
+  const getName = async () => {
     try {
-      const response = await fetch("/plans/joeb");
-      console.log(response);
-      const jsonData = await response.json();
-      console.log(jsonData);
-      setAllPlansFetched(jsonData);
+      const res = await fetch("/dashboard/", {
+        method: "GET",
+        headers: { jwt_token: localStorage.token },
+      });
+
+      const parseRes = await res.json();
+
+      console.log(parseRes);
+      setName(parseRes.username);
     } catch (err) {
       console.error(err.message);
     }
   };
 
-  const handleClick = (event, theIndex, theKey = null) => {
-    //  setSelectedRecordInfo({ theIndex: theIndex, theKey: theKey });
-    //  setStage(2); // Second Stage: Allow User to enter/edit plan
-    console.log(event);
-    console.log(theIndex, theKey);
-    setPlanSelected({
+  const handleClick = (_, theIndex) => {
+    // Need to subtract one because the 0th item represents the "Create Plan" message
+    // So the first plan is indexed with the value 1
+    // The second is indexed as 2, etc.
+    // Therefore subtract 1 to determine the actual true index
+    const actualIndex = theIndex - 1;
+    setPlanSelectedInfo({
       theIndex: theIndex,
-      theKey: theKey,
-      theUserName: theUserName,
+      theUserName: name,
+      thePlan: allPlansFetched[actualIndex],
     });
   };
 
   function deletePlan(index) {
     let answer = window.confirm("Are You Sure?");
-    console.log(index);
-    console.log(allPlansFetched);
     if (answer) {
       deletePlan2(index);
     }
@@ -47,37 +55,53 @@ function Plans() {
     // Need to subtract one because the 0th item represents the "Create Plan" message
     // So the first plan is indexed with the value 1
     // The second is indexed as 2, etc.
+    // Therefore subtract 1 to determine the actual true index
+
     const actualIndex = deleteIndex - 1;
     const serialId = allPlansFetched[actualIndex].plan_serial_id;
-    console.log(actualIndex, serialId);
-    console.log(deleteIndex);
     try {
-      await fetch(`plans/${serialId}`, {
+      await fetch(`http://localhost:${PORT}/plans/${serialId}`, {
         method: "DELETE",
-        headers: { "Content-Type": "application/json" },
+        headers: { token: localStorage.token },
       });
       setAllPlansFetched(
         allPlansFetched.filter((_, index) => index !== actualIndex)
       );
-      console.log(allPlansFetched);
+      toast.success("Plan has been deleted.", {});
     } catch (err) {
       console.error(err.message);
     }
   }
 
   useEffect(() => {
-    getPlans();
+    getName();
   }, []);
+  
+  // Fetch all the user's plans
+  useEffect(() => {
+    const getPlans = async () => {
+      try {
+        const response = await fetch(
+          "http://localhost/plans/" + name
+        );
+        const jsonData = await response.json();
+        setAllPlansFetched(jsonData);
+      } catch (err) {
+        console.error(err.message);
+      }
+    };
+
+    getPlans();
+  }, [name]);
 
   useEffect(() => {
-    setAllPlansFetched(allPlansFetched);
-  }, [allPlansFetched]);
-
-  useEffect(() => {
-    if (planSelected) {
-      navigate("../plan-editor");
+    if (planSelectedInfo) {
+      navigate("/plan-editor", {
+        state: { planSelectedInfo: planSelectedInfo },
+        replace: false,
+      });
     }
-  }, [planSelected, navigate]);
+  }, [planSelectedInfo, navigate]);
 
   const keysArray = [];
   const preambleTextArray = [];
@@ -110,7 +134,8 @@ function Plans() {
 
   return (
     <>
-      <div className="username-header">{theUserName}</div>
+      <PlansNavbar />
+      <div className="username-header">{name}</div>
       <div className="main-menu-container">
         <div className="main-menu">{orderedList}</div>
       </div>

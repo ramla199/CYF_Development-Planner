@@ -7,16 +7,15 @@
 
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;500;600;700&display=swap');
 
-* {
+ * {
     margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    /* outline: 1px solid red; */
+    padding:0;
+    box-sizing:border-box;
 }
 
 body {
-    background-color: rgb(251, 249, 249);
-    font-family: "Montserrat";
+    background-color: rgb(251, 249, 249);   
+    font-family: "Montserrat"; 
 }
 
 img {
@@ -51,7 +50,6 @@ img {
     color: rgb(122, 13, 15);
     box-shadow: rgba(0, 0, 0, 0.1) 0px 10px 15px -3px, rgba(0, 0, 0, 0.05) 0px 4px 6px -2px;
 }
-
 
 .logo {
     width: 100px;
@@ -97,8 +95,6 @@ nav a.active {
     }
 }
 
-
-
 .heading {
     margin: 0 auto;
     font-family: "Montserrat";
@@ -106,6 +102,7 @@ nav a.active {
     color: #b55151;
     font-weight: 700;
     text-align: center;
+
     padding: 50px 20px;
     text-shadow: -4px -4px 9px rgba(98, 0, 0, 0.16);
 }
@@ -164,7 +161,7 @@ button {
     box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
 }
 
-a {
+.login-signin-buttons a {
     text-decoration: none;
 }
 
@@ -228,12 +225,16 @@ input[type=radio] {
     display: inline-block;
     padding: 10px;
     text-align: center;
-    
 }
 
 h1 {
     color: #b55151;
-    font-family: "Montserrat";
+
+    font-family: "Montserrat"; 
+}
+
+main {
+    padding: 20px;
 }
 
 
@@ -252,7 +253,8 @@ h1 {
     .subheading {
         font-size: 1.3rem;
     }
-}
+   }
+   
 
 @media only screen and (min-width: 600px) {
     .heading {
