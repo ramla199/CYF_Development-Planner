@@ -9,13 +9,6 @@ router.get("/", authorize, async (req, res) => {
       [req.user.id]
     );
 
-    //if would be req.user if you change your payload to this:
-
-    //   function jwtGenerator(user_id) {
-    //   const payload = {
-    //     user: user_id
-    //   };
-
     res.json(user.rows[0]);
   } catch (err) {
     console.error(err.message);
@@ -24,5 +17,7 @@ router.get("/", authorize, async (req, res) => {
 });
 
 router.use("/feedbacks", require("./feedbacks"));
+
+router.use("/messages", require("./messages"));
 
 module.exports = router;
