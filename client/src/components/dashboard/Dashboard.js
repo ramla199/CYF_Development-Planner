@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 
+import Files from "./Files";
+import Inbox from "./Inbox";
+
 function Dashboard({ setAuth }) {
   const [name, setName] = useState("");
 
@@ -31,14 +34,15 @@ function Dashboard({ setAuth }) {
   }, []);
   return (
     <>
-      <h1>Dashboard {name}</h1>
-      <div className="login-signin-buttons">
-        {" "}
-        <button onClick={(e) => logout(e)}>Logout</button>
-      </div>
-      <Link to="/plans" >
-        <h2>Plans</h2>
-      </Link>
+
+      <section>
+        <h1 className="heading">Dashboard {name}</h1>
+        <div className="login-signin-buttons">
+          <button onClick={(e) => logout(e)}>Logout</button>
+        </div>
+        <Files />
+        <Inbox />
+      </section>
     </>
   );
 }

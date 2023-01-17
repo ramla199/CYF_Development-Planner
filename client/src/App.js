@@ -14,9 +14,9 @@ import NoMatch from "./components/NoMatch";
 import Inbox from "./components/dashboard/Inbox";
 import Messages from "./components/dashboard/Messages";
 import Message from "./components/dashboard/Message";
-import Files from "./components/dashboard/Files";
-import NewFeedback from "./components/dashboard/NewFeedback";
-import NewMessage from "./components/dashboard/NewMessage";
+// import Files from "./components/dashboard/Files";
+// import NewFeedback from "./components/dashboard/NewFeedback";
+// import NewMessage from "./components/dashboard/NewMessage";
 import Plans from "./components/dashboard/Plans";
 import PlanEditor from "./components/dashboard/PlanEditor";
 import SelectMentor from "./components/dashboard/SelectMentor";
@@ -97,9 +97,9 @@ function App() {
         <Route path="inbox" element={<Inbox />} />
         <Route path="messages" element={<Messages />} />
         <Route path="messages/:messageid" element={<Message />} />
-        <Route path="files" element={<Files />} />
-        <Route path="new-feedback" element={<NewFeedback />} />
-        <Route path="new-message" element={<NewMessage />} />
+        {/* <Route path="files" element={<Files />} /> */}
+        {/* <Route path="new-feedback" element={<NewFeedback />} />
+        <Route path="new-message" element={<NewMessage />} /> */}
         <Route path="plans" element={<Plans />} />
         <Route path="plan-editor" element={<PlanEditor />} />
         <Route path="select-mentor" element={<SelectMentor />} />

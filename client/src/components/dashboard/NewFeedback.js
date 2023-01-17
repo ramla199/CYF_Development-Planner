@@ -30,22 +30,24 @@ function NewFeedback() {
   };
   return (
     <>
-      <BackButton />
+      <section>
+        <BackButton />
 
-      <h1>Insert Feedback</h1>
-      <form onSubmit={onSubmitForm}>
-        <button>Add</button>
-        <textarea
-          placeholder="add"
-          value={feedbackText}
-          onChange={(e) => setFeedbackText(e.target.value)}
-        ></textarea>
+        <h1 className="heading">Insert Feedback</h1>
+        <form onSubmit={onSubmitForm}>
+          <button>Add</button>
+          <textarea
+            placeholder="add"
+            value={feedbackText}
+            onChange={(e) => setFeedbackText(e.target.value)}
+          ></textarea>
 
-        {/* <Editor
-          value={feedbackText}
-          onChange={(e) => setFeedbackText(e.target.value)}
-        /> */}
-      </form>
+          {/* <Editor
+    value={feedbackText}
+    onChange={(e) => setFeedbackText(e.target.value)}
+  /> */}
+        </form>
+      </section>
     </>
   );
 }

@@ -1,7 +1,6 @@
-//
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import BackButton from "../BackButton";
+import filesIcon from "../../images/Documents-icon-48.png";
 
 function Files() {
   const [feedbacks, setFeedbacks] = useState([]);
@@ -9,13 +8,10 @@ function Files() {
 
   const getFeedbacks = async () => {
     try {
-      const response = await fetch(
-        "http://localhost:4000/dashboard/feedbacks",
-        {
-          method: "GET",
-          headers: { token: localStorage.token },
-        }
-      );
+      const response = await fetch("/dashboard/feedbacks", {
+        method: "GET",
+        headers: { token: localStorage.token },
+      });
       const jsonData = await response.json();
 
       setAllFeedbacks(jsonData);
@@ -30,7 +26,7 @@ function Files() {
 
   async function deleteFeedback(id) {
     try {
-      await fetch(`http://localhost:4000/dashboard/feedbacks/${id}`, {
+      await fetch(`/dashboard/feedbacks/${id}`, {
         method: "DELETE",
         headers: { token: localStorage.token },
       });
@@ -45,31 +41,37 @@ function Files() {
   }, [allFeedbacks]);
   return (
     <>
-      <BackButton />
-      <h1>Feedbacks</h1>
       <section>
-        <h2>Saved Feedbacks</h2>
-        {feedbacks.length !== 0 &&
-          feedbacks[0].feedback_id !== null &&
-          feedbacks.map((feedback) => (
-            <div>
-              <div key={feedback.feedback_id}>{feedback.feedback_text}</div>
-              <button onClick={() => deleteFeedback(feedback.feedback_id)}>
-                delete feedback
-              </button>
+        <section>
+          {feedbacks.length !== 0 &&
+            feedbacks[0].feedback_id !== null &&
+            feedbacks.map((feedback) => (
+              <div>
+                <div key={feedback.feedback_id}>{feedback.feedback_text}</div>
+                <button onClick={() => deleteFeedback(feedback.feedback_id)}>
+                  delete feedback
+                </button>
+              </div>
+            ))}
+        </section>
+        <div className="icon-heading">
+          <h1>Files</h1>
+          <img alt="files icon" src={filesIcon} />
+        </div>
+
+        <div className="login-signin-buttons">
+          <Link to="/new-feedback">
+            <button>new feedback</button>
+          </Link>
+        </div>
+
+        <section>
+          {feedbacks.map((feedback) => (
+            <div key={feedback.feedback_id}>
+              <div>{feedback.feedback_text}</div>
             </div>
           ))}
-      </section>
-      <Link to="/new-feedback">
-        <button>create new feedback</button>
-      </Link>
-      <h1>Files</h1>
-      <section>
-        {feedbacks.map((feedback) => (
-          <div key={feedback.feedback_id}>
-            <div>{feedback.feedback_text}</div>
-          </div>
-        ))}
+        </section>
       </section>
     </>
   );
