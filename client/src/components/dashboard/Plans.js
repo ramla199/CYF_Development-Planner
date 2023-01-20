@@ -6,13 +6,15 @@ import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import "../../../src/styles.css";
 
-const PORT = process.env.PORT || 5000;
+console.log(process.env)
+console.log(process.env.PORT)
+
 
 function Plans() {
   const [allPlansFetched, setAllPlansFetched] = useState([]);
   const [planSelectedInfo, setPlanSelectedInfo] = useState(null);
   const navigate = useNavigate();
-
+/*
   const [name, setName] = useState(null);
 
   const getName = async () => {
@@ -30,6 +32,7 @@ function Plans() {
       console.error(err.message);
     }
   };
+*/
 
   const handleClick = (_, theIndex) => {
     // Need to subtract one because the 0th item represents the "Create Plan" message
@@ -37,6 +40,7 @@ function Plans() {
     // The second is indexed as 2, etc.
     // Therefore subtract 1 to determine the actual true index
     const actualIndex = theIndex - 1;
+    const name = localStorage.getItem("username");
     setPlanSelectedInfo({
       theIndex: theIndex,
       theUserName: name,
@@ -59,6 +63,7 @@ function Plans() {
 
     const actualIndex = deleteIndex - 1;
     const serialId = allPlansFetched[actualIndex].plan_serial_id;
+    const PORT = localStorage.getItem("port");
     try {
       await fetch(`http://localhost:${PORT}/plans/${serialId}`, {
         method: "DELETE",
@@ -73,26 +78,33 @@ function Plans() {
     }
   }
 
+/*  
   useEffect(() => {
     getName();
   }, []);
-  
+*/
+
   // Fetch all the user's plans
   useEffect(() => {
     const getPlans = async () => {
+      const PORT = localStorage.getItem("port");
+      const name = localStorage.getItem("username");
+      console.log(name,PORT)
       try {
         const response = await fetch(
-          "http://localhost/plans/" + name
+          `http://localhost:${PORT}/plans/` + name
         );
         const jsonData = await response.json();
+        console.log(jsonData)
         setAllPlansFetched(jsonData);
+        console.log("APPLANS",name)
       } catch (err) {
         console.error(err.message);
       }
     };
 
     getPlans();
-  }, [name]);
+  }, []);
 
   useEffect(() => {
     if (planSelectedInfo) {
@@ -132,12 +144,14 @@ function Plans() {
     </ol>
   );
 
+  const name = localStorage.getItem("username");
+
   return (
     <>
       <PlansNavbar />
       <div className="username-header">{name}</div>
       <div className="main-menu-container">
-        <div className="main-menu">{orderedList}</div>
+      <div className="main-menu">{orderedList}</div>
       </div>
     </>
   );

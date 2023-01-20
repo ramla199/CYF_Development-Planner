@@ -8,13 +8,31 @@ function Login({ setAuth }) {
   });
 
   const { email, password } = inputs;
-
+  
   const onChange = (e) => {
-    setInputs({ ...inputs, [e.target.name]: e.target.value });
+    /*
+    A strange bug is occurring whilst logging in
+    The last character is being capitalised
+    setInputs({ ...inputs, [e.target.name]: e.target.value });  
+    {email: 'jsmith@gmail.coM', password: 'jsmith'}
+
+    Nevertheless need to ensure that the email value is case-insensitive
+    So it is converted to lowercase
+    */
+   
+   if (e.target.name === "email") {
+    // Ensure email value is lowercase
+       setInputs({ ...inputs, email: e.target.value.toLowerCase() });  
+   } else {
+       setInputs({ ...inputs, password: e.target.value });
+   } 
+
   };
 
   const onSubmitForm = async (e) => {
     e.preventDefault();
+    console.log(email, password,inputs); // DG
+    const ensureEmailLowerCase = email.toLowerCase();
     try {
       const body = { email, password };
       const response = await fetch("/authentication/login", {
@@ -24,18 +42,39 @@ function Login({ setAuth }) {
       });
 
       const parseRes = await response.json();
-      // console.log(parseRes);
+      console.log(parseRes);
       if (parseRes.jwtToken) {
         localStorage.setItem("token", parseRes.jwtToken);
-
         setAuth(true);
-      } else {
-        setAuth(false);
+
+        /* 
+           At this point seeing that Login is successful
+           The current value of the port number is needed for Plans and Feedbacks
+           So, this endpoint "/port-value" is fetched to retrieve this value
+           The port number will be stored in local-storage
+        */
+        try {
+             console.log("OK")
+             const response = await fetch("/port-value", {
+                method: "GET",
+                headers: { "Content-Type": "application/json" },
+             });
+             const portvalue = await response.json();
+             console.log(portvalue);
+             localStorage.setItem("port", portvalue);
+             }
+        catch (err) {
+                      console.error(err.message);
+                    } 
+      } else { // Login Failed!
+                setAuth(false);
       }
     } catch (err) {
       console.error(err.message);
     }
   };
+
+
   return (
     <>
       <section>

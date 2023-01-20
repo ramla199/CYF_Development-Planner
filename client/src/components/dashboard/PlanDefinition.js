@@ -84,7 +84,7 @@ const PlanDefinition = ({
           text={showRemainingChars(whichPlan)}
         />
         <div>
-          <button className="button-76">Expand</button>
+          <button className="button-76 expand-button-styling">Expand</button>
         </div>
       </div>
     </section>

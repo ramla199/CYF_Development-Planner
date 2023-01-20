@@ -10,8 +10,6 @@ import {
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-const PORT = process.env.PORT || 5000;
-
 export function determine_current_timestamp() {
   const currentTimeStamp = new Date(); // Current Date and Time
   const dayNumber = currentTimeStamp.getUTCDate(); // Day
@@ -56,6 +54,9 @@ const writePlan = async (
   setPlanCreatedTimeStamp
 ) => {
   const preambleText = createPreambleText(planTextArray);
+  console.log("WRITEPLAN", theUserName, theCurrentTimeStamp)
+  const PORT = localStorage.getItem("port");
+  console.log(PORT);
   try {
     const body = {
       username: theUserName,
@@ -94,6 +95,10 @@ const updatePlan = async (
   setSaved,
   setChanged
 ) => {
+    console.log("UPDATEPLAN", theUserName, createdTimestamp);
+  const PORT = localStorage.getItem("port");
+  console.log(PORT);
+
   const [
     dayNumber,
     monthNumber,

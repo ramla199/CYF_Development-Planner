@@ -14,9 +14,18 @@ if (process.env.NODE_ENV === "production") {
   app.use(express.static(path.join(__dirname, "client", "build")));
 }
 
-app.get("/*", function (req, res) {
-  res.sendFile(path.join(__dirname, "client", "build", "index.html"));
+// I need the current value of the port number
+// So I retrieve it at the point that Login is successful
+// It will be stored in local-storage for the usage of Plans and Feedbacks
+app.get("/port-value", function (req, res, next) {
+  console.log("/p>",PORT);
+  res.send(PORT);
 });
+
+// app.get("/*", function (req, res, next) {
+//   res.sendFile(path.join(__dirname, "client", "build", "index.html"));
+//   next();
+// });
 
 // Plans EndPoints - Later, will refactor through middleware - ./routes/dashboard
 
@@ -58,6 +67,7 @@ app.delete("/plans/:id", async (req, res) => {
 // Write a new plan
 app.post("/plans/writeplan", async (request, result) => {
   try {
+    console.log(1001)
     // Destructuring
     const {
       username,
@@ -88,6 +98,7 @@ app.post("/plans/writeplan", async (request, result) => {
 
 // Update a plan
 app.put("/plans/updateplan", async (request, result) => {
+  console.log(1000)
   try {
     // Destructuring
     const {
@@ -157,9 +168,9 @@ app.use("/authentication", require("./routes/jwtAuth"));
 
 app.use("/dashboard", authorize, require("./routes/dashboard"));
 
-app.use("/feedbacks", require("./routes/feedbacks"));
+// app.use("/feedbacks", require("./routes/feedbacks"));
 
-app.use("/messages", require("./routes/messages"));
+// app.use("/messages", require("./routes/messages"));
 app.listen(PORT, () => {
   console.log(`Server listening on ${PORT}`);
 });

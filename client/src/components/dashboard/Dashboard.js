@@ -1,11 +1,15 @@
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
-import Files from "./Files";
-import Inbox from "./Inbox";
+// import Files from "./Files";
+// import Inbox from "./Inbox";
+
+
 
 function Dashboard({ setAuth }) {
   const [name, setName] = useState("");
+
+  const navigate = useNavigate();
 
   const getName = async () => {
     try {
@@ -18,6 +22,8 @@ function Dashboard({ setAuth }) {
 
       console.log(parseRes);
       setName(parseRes.username);
+      // Also store the username in local-storage for the usage of Plans and Feedbacks
+      localStorage.setItem("username", parseRes.username);
     } catch (err) {
       console.error(err.message);
     }
@@ -26,6 +32,7 @@ function Dashboard({ setAuth }) {
   const logout = async (e) => {
     e.preventDefault();
     localStorage.removeItem("token");
+    localStorage.removeItem("port");
     setAuth(false);
   };
 
@@ -34,14 +41,14 @@ function Dashboard({ setAuth }) {
   }, []);
   return (
     <>
-
       <section>
         <h1 className="heading">Dashboard {name}</h1>
         <div className="login-signin-buttons">
+          <button onClick={() => navigate("/plans", { state: { username: name }})}>Plans</button>
           <button onClick={(e) => logout(e)}>Logout</button>
         </div>
-        <Files />
-        <Inbox />
+        {/* <Files />
+        <Inbox /> */}
       </section>
     </>
   );

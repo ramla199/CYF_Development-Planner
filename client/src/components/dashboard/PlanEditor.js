@@ -41,7 +41,6 @@ const PlanEditor = () => {
 
     // Go to the Plans page
     navigate("/plans", {
-      state: { username: userName },
       replace: true,
     });
   };
@@ -89,7 +88,6 @@ const PlanEditor = () => {
     if (leavePage || answer) {
       // Go to the Plans page
       navigate("/plans", {
-        state: { username: location.state.planSelectedInfo.theUserName },
         replace: false,
       });
     }
