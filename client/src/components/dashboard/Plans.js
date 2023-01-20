@@ -6,33 +6,11 @@ import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import "../../../src/styles.css";
 
-console.log(process.env)
-console.log(process.env.PORT)
-
 
 function Plans() {
   const [allPlansFetched, setAllPlansFetched] = useState([]);
   const [planSelectedInfo, setPlanSelectedInfo] = useState(null);
   const navigate = useNavigate();
-/*
-  const [name, setName] = useState(null);
-
-  const getName = async () => {
-    try {
-      const res = await fetch("/dashboard/", {
-        method: "GET",
-        headers: { jwt_token: localStorage.token },
-      });
-
-      const parseRes = await res.json();
-
-      console.log(parseRes);
-      setName(parseRes.username);
-    } catch (err) {
-      console.error(err.message);
-    }
-  };
-*/
 
   const handleClick = (_, theIndex) => {
     // Need to subtract one because the 0th item represents the "Create Plan" message
@@ -74,7 +52,7 @@ function Plans() {
       );
       toast.success("Plan has been deleted.", {});
     } catch (err) {
-      console.error(err.message);
+          console.error(err.message);
     }
   }
 
@@ -89,17 +67,15 @@ function Plans() {
     const getPlans = async () => {
       const PORT = localStorage.getItem("port");
       const name = localStorage.getItem("username");
-      console.log(name,PORT)
+
       try {
         const response = await fetch(
           `http://localhost:${PORT}/plans/` + name
         );
         const jsonData = await response.json();
-        console.log(jsonData)
         setAllPlansFetched(jsonData);
-        console.log("APPLANS",name)
       } catch (err) {
-        console.error(err.message);
+            console.error(err.message);
       }
     };
 

@@ -27,7 +27,7 @@ const PlanDefinition = ({
     let s = String(diff);
     newRemainingText =
       " ".repeat(4 - s.length) + diff + " Remaining Characters";
-    return <p className="leading-whitespace">{newRemainingText}</p>;
+    return <pre>{newRemainingText}</pre>;
   }
 
   function handleChange(event, whichPlan) {

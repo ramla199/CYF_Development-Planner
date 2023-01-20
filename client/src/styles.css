@@ -178,7 +178,7 @@ button.delete-button {
 
 .plans-page-style {
     font-family: 'futura';
-    font-size: 1.4rem;
+    font-size: 1.3rem;
     padding: 0 2em 2em 2em;
     background-color: var(--colour-black);
 }
@@ -297,10 +297,6 @@ button.delete-button {
 
 .td-remaining-default {
     color: var(--colour-white);
-}
-
-.leading-whitespace {
-    white-space: pre-wrap;
 }
 
 .td-remaining-less21 {

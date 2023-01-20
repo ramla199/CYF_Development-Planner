@@ -54,9 +54,8 @@ const writePlan = async (
   setPlanCreatedTimeStamp
 ) => {
   const preambleText = createPreambleText(planTextArray);
-  console.log("WRITEPLAN", theUserName, theCurrentTimeStamp)
   const PORT = localStorage.getItem("port");
-  console.log(PORT);
+
   try {
     const body = {
       username: theUserName,
@@ -84,7 +83,7 @@ const writePlan = async (
     setSelectedRecordInfo({ thePlan: jsonData[0] });
     setPlanCreatedTimeStamp(jsonData[0].created_timestamp);
   } catch (err) {
-    console.error(err.message);
+        console.error(err.message);
   }
 };
 
@@ -95,9 +94,7 @@ const updatePlan = async (
   setSaved,
   setChanged
 ) => {
-    console.log("UPDATEPLAN", theUserName, createdTimestamp);
   const PORT = localStorage.getItem("port");
-  console.log(PORT);
 
   const [
     dayNumber,
@@ -141,7 +138,7 @@ const updatePlan = async (
     setSaved(true);
     setChanged(false);
   } catch (err) {
-    console.error(err.message);
+        console.error(err.message);
   }
 };
 

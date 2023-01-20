@@ -9,7 +9,6 @@ const pool = require("./db.js");
 app.use(cors());
 app.use(express.json());
 
-console.log(process.env.NODE_ENV);
 if (process.env.NODE_ENV === "production") {
   app.use(express.static(path.join(__dirname, "client", "build")));
 }
@@ -17,8 +16,7 @@ if (process.env.NODE_ENV === "production") {
 // I need the current value of the port number
 // So I retrieve it at the point that Login is successful
 // It will be stored in local-storage for the usage of Plans and Feedbacks
-app.get("/port-value", function (req, res, next) {
-  console.log("/p>",PORT);
+app.get("/port-value", function (req, res) {
   res.send(PORT);
 });
 
@@ -42,8 +40,8 @@ app.get("/plans/:id", async (req, res) => {
     );
     res.json(thePlans.rows);
   } catch (err) {
-    console.error(err.message);
-    res.status(500).json("Server error: " + err.message);
+        console.error(err.message);
+        res.status(500).json("Server error: " + err.message);
   }
 });
 
@@ -59,15 +57,14 @@ app.delete("/plans/:id", async (req, res) => {
     );
     res.json(thePlan.rows);
   } catch (err) {
-    console.error(err.message);
-    res.status(500).json("Server error: " + err.message);
+        console.error(err.message);
+        res.status(500).json("Server error: " + err.message);
   }
 });
 
 // Write a new plan
 app.post("/plans/writeplan", async (request, result) => {
   try {
-    console.log(1001)
     // Destructuring
     const {
       username,
@@ -91,14 +88,13 @@ app.post("/plans/writeplan", async (request, result) => {
                        splan, mplan, aplan, rplan, tplan, preamble]); 
     result.json(newPlan.rows);
   } catch (error) {
-    console.error(error.message);
-    result.status(500).json("Server error: " + error.message);
+            console.error(error.message);
+            result.status(500).json("Server error: " + error.message);
   }
 });
 
 // Update a plan
 app.put("/plans/updateplan", async (request, result) => {
-  console.log(1000)
   try {
     // Destructuring
     const {
@@ -141,8 +137,8 @@ app.put("/plans/updateplan", async (request, result) => {
     );
     result.status(200).send("Plan updated.");
   } catch (error) {
-    console.error(error.message);
-    result.status(500).json("Server error: " + error.message);
+          console.error(error.message);
+          result.status(500).json("Server error: " + error.message);
   }
 });
 
@@ -156,8 +152,58 @@ app.get("/mentors", async (req, res) => {
     );
     res.json(theMentors.rows);
   } catch (err) {
+          console.error(err.message);
+          res.status(500).json("Server error: " + err.message);
+  }
+});
+
+
+// Get all the feedback requests for the current mentor
+app.get("/feedback_requests/:id", async (req, res) => {
+  try {
+    const { id } = req.params;
+
+
+    console.log(id, req.params)
+    const feedback = await pool.query(
+      `SELECT * FROM feedback_requests 
+             WHERE username = $1
+             ORDER BY created_timestamp DESC`,
+      [id]
+    );
+    res.json(feedback.rows);
+  } catch (err) {
     console.error(err.message);
     res.status(500).json("Server error: " + err.message);
+  }
+});
+
+
+// Write a feedback request
+app.post("/feedback_requests/write", async (request, result) => {
+  try {
+    // Destructuring
+    const { plan_serial_id, user_id, requester_username, mentor_username, timestamp } =
+      request.body;
+
+    // Insert New Record
+    const query = `INSERT INTO feedback_requests (feedback_req_plan_serial_id, 
+                                                  feedback_req_requester_username,
+                                                  feedback_req_mentor_username, 
+                                                  feedback_req_timestamp) 
+                                VALUES ($1, $2, $3, $4)
+                                RETURNING *`;
+
+    const newRequest = await pool.query(query, [
+      plan_serial_id,
+      requester_username,
+      mentor_username,
+      timestamp,
+    ]); 
+    result.json(newRequest.rows);
+  } catch (error) {
+        console.error(error.message);
+        result.status(500).json("Server error: " + error.message);
   }
 });
 

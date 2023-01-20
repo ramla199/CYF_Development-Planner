@@ -10,8 +10,6 @@ const devConfig = {
   user_port: process.env.PORT,
 };
 
-console.log(devConfig)
-
 const proConfig = {
   connectionString: process.env.DATABASE_URL,
 };

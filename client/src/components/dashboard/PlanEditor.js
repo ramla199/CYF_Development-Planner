@@ -46,9 +46,13 @@ const PlanEditor = () => {
   };
 
   const gotoSelectMentor = () => {
+    let planId = location.state.planSelectedInfo.thePlan.plan_serial_id;
     // Go to the Select Mentor page
     navigate("/select-mentor", {
-      state: { username: userName },
+      state: {
+        username: userName,
+        planSerialId: planId,
+      },
       replace: true,
     });
   };

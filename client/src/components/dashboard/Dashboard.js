@@ -19,13 +19,11 @@ function Dashboard({ setAuth }) {
       });
 
       const parseRes = await res.json();
-
-      console.log(parseRes);
       setName(parseRes.username);
       // Also store the username in local-storage for the usage of Plans and Feedbacks
       localStorage.setItem("username", parseRes.username);
     } catch (err) {
-      console.error(err.message);
+        console.error(err.message);
     }
   };
 

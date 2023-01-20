@@ -13,6 +13,7 @@ function Login({ setAuth }) {
     /*
     A strange bug is occurring whilst logging in
     The last character is being capitalised
+
     setInputs({ ...inputs, [e.target.name]: e.target.value });  
     {email: 'jsmith@gmail.coM', password: 'jsmith'}
 
@@ -31,21 +32,18 @@ function Login({ setAuth }) {
 
   const onSubmitForm = async (e) => {
     e.preventDefault();
-    console.log(email, password,inputs); // DG
-    const ensureEmailLowerCase = email.toLowerCase();
     try {
-      const body = { email, password };
-      const response = await fetch("/authentication/login", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(body),
-      });
+          const body = { email, password };
+          const response = await fetch("/authentication/login", {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify(body),
+          });
 
-      const parseRes = await response.json();
-      console.log(parseRes);
-      if (parseRes.jwtToken) {
-        localStorage.setItem("token", parseRes.jwtToken);
-        setAuth(true);
+          const parseRes = await response.json();
+          if (parseRes.jwtToken) {
+              localStorage.setItem("token", parseRes.jwtToken);
+              setAuth(true);
 
         /* 
            At this point seeing that Login is successful
@@ -53,24 +51,23 @@ function Login({ setAuth }) {
            So, this endpoint "/port-value" is fetched to retrieve this value
            The port number will be stored in local-storage
         */
-        try {
-             console.log("OK")
-             const response = await fetch("/port-value", {
-                method: "GET",
-                headers: { "Content-Type": "application/json" },
-             });
-             const portvalue = await response.json();
-             console.log(portvalue);
-             localStorage.setItem("port", portvalue);
-             }
-        catch (err) {
+
+              try {
+                   const response = await fetch("/port-value", {
+                      method: "GET",
+                      headers: { "Content-Type": "application/json" },
+                   });
+                   const portvalue = await response.json();
+                   localStorage.setItem("port", portvalue);
+              }
+              catch (err) {
                       console.error(err.message);
-                    } 
-      } else { // Login Failed!
+              } 
+          } else { // Login Failed!
                 setAuth(false);
-      }
-    } catch (err) {
-      console.error(err.message);
+                  }
+        } catch (err) {
+            console.error(err.message);
     }
   };
 

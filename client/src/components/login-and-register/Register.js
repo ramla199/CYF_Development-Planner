@@ -29,11 +29,9 @@ function Register({ setAuth }) {
 
       const parseRes = await response.json();
       localStorage.setItem("token", parseRes.jwtToken);
-      console.log(parseRes);
-
       setAuth(true);
     } catch (err) {
-      console.error(err.message);
+            console.error(err.message);
     }
   };
   return (
@@ -67,6 +65,7 @@ function Register({ setAuth }) {
             value={username}
             onChange={(e) => onChange(e)}
             required
+            minlength="3"
           />
           <label htmlFor="password">Password</label>
           <input
@@ -76,9 +75,10 @@ function Register({ setAuth }) {
             value={password}
             onChange={(e) => onChange(e)}
             required
+            minlength="3"
           />
 
-          <label htnlFor="email">Email</label>
+          <label htmlFor="email">Email</label>
           <input
             id="email"
             type="email"
@@ -92,18 +92,19 @@ function Register({ setAuth }) {
             <legend>Your CYF role:</legend>
 
             <label htmlFor="student">
-              Student{" "}
+              Student
               <input
                 id="student"
                 type="radio"
                 name="role"
                 value="student"
                 onChange={(e) => onChange(e)}
+                checked
               />
             </label>
 
             <label htmlFor="mentor">
-              Mentor{" "}
+              Mentor
               <input
                 id="mentor"
                 type="radio"
