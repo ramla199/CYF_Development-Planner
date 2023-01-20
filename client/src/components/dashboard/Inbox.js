@@ -65,7 +65,7 @@ function Inbox() {
 
         <div className="login-signin-buttons">
           <Link to="/new-message">
-            <button>new message</button>
+            <button>new</button>
           </Link>
         </div>
       </section>

@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
-
+import BackButton from "../BackButton";
 import Files from "./Files";
 import Inbox from "./Inbox";
 
@@ -34,12 +33,14 @@ function Dashboard({ setAuth }) {
   }, []);
   return (
     <>
+      <div className="login-signin-buttons">
+        <BackButton />
+        <button onClick={(e) => logout(e)}>Logout</button>
+      </div>
 
       <section>
         <h1 className="heading">Dashboard {name}</h1>
-        <div className="login-signin-buttons">
-          <button onClick={(e) => logout(e)}>Logout</button>
-        </div>
+
         <Files />
         <Inbox />
       </section>
