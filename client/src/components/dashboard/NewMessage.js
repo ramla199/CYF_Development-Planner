@@ -1,9 +1,9 @@
 import React, { useState } from "react";
-import BackButton from "../BackButton";
+
 // import { Editor } from "react-draft-wysiwyg";
 // import "../../node_modules/react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
 
-function NewMessage() {
+function NewMessage({ setMessagesChange }) {
   const [messageText, setMessageText] = useState("");
 
   const onSubmitForm = async (e) => {
@@ -12,9 +12,9 @@ function NewMessage() {
       const myHeaders = new Headers();
 
       myHeaders.append("Content-Type", "application/json");
-      myHeaders.append("token", localStorage.token);
+      myHeaders.append("jwt_token", localStorage.token);
       const body = { messageText };
-      const response = await fetch("/messages", {
+      const response = await fetch("dashboard/messages", {
         method: "POST",
         headers: myHeaders,
         body: JSON.stringify(body),
@@ -23,28 +23,35 @@ function NewMessage() {
       const parseResponse = await response.json();
 
       console.log(parseResponse);
+
+      setMessagesChange(true);
+      setMessageText("");
     } catch (err) {
       console.error(err.message);
     }
   };
+
   return (
     <>
-      <h1>Insert message text</h1>
-      <BackButton />
-      <form onSubmit={onSubmitForm}>
-        <textarea
-          type="text"
-          placeholder="add"
-          value={messageText}
-          onChange={(e) => setMessageText(e.target.value)}
-        />
-        <button>Add</button>
-        {/* <Editor
+      <h2 className="heading">Insert message text</h2>
+
+      <section className="login-signin-buttons">
+        <form onSubmit={onSubmitForm} className="header-flex">
+          <button>Add</button>
+          <textarea
+            type="text"
+            placeholder="add"
+            value={messageText}
+            onChange={(e) => setMessageText(e.target.value)}
+          />
+
+          {/* <Editor
           type="text"
           value={messageText}
           onChange={(e) => setMessageText(e.target.value)}
         /> */}
-      </form>
+        </form>
+      </section>
     </>
   );
 }
