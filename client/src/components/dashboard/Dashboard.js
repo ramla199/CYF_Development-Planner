@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
 
+// components
 import Files from "./Files";
 import Inbox from "./Inbox";
 import NewFeedback from "./NewFeedback";
-
 import NewMessage from "./NewMessage";
 
 function Dashboard({ setAuth }) {
@@ -28,15 +28,16 @@ function Dashboard({ setAuth }) {
     }
   };
 
+  useEffect(() => {
+    getName();
+  }, []);
+
   const logout = async (e) => {
     e.preventDefault();
     localStorage.removeItem("token");
     setAuth(false);
   };
 
-  useEffect(() => {
-    getName();
-  }, []);
   return (
     <>
       <div className="login-signin-buttons">
@@ -49,8 +50,15 @@ function Dashboard({ setAuth }) {
           <Files />
           <Inbox />
         </div>
-        <NewFeedback />
-        <NewMessage />
+        <div className="header-flex">
+          <h3 className="subheading">Insert Feedback</h3>
+          <h3 className="subheading">Insert message text</h3>
+        </div>
+
+        <div className="header-flex">
+          <NewFeedback />
+          <NewMessage />
+        </div>
       </section>
     </>
   );

@@ -59,7 +59,7 @@ function Files() {
         </div>
       </section>
 
-      <section>
+      {/* <section>
         {feedbacks.length !== 0 &&
           feedbacks[0].feedback_id !== null &&
           feedbacks.map((feedback) => (
@@ -70,7 +70,7 @@ function Files() {
               </button>
             </div>
           ))}
-      </section>
+      </section> */}
     </>
   );
 }

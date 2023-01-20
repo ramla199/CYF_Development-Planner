@@ -61,7 +61,7 @@ function Inbox() {
         </div>
       </section>
 
-      <section>
+      {/* <section>
         {messages.length !== 0 &&
           messages[0].message_id !== null &&
           messages.map((message) => (
@@ -72,7 +72,7 @@ function Inbox() {
               </button>
             </div>
           ))}
-      </section>
+      </section> */}
     </>
   );
 }
