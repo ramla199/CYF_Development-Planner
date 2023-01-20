@@ -11,6 +11,7 @@
     margin: 0;
     padding:0;
     box-sizing:border-box;
+    /* outline: 1px solid red; */
 }
 
 body {
@@ -253,6 +254,8 @@ main {
     .subheading {
         font-size: 1.3rem;
     }
+
+    
    }
    
 
@@ -272,6 +275,7 @@ main {
         display: flex;
         flex-direction: row-reverse;
         align-items: center;
+        justify-content: center;
     }
 
     .header-img {
@@ -325,4 +329,8 @@ form h1 {
 
 a {
     text-decoration: none;
+}
+
+.header-flex button {
+  margin: 20px auto;
 }
