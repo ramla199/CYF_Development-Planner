@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
-import BackButton from "../BackButton";
 import filesIcon from "../../images/Documents-icon-48.png";
+import { Link } from "react-router-dom";
 
 function Files() {
   const [feedbacks, setFeedbacks] = useState([]);
@@ -9,10 +8,11 @@ function Files() {
 
   const getFeedbacks = async () => {
     try {
-      const response = await fetch("/feedbacks", {
+      const response = await fetch("dashboard/feedbacks", {
         method: "GET",
         headers: { jwt_token: localStorage.token },
       });
+
       const jsonData = await response.json();
 
       setAllFeedbacks(jsonData);
@@ -25,12 +25,15 @@ function Files() {
     getFeedbacks();
   }, []);
 
+  // delete feedback
+
   async function deleteFeedback(id) {
     try {
-      await fetch(`/feedbacks/${id}`, {
+      await fetch(`dashboard/feedbacks/${id}`, {
         method: "DELETE",
         headers: { jwt_token: localStorage.token },
       });
+
       setFeedbacks(feedbacks.filter((feedback) => feedback.feedback_id !== id));
     } catch (err) {
       console.log(allFeedbacks);
@@ -45,28 +48,28 @@ function Files() {
     <>
       <section>
         <div className="icon-heading">
-          <h1>Files</h1>
+          <h2>Files</h2>
           <img alt="files icon" src={filesIcon} />
         </div>
+
         <div className="login-signin-buttons">
           <Link to="/new-feedback">
             <button>new</button>
           </Link>
         </div>
       </section>
+
       <section>
-        <section>
-          {feedbacks.length !== 0 &&
-            feedbacks[0].feedback_id !== null &&
-            feedbacks.map((feedback) => (
-              <div>
-                <div key={feedback.feedback_id}>{feedback.feedback_text}</div>
-                <button onClick={() => deleteFeedback(feedback.feedback_id)}>
-                  delete feedback
-                </button>
-              </div>
-            ))}
-        </section>
+        {feedbacks.length !== 0 &&
+          feedbacks[0].feedback_id !== null &&
+          feedbacks.map((feedback) => (
+            <div>
+              <div key={feedback.feedback_id}>{feedback.feedback_text}</div>
+              <button onClick={() => deleteFeedback(feedback.feedback_id)}>
+                delete
+              </button>
+            </div>
+          ))}
       </section>
     </>
   );
