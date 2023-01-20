@@ -16,7 +16,7 @@ router.get("/", async (req, res) => {
   }
 });
 
-// get an individual message
+// get a message
 router.get("/:id", async (req, res) => {
   try {
     const { messageId } = req.params;
@@ -30,7 +30,7 @@ router.get("/:id", async (req, res) => {
   }
 });
 
-// insert a new message
+// insert a message
 router.post("/", async (req, res) => {
   try {
     const { messageText } = req.body;

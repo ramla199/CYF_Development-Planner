@@ -14,10 +14,6 @@ if (process.env.NODE_ENV === "production") {
   app.use(express.static(path.join(__dirname, "client", "build")));
 }
 
-app.get("/*", function (req, res) {
-  res.sendFile(path.join(__dirname, "client", "build", "index.html"));
-});
-
 // Plans EndPoints - Later, will refactor through middleware - ./routes/dashboard
 
 // Does the user have any plans?
@@ -77,8 +73,17 @@ app.post("/plans/writeplan", async (request, result) => {
                                 VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)
                                 RETURNING *`;
 
-    const newPlan = await pool.query(query, [username, created_timestamp, amended_timestamp,
-                       splan, mplan, aplan, rplan, tplan, preamble]); 
+    const newPlan = await pool.query(query, [
+      username,
+      created_timestamp,
+      amended_timestamp,
+      splan,
+      mplan,
+      aplan,
+      rplan,
+      tplan,
+      preamble,
+    ]);
     result.json(newPlan.rows);
   } catch (error) {
     console.error(error.message);
@@ -107,7 +112,7 @@ app.put("/plans/updateplan", async (request, result) => {
                           SET amended_timestamp = $1,
                           splan = $2, mplan = $3, aplan = $4, rplan = $5, tplan = $6,
                               preamble = $7
-                          WHERE username = $8 and created_timestamp = $9`; 
+                          WHERE username = $8 and created_timestamp = $9`;
 
     pool.query(
       query,
@@ -135,21 +140,19 @@ app.put("/plans/updateplan", async (request, result) => {
   }
 });
 
-
-app.get("/mentors", async (req, res) => {
-  try {
-    const theMentors = await pool.query(
-      `SELECT * FROM users 
-              WHERE user_role = 'mentor'
-              ORDER BY user_lname, user_fname`
-    );
-    res.json(theMentors.rows);
-  } catch (err) {
-    console.error(err.message);
-    res.status(500).json("Server error: " + err.message);
-  }
-});
-
+// app.get("/mentors", async (req, res) => {
+//   try {
+//     const theMentors = await pool.query(
+//       `SELECT * FROM users
+//               WHERE user_role = 'mentor'
+//               ORDER BY user_lname, user_fname`
+//     );
+//     res.json(theMentors.rows);
+//   } catch (err) {
+//     console.error(err.message);
+//     res.status(500).json("Server error: " + err.message);
+//   }
+// });
 
 //routes
 
@@ -157,9 +160,10 @@ app.use("/authentication", require("./routes/jwtAuth"));
 
 app.use("/dashboard", authorize, require("./routes/dashboard"));
 
-app.use("/feedbacks", require("./routes/feedbacks"));
+app.get("/*", function (req, res) {
+  res.sendFile(path.join(__dirname, "client", "build", "index.html"));
+});
 
-app.use("/messages", require("./routes/messages"));
 app.listen(PORT, () => {
   console.log(`Server listening on ${PORT}`);
 });
