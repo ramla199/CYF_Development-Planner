@@ -1,7 +1,10 @@
 import React, { useState, useEffect } from "react";
-import BackButton from "../BackButton";
+
 import Files from "./Files";
 import Inbox from "./Inbox";
+import NewFeedback from "./NewFeedback";
+
+import NewMessage from "./NewMessage";
 
 function Dashboard({ setAuth }) {
   const [name, setName] = useState("");
@@ -16,6 +19,9 @@ function Dashboard({ setAuth }) {
       const parseRes = await res.json();
 
       console.log(parseRes);
+
+      // setName(parseRes.username);
+
       setName(parseRes.username);
     } catch (err) {
       console.error(err.message);
@@ -34,15 +40,17 @@ function Dashboard({ setAuth }) {
   return (
     <>
       <div className="login-signin-buttons">
-        <BackButton />
         <button onClick={(e) => logout(e)}>Logout</button>
       </div>
 
       <section>
         <h1 className="heading">Dashboard {name}</h1>
-
-        <Files />
-        <Inbox />
+        <div className="header-flex">
+          <Files />
+          <Inbox />
+        </div>
+        <NewFeedback />
+        <NewMessage />
       </section>
     </>
   );
