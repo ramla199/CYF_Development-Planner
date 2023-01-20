@@ -1,7 +1,7 @@
 const router = require("express").Router();
 const pool = require("../db");
 
-// mentor dashboard: get all feedbacks
+// get all feedbacks
 router.get("/", async (req, res) => {
   try {
     const { userId } = req.params;
