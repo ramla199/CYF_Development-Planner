@@ -92,7 +92,7 @@ const PlanEditor = () => {
     if (leavePage || answer) {
       // Go to the Plans page
       navigate("/plans", {
-        replace: false,
+        replace: true,
       });
     }
   };

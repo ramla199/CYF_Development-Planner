@@ -11,16 +11,36 @@ function Register({ setAuth }) {
     role: "",
   });
 
-  const { fname, lname, username, email, password, role } = inputs;
+  const [role, setRole] = useState("student"); // DEFAULT VALUE
+
+
+  const { fname, lname, username, email, password,  } = inputs;
 
   const onChange = (e) => {
     setInputs({ ...inputs, [e.target.name]: e.target.value });
   };
 
+  // Handle radio buttons separately
+  const onRoleChange = (e) => {
+    setRole(e.target.value);
+  };
+
   const onSubmitForm = async (e) => {
     e.preventDefault();
+
+/* Need to ensure that the email value is case-insensitive
+   So it is converted to lowercase
+*/
     try {
-      const body = { fname, lname, username, email, password, role };
+      const lowerEmail = email.toLowerCase();
+      const body = {
+        fname,
+        lname,
+        username,
+        email: lowerEmail,
+        password,
+        role,
+      };
       const response = await fetch("/authentication/register", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -29,6 +49,11 @@ function Register({ setAuth }) {
 
       const parseRes = await response.json();
       localStorage.setItem("token", parseRes.jwtToken);
+    /*
+       The 'role' is also needed for Feedback Functionality
+       It will be stored in local-storage
+    */
+      localStorage.setItem("role", role);
       setAuth(true);
     } catch (err) {
             console.error(err.message);
@@ -65,7 +90,7 @@ function Register({ setAuth }) {
             value={username}
             onChange={(e) => onChange(e)}
             required
-            minlength="3"
+            minLength="3"
           />
           <label htmlFor="password">Password</label>
           <input
@@ -75,7 +100,7 @@ function Register({ setAuth }) {
             value={password}
             onChange={(e) => onChange(e)}
             required
-            minlength="3"
+            minLength="3"
           />
 
           <label htmlFor="email">Email</label>
@@ -98,8 +123,8 @@ function Register({ setAuth }) {
                 type="radio"
                 name="role"
                 value="student"
-                onChange={(e) => onChange(e)}
-                checked
+                onChange={(e) => onRoleChange(e)}
+                checked={role === "student"}
               />
             </label>
 
@@ -110,7 +135,8 @@ function Register({ setAuth }) {
                 type="radio"
                 name="role"
                 value="mentor"
-                onChange={(e) => onChange(e)}
+                onChange={(e) => onRoleChange(e)}
+                checked={role === "mentor"}
               ></input>
             </label>
           </fieldset>
