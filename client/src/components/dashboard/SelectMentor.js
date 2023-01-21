@@ -25,7 +25,6 @@ function SelectMentor() {
         });
         // Go to the Plans page
         navigate("/plans", {
-          state: { username: location.state.username },
           replace: true,
         });
       }
@@ -39,7 +38,7 @@ function SelectMentor() {
       );
       setArrayUpdate(true);
     }
-  }, [allMentors, location.state.username, navigate]);
+  }, [allMentors, navigate]);
 
   useEffect(() => {
     const getAllMentors = async () => {
@@ -62,18 +61,7 @@ function SelectMentor() {
     };
 
     getAllMentors();
-    if (setAllMentors.length === 0) {
-      toast("There are no signed up mentors available !", {
-        position: toast.POSITION.TOP_CENTER,
-        className: "toast-error-message",
-      });
-      // Go to the Plans page
-      navigate("/plans", {
-        //state: { username: location.state.username },
-        replace: true,
-      });
-    }
-  }, [location.state.username, navigate]);
+  }, []);
 
 
   useEffect(() => {
@@ -115,7 +103,6 @@ function SelectMentor() {
     );
     // Then go to the Plans page
     navigate("/plans", {
-      state: { username: location.state.username },
       replace: true,
     });
   };

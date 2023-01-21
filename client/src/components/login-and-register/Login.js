@@ -42,8 +42,11 @@ function Login({ setAuth }) {
 
           const parseRes = await response.json();
           if (parseRes.jwtToken) {
-              localStorage.setItem("token", parseRes.jwtToken);
-              setAuth(true);
+            localStorage.setItem("token", parseRes.jwtToken);
+            // The 'role' is needed for Feedback Functionality
+            // Stored in local-storage
+            localStorage.setItem("role", parseRes.role);
+            setAuth(true);
 
         /* 
            At this point seeing that Login is successful
@@ -52,17 +55,16 @@ function Login({ setAuth }) {
            The port number will be stored in local-storage
         */
 
-              try {
-                   const response = await fetch("/port-value", {
-                      method: "GET",
-                      headers: { "Content-Type": "application/json" },
-                   });
-                   const portvalue = await response.json();
-                   localStorage.setItem("port", portvalue);
-              }
-              catch (err) {
-                      console.error(err.message);
-              } 
+            try {
+              const response = await fetch("/port-value", {
+                method: "GET",
+                headers: { "Content-Type": "application/json" },
+              });
+              const portvalue = await response.json();
+              localStorage.setItem("port", portvalue);
+            } catch (err) {
+              console.error(err.message);
+            }
           } else { // Login Failed!
                 setAuth(false);
                   }

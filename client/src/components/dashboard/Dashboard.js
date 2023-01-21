@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 // import Files from "./Files";
 // import Inbox from "./Inbox";
@@ -31,18 +31,26 @@ function Dashboard({ setAuth }) {
     e.preventDefault();
     localStorage.removeItem("token");
     localStorage.removeItem("port");
+    localStorage.removeItem("username");
+    localStorage.removeItem("role");
     setAuth(false);
   };
 
   useEffect(() => {
     getName();
   }, []);
+
+  let theRole = localStorage.getItem("role");
+  
   return (
     <>
       <section>
         <h1 className="heading">Dashboard {name}</h1>
         <div className="login-signin-buttons">
-          <button onClick={() => navigate("/plans", { state: { username: name }})}>Plans</button>
+          {theRole === "student" && 
+                    <button onClick={() => navigate("/plans")}>Plans</button>}
+          {theRole === "mentor" &&  
+                    <button onClick={() => navigate("/feedback-requests")}>Feedback<br/>Requests</button>}
           <button onClick={(e) => logout(e)}>Logout</button>
         </div>
         {/* <Files />

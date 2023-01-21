@@ -25,18 +25,18 @@ app.get("/port-value", function (req, res) {
 //   next();
 // });
 
-// Plans EndPoints - Later, will refactor through middleware - ./routes/dashboard
+// Plans EndPoints - Later, will refactor through musernamedleware - ./routes/dashboard
 
 // Does the user have any plans?
 // Ordered from the newest to the oldest
-app.get("/plans/:id", async (req, res) => {
+app.get("/plans/:username", async (req, res) => {
   try {
-    const { id } = req.params;
+    const { username } = req.params;
     const thePlans = await pool.query(
       `SELECT * FROM plans 
               WHERE username = $1
               ORDER BY amended_timestamp DESC`,
-      [id]
+      [username]
     );
     res.json(thePlans.rows);
   } catch (err) {
@@ -159,17 +159,17 @@ app.get("/mentors", async (req, res) => {
 
 
 // Get all the feedback requests for the current mentor
-app.get("/feedback_requests/:id", async (req, res) => {
+app.get("/feedback_requests/:username", async (req, res) => {
   try {
-    const { id } = req.params;
+    const { username } = req.params;
 
 
-    console.log(id, req.params)
+    console.log(username, req.params)
     const feedback = await pool.query(
       `SELECT * FROM feedback_requests 
-             WHERE username = $1
-             ORDER BY created_timestamp DESC`,
-      [id]
+             WHERE feedback_req_mentor_username = $1
+             ORDER BY feedback_req_timestamp DESC`,
+      [username]
     );
     res.json(feedback.rows);
   } catch (err) {
