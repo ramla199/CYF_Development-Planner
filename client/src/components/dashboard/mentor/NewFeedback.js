@@ -32,10 +32,14 @@ function NewFeedback({ setFeedbacksChange }) {
   };
   return (
     <>
-      <section className="login-signin-buttons">
-        <form onSubmit={onSubmitForm} className="header-flex">
-          <button>save</button>
-          <button>send</button>
+      <section>
+        <form onSubmit={onSubmitForm}>
+          <h3 className="subheading">Insert feedback</h3>
+          <div className="buttons">
+            <button>save</button>
+            <button>send</button>
+          </div>
+
           <textarea
             placeholder="add"
             value={feedbackText}

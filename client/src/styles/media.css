@@ -1,0 +1,29 @@
+@media only screen and (min-width: 496px) {
+    .heading {
+        font-size: 1.8rem;
+        max-width: 350px;
+    }
+
+    .icon-container-wrapper{
+      display: flex;
+      justify-content: center;
+      max-width: 500px;
+      margin: auto;
+    }
+}
+
+@media only screen and (min-width: 864px) {
+    .header-flex {
+        display: flex;
+        flex-direction: row-reverse;
+        align-items: center;
+        justify-content: space-around;
+        gap: 30px;
+        margin: 0 30px;
+        width: 100%;
+    }   
+
+    .header-img {
+        width: 50%;
+    }
+}
