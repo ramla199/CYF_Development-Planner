@@ -1,0 +1,18 @@
+h1 {
+  color: #b55151; 
+  margin: auto;
+  padding: 20px;
+  line-height: 4rem;
+}
+
+/* subheading */
+
+.subheading {  
+    font-size: 1.1rem;
+    font-weight: 400;
+    line-height: 2rem;
+    padding: 40px;
+
+}
+
+

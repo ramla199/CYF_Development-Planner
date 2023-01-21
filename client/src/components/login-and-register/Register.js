@@ -38,52 +38,57 @@ function Register({ setAuth }) {
   };
   return (
     <>
-      <section>
+      <section className="form-container">
+        <h1>Signup</h1>
         <form onSubmit={onSubmitForm} className="form">
-          <h1>Signup</h1>
-          <label htmlFor="fname">First Name</label>
+          <label htmlFor="fname">first name</label>
           <input
             id="fname"
             type="text"
             name="fname"
             value={fname}
+            placeholder="type here..."
             onChange={(e) => onChange(e)}
             required
           />
-          <label htmlFor="lname">Last Name</label>
+          <label htmlFor="lname">last name</label>
           <input
             id="lname"
             type="text"
             name="lname"
             value={lname}
+            placeholder="type here..."
             onChange={(e) => onChange(e)}
             required
           />
-          <label html="username">Username</label>
+          <label htmlFor="username">username</label>
           <input
             id="username"
             type="text"
             name="username"
             value={username}
+            placeholder="type here..."
             onChange={(e) => onChange(e)}
             required
           />
-          <label htmlFor="password">Password</label>
+          <label htmlFor="password">password</label>
           <input
             id="password"
             type="password"
             name="password"
             value={password}
+            placeholder="type here..."
             onChange={(e) => onChange(e)}
             required
           />
 
-          <label htnlFor="email">Email</label>
+          <label htmlFor="email">email</label>
           <input
             id="email"
             type="email"
             name="email"
             value={email}
+            placeholder="type here..."
             onChange={(e) => onChange(e)}
             required
           />
@@ -92,18 +97,19 @@ function Register({ setAuth }) {
             <legend>Your CYF role:</legend>
 
             <label htmlFor="student">
-              Student{" "}
+              trainee{" "}
               <input
                 id="student"
                 type="radio"
                 name="role"
                 value="student"
+                placeholder="type here..."
                 onChange={(e) => onChange(e)}
               />
             </label>
 
             <label htmlFor="mentor">
-              Mentor{" "}
+              mentor{" "}
               <input
                 id="mentor"
                 type="radio"
@@ -113,10 +119,10 @@ function Register({ setAuth }) {
               ></input>
             </label>
           </fieldset>
-          <div className="login-signin-buttons">
-            <button>Submit</button>
+          <div className="buttons">
+            <button>submit</button>
           </div>
-          <Link to="/login" className="signin-login-link">
+          <Link to="/login" className="form-link">
             Login
           </Link>
         </form>

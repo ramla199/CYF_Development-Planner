@@ -140,19 +140,19 @@ app.put("/plans/updateplan", async (request, result) => {
   }
 });
 
-// app.get("/mentors", async (req, res) => {
-//   try {
-//     const theMentors = await pool.query(
-//       `SELECT * FROM users
-//               WHERE user_role = 'mentor'
-//               ORDER BY user_lname, user_fname`
-//     );
-//     res.json(theMentors.rows);
-//   } catch (err) {
-//     console.error(err.message);
-//     res.status(500).json("Server error: " + err.message);
-//   }
-// });
+app.get("/mentors", async (req, res) => {
+  try {
+    const theMentors = await pool.query(
+      `SELECT * FROM users
+              WHERE user_role = 'mentor'
+              ORDER BY user_lname, user_fname`
+    );
+    res.json(theMentors.rows);
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).json("Server error: " + err.message);
+  }
+});
 
 //routes
 

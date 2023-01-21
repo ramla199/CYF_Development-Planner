@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import filesIcon from "../../images/Documents-icon-48.png";
+import filesIcon from "../../../images/Documents-icon-48.png";
 import { Link } from "react-router-dom";
 
 function Files() {
@@ -46,15 +46,15 @@ function Files() {
 
   return (
     <>
-      <section>
+      <section className="icon-heading-container">
         <div className="icon-heading">
           <h2>Files</h2>
           <img alt="files icon" src={filesIcon} />
         </div>
 
-        <div className="login-signin-buttons">
+        <div className="buttons">
           <Link to="/new-feedback">
-            <button>new</button>
+            <button>open</button>
           </Link>
         </div>
       </section>

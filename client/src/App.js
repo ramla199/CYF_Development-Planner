@@ -1,4 +1,10 @@
-import "./App.css";
+import "./styles/general.css";
+import "./styles/navbar.css";
+import "./styles/buttons.css";
+import "./styles/form.css";
+import "./styles/typography.css";
+import "./styles/media.css";
+
 import React, { useState, useEffect } from "react";
 import { Routes, Route, Navigate, useLocation } from "react-router-dom";
 

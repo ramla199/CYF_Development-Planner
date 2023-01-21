@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
 
 // components
-import Files from "./Files";
-import Inbox from "./Inbox";
-import NewFeedback from "./NewFeedback";
-import NewMessage from "./NewMessage";
+import Files from "./mentor/Files";
+import Inbox from "./mentor/Inbox";
+import NewFeedback from "./mentor/NewFeedback";
+import NewMessage from "./mentor/NewMessage";
 
 function Dashboard({ setAuth }) {
   const [name, setName] = useState("");
@@ -40,26 +40,17 @@ function Dashboard({ setAuth }) {
 
   return (
     <>
-      <div className="login-signin-buttons">
-        <button onClick={(e) => logout(e)}>Logout</button>
-      </div>
-
-      <section>
-        <h1 className="heading">Dashboard {name}</h1>
-        <div className="header-flex">
+      <main>
+        <button onClick={(e) => logout(e)}>logout</button>
+        <h1>{name}'s Dashboard</h1>
+        <div className="icon-container-wrapper">
           <Files />
           <Inbox />
         </div>
-        <div className="header-flex">
-          <h3 className="subheading">Insert Feedback</h3>
-          <h3 className="subheading">Insert message text</h3>
-        </div>
 
-        <div className="header-flex">
-          <NewFeedback />
-          <NewMessage />
-        </div>
-      </section>
+        <NewFeedback />
+        <NewMessage />
+      </main>
     </>
   );
 }

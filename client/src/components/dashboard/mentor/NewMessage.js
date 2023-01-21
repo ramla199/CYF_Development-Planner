@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 
-import { Editor } from "react-draft-wysiwyg";
-import "../../../node_modules/react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
+// import { Editor } from "react-draft-wysiwyg";
+// import "../../../node_modules/react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
 
 function NewMessage({ setMessagesChange }) {
   const [messageText, setMessageText] = useState("");
@@ -33,10 +33,14 @@ function NewMessage({ setMessagesChange }) {
 
   return (
     <>
-      <section className="login-signin-buttons">
-        <form onSubmit={onSubmitForm} className="header-flex">
-          <button>save</button>
-          <button>send</button>
+      <section>
+        <form onSubmit={onSubmitForm}>
+          <h3 className="subheading">Insert message</h3>
+          <div className="buttons">
+            <button>save</button>
+            <button>send</button>
+          </div>
+
           <textarea
             type="text"
             placeholder="add"
