@@ -3,7 +3,7 @@ import React, { useState, useEffect } from "react";
 // components
 import Files from "./mentor/Files";
 import Inbox from "./mentor/Inbox";
-import NewFeedback from "./mentor/NewFeedback";
+
 import NewMessage from "./mentor/NewMessage";
 
 function Dashboard({ setAuth }) {
@@ -47,9 +47,6 @@ function Dashboard({ setAuth }) {
           <Files />
           <Inbox />
         </div>
-
-        <NewFeedback />
-        <NewMessage />
       </main>
     </>
   );
