@@ -1,5 +1,4 @@
 const router = require("express").Router();
-
 const pool = require("../db");
 
 router.get("/", async (req, res) => {
@@ -17,7 +16,6 @@ router.get("/", async (req, res) => {
 });
 
 router.use("/feedbacks", require("./feedbacks"));
-
 router.use("/messages", require("./messages"));
 
 module.exports = router;
