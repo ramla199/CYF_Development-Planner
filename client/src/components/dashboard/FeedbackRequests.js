@@ -1,7 +1,7 @@
 import { useState, useEffect, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 //import FBRequestsNavbar from "../../../src/components/dashboard/FBRequestsNavBar";
-import DisplayListItem from "./DisplayListItem";
+import PopulateFeedbackDisplay from "./PopulateFeedbackDisplay";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import "../../../src/styles.css";
@@ -9,33 +9,36 @@ import "../../../src/styles.css";
 let fbRequestsTable = [];
 
 function FeedbackRequests() {
-  const [allFBRequestsFetched, setAllFBRequestsFetched] = useState([]);
-  const [fbRequestsSelectedInfo, setPlanSelectedInfo] = useState(null);
+  const [allFBRequestsFetched, setAllFBRequestsFetched] = useState(null);
+  const [arrayUpdate, setArrayUpdate] = useState(false);
+  const [fbRequestsSelectedInfo, setFBRequestsSelectedInfo] = useState(null);
+  const [planFetched, setPlanFetched] = useState(null);
+
   const navigate = useNavigate();
 
-  const handleClick = (_, theIndex) => {
-    // Need to subtract one because the 0th item represents the "Create Plan" message
-    // So the first fbRequests is indexed with the value 1
-    // The second is indexed as 2, etc.
-    // Therefore subtract 1 to determine the actual true index
-    const actualIndex = theIndex - 1;
-    const name = localStorage.getItem("username");
-    setPlanSelectedInfo({
-      theIndex: theIndex,
-      theUserName: name,
-      thePlan: allFBRequestsFetched[actualIndex],
-    });
+  const handleCreateEditClick = (event, isNew, rowId, planId) => {
+    event.stopPropagation();
+    const feedbackInfo = fbRequestsTable.find(
+      (element) => element.rowId === rowId
+    );
+    // Fetch the plan details that are related to this selection
+    getAPlanById(planId);
+    // Indicate that a selection has been made
+    setFBRequestsSelectedInfo({ isNew, planId, feedbackInfo });
   };
 
-  function deletePlan(index) {
+  function deleteFeedback(index) {
     let answer = window.confirm("Are You Sure?");
     if (answer) {
-      deletePlan2(index);
+      deleteFeedback2(index);
     }
   }
 
-  async function deletePlan2(deleteIndex) {
-    // Need to subtract one because the 0th item represents the "Create Plan" message
+  const createFeedback = (event, rowId, planId) => handleCreateEditClick(event, true, rowId, planId);
+  const editFeedback = (event) => {};
+
+  async function deleteFeedback2(deleteIndex) {
+    // Need to subtract one because the 0th item represents the "Create Feedback Request" message
     // So the first fbRequests is indexed with the value 1
     // The second is indexed as 2, etc.
     // Therefore subtract 1 to determine the actual true index
@@ -44,14 +47,14 @@ function FeedbackRequests() {
     const serialId = allFBRequestsFetched[actualIndex].fbRequests_serial_id;
     const PORT = localStorage.getItem("port");
     try {
-      await fetch(`http://localhost:${PORT}/FBReq/${serialId}`, {
+      await fetch(`http://localhost:${PORT}/feedback_requests/${serialId}`, {
         method: "DELETE",
         headers: { token: localStorage.token },
       });
       setAllFBRequestsFetched(
         allFBRequestsFetched.filter((_, index) => index !== actualIndex)
       );
-      toast.success("Plan has been deleted.", {});
+      toast.success("Feedback Request has been deleted.");
     } catch (err) {
       console.error(err.message);
     }
@@ -70,19 +73,37 @@ function FeedbackRequests() {
         });
       }
 
-      // Otherwise setup the Mentor Table for Display
-      fbRequestsTable = fbRequestsTable.map(
-        (element, index) => element
-        // Object.assign(element, {
-        //   rowId: index,
-        //   fullname: normaliseNames(element.user_fname, element.user_lname),
-        //        })
+      // Otherwise setup the Feedback Requests Table for Display
+      fbRequestsTable = allFBRequestsFetched.map((element, index) =>
+        Object.assign(element, {
+          rowId: "R" + element.feedback_req_id,
+        })
       );
-      //setArrayUpdate(true);
+      // Indicate that the Feedback Requests Table has been populated
+      setArrayUpdate(true);
     }
   }, [allFBRequestsFetched, navigate]);
 
-  // Fetch all the user's Feedback Requests
+  const getAPlanById = async (planId) => {
+      try {
+        const PORT = localStorage.getItem("port");
+        const response = await fetch(`http://localhost:${PORT}/planbyid/` + planId, {
+          method: "GET",
+          headers: { "Content-Type": "application/json" },
+        });
+        if (!response.ok) {
+          throw new Error(
+            `This is an HTTP error: The status is ${response.status}`
+          );
+        }
+        const jsonData = await response.json();
+        setPlanFetched(jsonData[0]);
+      } catch (err) {
+        console.error(err.message);
+      }
+    };
+
+  // Fetch all the current user's Feedback Requests
   useEffect(() => {
     const getFBRequests = async () => {
       const PORT = localStorage.getItem("port");
@@ -93,6 +114,7 @@ function FeedbackRequests() {
           `http://localhost:${PORT}/feedback_requests/` + name
         );
         const jsonData = await response.json();
+        console.log(name,jsonData)
         setAllFBRequestsFetched(jsonData);
       } catch (err) {
             console.error(err.message);
@@ -107,58 +129,59 @@ function FeedbackRequests() {
     AllFBRequestsCallback();
   }, [AllFBRequestsCallback]);
 
-
-  return (null);
-
+/* Ensure that we have both the Plan and the selected info before going 
+   to the Feedback Editor Page
+*/
   useEffect(() => {
-    if (fbRequestsSelectedInfo) {
-      navigate("/fbRequests-editor", {
-        state: { fbRequestsSelectedInfo: fbRequestsSelectedInfo },
+    if (fbRequestsSelectedInfo && planFetched) {
+      const selectedInfo = fbRequestsSelectedInfo.feedbackInfo;
+      const isNew = fbRequestsSelectedInfo.isNew
+      navigate("/feedback-editor", {
+        state: { selectedInfo, planFetched, isNew },
         replace: true,
       });
     }
-  }, [fbRequestsSelectedInfo, navigate]);
+  }, [fbRequestsSelectedInfo, navigate, planFetched]);
 
-  const keysArray = [];
-  const preambleTextArray = [];
-  allFBRequestsFetched.forEach((element, index) => {
-    keysArray.push(element.amended_timestamp.replace(/:/g, "")); // YYYYMMDDHHMMSS
-    preambleTextArray.push(element.preamble);
-  });
+   return (
+     arrayUpdate && (
+       <>
+         <table>
+           <thead>
+             <tr>
+               <th>
+                 Feedback
+                 <br />
+                 Request Date
+               </th>
+               <th>
+                 Requested
+                 <br />
+                 By
+               </th>
+               <th>
+                 Plan
+                 <br />
+                 Summary
+               </th>
+               <th>Action 1</th>
+               <th>Action 2</th>
+               <th>Action 3</th>
+             </tr>
+           </thead>
+           <tbody>
+             <PopulateFeedbackDisplay
+               fbRequestsTable={fbRequestsTable}
+               createFeedback={createFeedback}
+               editFeedback={editFeedback}
+               deleteFeedback={deleteFeedback}
+             />
+           </tbody>
+         </table>
+       </>
+     )
+   );
+  }
 
-  // Create a 'dummy' record for the NEW RECORD OPTION
-  keysArray.unshift(0);
-  preambleTextArray.unshift("Click to create a new fbRequests.");
-
-  const orderedList = (
-    <ol className="main-menu-items">
-      {keysArray.map((eachKey, index) => {
-        return (
-          <li className="main-menu-item-container" key={eachKey}>
-            <DisplayListItem
-              theIndex={index}
-              theKey={eachKey}
-              preambleText={preambleTextArray[index]}
-              handleClick={handleClick}
-              deletePlan={deletePlan}
-            />
-          </li>
-        );
-      })}
-    </ol>
-  );
-
-  const name = localStorage.getItem("username");
-
-  return (
-    <>
-      {/* <FBRequestsNavbar /> */}
-      <div className="username-header">{name}</div>
-      <div className="main-menu-container">
-        <div className="main-menu">{orderedList}</div>
-      </div>
-    </>
-  );
-}
 
 export default FeedbackRequests;

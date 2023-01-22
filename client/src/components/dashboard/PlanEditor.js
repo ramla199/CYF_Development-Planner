@@ -152,10 +152,10 @@ const PlanEditor = () => {
       setSelectedRecordInfo={setSelectedRecordInfo}
       setSaved={setSaved}
       setChanged={setChanged}
+      planCreatedTimeStamp={planCreatedTimeStamp}
       setPlanCreatedTimeStamp={setPlanCreatedTimeStamp}
       allEmpty={allEmpty}
       discardPlan={discardPlan}
-      planCreatedTimeStamp={planCreatedTimeStamp}
       saveThenGotoPlans={saveThenGotoPlans}
       newOrChanged={newOrChanged}
       gotoSelectMentor={gotoSelectMentor}

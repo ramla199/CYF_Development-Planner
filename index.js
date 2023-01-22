@@ -45,14 +45,14 @@ app.get("/plans/:username", async (req, res) => {
   }
 });
 
-// Delete the plan
-app.delete("/plans/:id", async (req, res) => {
+
+// Fetch a plan using the plan's id
+app.get("/planbyid/:id", async (req, res) => {
   try {
     const { id } = req.params;
     const thePlan = await pool.query(
-      `DELETE FROM plans 
-              WHERE plan_serial_id = $1
-              RETURNING *`,
+      `SELECT * FROM plans 
+              WHERE plan_serial_id  = $1`,
       [id]
     );
     res.json(thePlan.rows);
@@ -78,7 +78,7 @@ app.post("/plans/writeplan", async (request, result) => {
       preamble,
     } = request.body;
 
-    // Insert New Record
+    // Insert New 'Plan' Record
     const query = `INSERT INTO plans (username, created_timestamp,  amended_timestamp,
                                 splan, mplan, aplan, rplan, tplan, preamble) 
                                 VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)
@@ -93,7 +93,7 @@ app.post("/plans/writeplan", async (request, result) => {
   }
 });
 
-// Update a plan
+// Update a 'Plan' record
 app.put("/plans/updateplan", async (request, result) => {
   try {
     // Destructuring
@@ -143,6 +143,26 @@ app.put("/plans/updateplan", async (request, result) => {
 });
 
 
+// Delete the plan
+app.delete("/plans/:id", async (req, res) => {
+  try {
+    const { id } = req.params;
+    const thePlan = await pool.query(
+      `DELETE FROM plans 
+              WHERE plan_serial_id = $1
+              RETURNING *`,
+      [id]
+    );
+    res.json(thePlan.rows);
+  } catch (err) {
+        console.error(err.message);
+        res.status(500).json("Server error: " + err.message);
+  }
+});
+
+/**** USERS WHO ARE MENTORS ****/
+
+// Select all the mentors
 app.get("/mentors", async (req, res) => {
   try {
     const theMentors = await pool.query(
@@ -162,12 +182,18 @@ app.get("/mentors", async (req, res) => {
 app.get("/feedback_requests/:username", async (req, res) => {
   try {
     const { username } = req.params;
-
-
-    console.log(username, req.params)
     const feedback = await pool.query(
-      `SELECT * FROM feedback_requests 
-             WHERE feedback_req_mentor_username = $1
+      `SELECT feedback_req_id, feedback_req_plan_serial_id,
+              feedback_req_mentor_username,
+              feedback_req_student_username, 
+              feedback_req_timestamp,
+              user_fname, user_lname, preamble 
+                  FROM feedback_requests
+                  INNER JOIN users 
+                      ON feedback_req_student_username = users.username
+                  INNER JOIN plans
+                      ON feedback_req_plan_serial_id = plans.plan_serial_id
+             WHERE feedback_req_mentor_username = $1 
              ORDER BY feedback_req_timestamp DESC`,
       [username]
     );
@@ -179,28 +205,86 @@ app.get("/feedback_requests/:username", async (req, res) => {
 });
 
 
-// Write a feedback request
+// Write a 'Feedback Request' record
 app.post("/feedback_requests/write", async (request, result) => {
   try {
     // Destructuring
-    const { plan_serial_id, user_id, requester_username, mentor_username, timestamp } =
+    const { plan_serial_id, mentor_username, student_username, timestamp } =
       request.body;
 
     // Insert New Record
     const query = `INSERT INTO feedback_requests (feedback_req_plan_serial_id, 
-                                                  feedback_req_requester_username,
-                                                  feedback_req_mentor_username, 
+                                                  feedback_req_mentor_username,
+                                                  feedback_req_student_username, 
                                                   feedback_req_timestamp) 
                                 VALUES ($1, $2, $3, $4)
                                 RETURNING *`;
 
-    const newRequest = await pool.query(query, [
+    await pool.query(query, [
       plan_serial_id,
-      requester_username,
       mentor_username,
+      student_username,
       timestamp,
     ]); 
-    result.json(newRequest.rows);
+    result.status(200).send("Feedback Request record successfully written.");
+  } catch (error) {
+        console.error(error.message);
+        result.status(500).json("Server error: " + error.message);
+  }
+});
+
+// Delete the 'Feedback Request'
+app.delete("/feedback_requests/:id", async (req, res) => {
+  try {
+    const { id } = req.params;
+    await pool.query(
+      `DELETE FROM feedback_requests 
+              WHERE feedback_req_id = $1`,
+      [id]
+    );
+    result.status(200).send("Feedback Request record successfully deleted.");
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).json("Server error: " + err.message);
+  }
+});
+
+/**** FEEDBACKS  ****/
+
+
+// Write a 'Feedback' record
+app.post("/feedbacks/write", async (request, result) => {
+  console.log(request.body)
+  try {
+    // Destructuring
+    const {
+      mentor_username,
+      student_username,
+      timestamp,
+      feedbackText,
+      thePlanSerialId,
+      sent,
+    } = request.body;
+
+    // Insert New Record
+    const query = `INSERT INTO feedbacks (feedback_mentor_username,
+                                          feedback_student_username, 
+                                          feedback_timestamp,
+                                          feedback_text,
+                                          feedback_plan_serial_id,
+                                          feedback_sent) 
+                                VALUES ($1, $2, $3, $4, $5, $6)
+                                RETURNING *`;
+
+    await pool.query(query, [
+      mentor_username,
+      student_username,
+      timestamp,
+      feedbackText,
+      thePlanSerialId,
+      sent,
+    ]); 
+    result.status(200).send("Feedback record successfully written.");
   } catch (error) {
         console.error(error.message);
         result.status(500).json("Server error: " + error.message);

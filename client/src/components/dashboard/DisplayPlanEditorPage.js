@@ -26,10 +26,10 @@ const DisplayPlanEditorPage = ({
   setSelectedRecordInfo,
   setSaved,
   setChanged,
+  planCreatedTimeStamp,
   setPlanCreatedTimeStamp,
   allEmpty,
   discardPlan,
-  planCreatedTimeStamp,
   saveThenGotoPlans,
   newOrChanged,
   gotoSelectMentor,
@@ -93,10 +93,7 @@ const DisplayPlanEditorPage = ({
         />
       </section>
       <section className="buttons-container">
-        <button
-          className="button-78"
-          onClick={() => discardPlan(theCurrentTimeStamp)}
-        >
+        <button className="button-78" onClick={() => discardPlan()}>
           Discard
         </button>
         <button
@@ -123,7 +120,7 @@ const DisplayPlanEditorPage = ({
         <button
           className="button-78"
           onClick={saveThenGotoPlans}
-          // If all the fields are empty, disable the Save option
+          // If all the fields are empty, disable the 'Save & Close' option
           disabled={allEmpty()}
         >
           Save & Close

@@ -16,16 +16,6 @@ CREATE TABLE users(
     PRIMARY KEY (user_id)
 );
 
---feedbacks
-CREATE TABLE feedbacks (
-  feedback_id SERIAL,
-  user_id UUID,
-  feedback_text VARCHAR(1000) NOT NULL,
-  PRIMARY KEY (feedback_id),
-  FOREIGN KEY (user_id) REFERENCES users(user_id)
-);
-
-
 
 -- Users
 INSERT INTO users (user_fname, user_lname, username, user_email, user_password, user_role) 
@@ -165,14 +155,43 @@ INSERT INTO plans (username, created_timestamp,  amended_timestamp,
  
 -- Feedback Handling
 
-
 CREATE TABLE feedback_requests (
   feedback_req_id SERIAL,
-  feedback_req_requester_username VARCHAR(50) NOT NULL,
   feedback_req_mentor_username VARCHAR(50) NOT NULL,
+  feedback_req_student_username VARCHAR(50) NOT NULL,
   feedback_req_timestamp CHAR(16) NOT NULL,
   PRIMARY KEY (feedback_req_id),
-  feedback_req_plan_serial_id SERIAL REFERENCES plans(plan_serial_id)
+  feedback_req_plan_serial_id SERIAL 
+            REFERENCES plans(plan_serial_id)
+            ON DELETE CASCADE
+);
+
+/*
+-- Feedbacks
+CREATE TABLE feedbacks (
+  feedback_id SERIAL,
+  user_id UUID,
+  feedback_text VARCHAR(1000) NOT NULL,
+  PRIMARY KEY (feedback_id),
+  FOREIGN KEY (user_id) REFERENCES users(user_id)
+);
+*/
+
+-- Feedbacks
+
+CREATE TABLE feedbacks (
+  feedback_id SERIAL,
+  -- chose to use UserNames instead
+  -- user_id UUID,
+  feedback_mentor_username VARCHAR(50) NOT NULL,
+  feedback_student_username VARCHAR(50) NOT NULL,
+  feedback_timestamp CHAR(16) NOT NULL,
+  feedback_text VARCHAR(4500) NOT NULL,
+  feedback_sent BOOLEAN NOT NULL,
+  PRIMARY KEY (feedback_id),
+  feedback_plan_serial_id SERIAL 
+            REFERENCES plans(plan_serial_id)
+            ON DELETE CASCADE
 );
 
           

@@ -10,6 +10,7 @@ import {
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
+// Determine the current time
 export function determine_current_timestamp() {
   const currentTimeStamp = new Date(); // Current Date and Time
   const dayNumber = currentTimeStamp.getUTCDate(); // Day
@@ -96,6 +97,7 @@ const updatePlan = async (
 ) => {
   const PORT = localStorage.getItem("port");
 
+  // Determine the current time
   const [
     dayNumber,
     monthNumber,
@@ -138,7 +140,7 @@ const updatePlan = async (
     setSaved(true);
     setChanged(false);
   } catch (err) {
-        console.error(err.message);
+    console.error(err.message);
   }
 };
 
@@ -180,6 +182,7 @@ export function savePlan(
   return;
 }
 
+  // Determine the current time
   export const setupTimeValues = () => {
     let [
       dayNumber,

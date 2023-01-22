@@ -1,7 +1,7 @@
 import {
   PLAN_ENTRY_MAXLENGTH,
-  TEXTAREA_NUMROWS,
-  TEXTAREA_NUMCOLS,
+  PLAN_TEXTAREA_NUMROWS,
+  PLAN_TEXTAREA_NUMCOLS,
   PLAN_PLACEHOLDERS,
 } from  "../../../src/data/constants";
 import "../../../src/styles.css"
@@ -61,8 +61,8 @@ const PlanDefinition = ({
             <div className="textarea-label">
               <textarea
                 className="text-area"
-                rows={TEXTAREA_NUMROWS}
-                cols={TEXTAREA_NUMCOLS}
+                rows={PLAN_TEXTAREA_NUMROWS}
+                cols={PLAN_TEXTAREA_NUMCOLS}
                 placeholder={PLAN_PLACEHOLDERS[whichPlan]}
                 maxLength={PLAN_ENTRY_MAXLENGTH}
                 // EG "S-input"

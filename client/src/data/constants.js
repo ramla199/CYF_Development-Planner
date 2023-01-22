@@ -28,8 +28,11 @@ export const PLAN_PLACEHOLDERS = [
   "Is this relevant to your life now?",
   "When do you want to do it?",
 ];
-export const PLAN_ENTRY_MAXLENGTH = 1500;
 
-export const TEXTAREA_NUMROWS = 4;
-export const TEXTAREA_NUMCOLS = 90;
+export const PLAN_ENTRY_MAXLENGTH = 1500;
+export const PLAN_TEXTAREA_NUMROWS = 4;
+export const PLAN_TEXTAREA_NUMCOLS = 90;
 export const PREAMBLE_SIZE = 300;
+export const FEEDBACK_ENTRY_MAXLENGTH = 4500;
+export const FEEDBACK_TEXTAREA_NUMROWS = 35;
+export const FEEDBACK_TEXTAREA_NUMCOLS = 100;

@@ -21,7 +21,7 @@ import Plans from "./components/dashboard/Plans";
 import PlanEditor from "./components/dashboard/PlanEditor";
 import SelectMentor from "./components/dashboard/SelectMentor";
 import FeedbackRequests from "./components/dashboard/FeedbackRequests";
-import FeedbackRequests2 from "./components/dashboard/FeedbackRequests";
+import FeedbackEditor from "./components/dashboard/FeedbackEditor";
 
 // Toastify
 import { ToastContainer } from "react-toastify";
@@ -106,6 +106,7 @@ function App() {
         <Route path="plan-editor" element={<PlanEditor />} />
         <Route path="select-mentor" element={<SelectMentor />} />
         <Route path="feedback-requests" element={<FeedbackRequests />} />
+        <Route path="feedback-editor" element={<FeedbackEditor />} />
       </Routes>
       <ToastContainer
         position="top-center"

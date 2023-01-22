@@ -10,9 +10,9 @@ let mentorTable = [];
 
 function SelectMentor() {
   const [allMentors, setAllMentors] = useState(null);
-  const [selectedRow, setSelectedRow] = useState(-1);
   const [arrayUpdate, setArrayUpdate] = useState(false);
-
+  const [selectedRow, setSelectedRow] = useState(-1);
+ 
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -36,6 +36,7 @@ function SelectMentor() {
           fullname: normaliseNames(element.user_fname, element.user_lname),
         })
       );
+      // Indicate that the Mentor Table has been populated
       setArrayUpdate(true);
     }
   }, [allMentors, navigate]);
@@ -72,8 +73,8 @@ function SelectMentor() {
     try {
       const body = {
         plan_serial_id: location.state.planSerialId,
-        requester_username: location.state.username,
         mentor_username: mentor_username,
+        student_username: location.state.username,
         timestamp: created_timestamp,
       };
       const PORT = localStorage.getItem("port");
@@ -130,6 +131,7 @@ function SelectMentor() {
                   )}
                   onClick={(event) => {
                     event.stopPropagation();
+                    // Indicate that a selection has been made
                     setSelectedRow(mentor.rowId);
                     process_selection(mentorTable[mentor.rowId]);
                   }}
