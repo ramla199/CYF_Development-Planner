@@ -17,7 +17,7 @@ function FeedbackRequests() {
   const navigate = useNavigate();
 
   const handleCreateEditClick = (event, isNew, rowId, planId) => {
-    event.stopPropagation();
+    //event.stopPropagation();
     const feedbackInfo = fbRequestsTable.find(
       (element) => element.rowId === rowId
     );
