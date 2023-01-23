@@ -1,15 +1,17 @@
 import React from "react";
 import {
-  PLAN_ENTRY_MAXLENGTH,
   FEEDBACK_TEXTAREA_NUMROWS,
   FEEDBACK_TEXTAREA_NUMCOLS,
-  PLAN_PLACEHOLDERS,
+  FEEDBACK_ENTRY_MAXLENGTH,
 } from "../../data/constants";
 import "../../../src/styles.css";
 
 import RemainingCharactersText from "./RemainingCharactersText";
 
 import { saveFeedback } from "./feedbackFunctions";
+
+import { useNavigate } from "react-router-dom";
+
 
 
 const DisplayFeedbackEditorPage = ({
@@ -40,6 +42,7 @@ const DisplayFeedbackEditorPage = ({
 }) => {
   console.log(newFeedback)
   console.log(selectedInfo)
+  const navigate = useNavigate();
   return (
     <div className="feedbacks-page-style">
       <header className="display-flex">
@@ -67,8 +70,9 @@ const DisplayFeedbackEditorPage = ({
                   className="text-area"
                   rows={FEEDBACK_TEXTAREA_NUMROWS}
                   cols={FEEDBACK_TEXTAREA_NUMCOLS}
-                  maxLength={PLAN_ENTRY_MAXLENGTH}
-                  // EG "S-input"
+                  maxLength={FEEDBACK_ENTRY_MAXLENGTH}
+                  autoFocus
+                  placeholder="Please enter Feedback"
                   id="feedback"
                   name="feedback"
                   autoComplete="off"
@@ -85,7 +89,7 @@ const DisplayFeedbackEditorPage = ({
           </button>
           <button
             className="button-78"
-            onClick={() =>
+            onClick={() => {
               saveFeedback(
                 userName,
                 // theCurrentTimeStamp,
@@ -100,8 +104,10 @@ const DisplayFeedbackEditorPage = ({
                 // setFeedbackCreatedTimeStamp
                 backToPageToggle,
                 setBackToPageToggle
-              )
+              );
+              navigate("/dashboard"); }
             }
+                // DG navigate("/feedback-editor");
             // If the Text Area is empty, disable the Save option
             disabled={allEmpty()}
           >

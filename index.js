@@ -16,8 +16,8 @@ if (process.env.NODE_ENV === "production") {
 // I need the current value of the port number
 // So I retrieve it at the point that Login is successful
 // It will be stored in local-storage for the usage of Plans and Feedbacks
-app.get("/port-value", function (req, res) {
-  res.send(PORT);
+app.get("/port-value", function (request, result) {
+  result.send(PORT);
 });
 
 // app.get("/*", function (req, res, next) {
@@ -29,36 +29,36 @@ app.get("/port-value", function (req, res) {
 
 // Does the user have any plans?
 // Ordered from the newest to the oldest
-app.get("/plans/:username", async (req, res) => {
+app.get("/plans/:username", async (request, result) => {
   try {
-    const { username } = req.params;
+    const { username } = request.params;
     const thePlans = await pool.query(
       `SELECT * FROM plans 
               WHERE username = $1
               ORDER BY amended_timestamp DESC`,
       [username]
     );
-    res.json(thePlans.rows);
+    result.json(thePlans.rows);
   } catch (err) {
         console.error(err.message);
-        res.status(500).json("Server error: " + err.message);
+        result.status(500).json("Server error: " + err.message);
   }
 });
 
 
 // Fetch a plan using the plan's id
-app.get("/planbyid/:id", async (req, res) => {
+app.get("/planbyid/:id", async (request, result) => {
   try {
-    const { id } = req.params;
+    const { id } = request.params;
     const thePlan = await pool.query(
       `SELECT * FROM plans 
               WHERE plan_serial_id  = $1`,
       [id]
     );
-    res.json(thePlan.rows);
+    result.json(thePlan.rows);
   } catch (err) {
         console.error(err.message);
-        res.status(500).json("Server error: " + err.message);
+        result.status(500).json("Server error: " + err.message);
   }
 });
 
@@ -144,44 +144,44 @@ app.put("/plans/updateplan", async (request, result) => {
 
 
 // Delete the plan
-app.delete("/plans/:id", async (req, res) => {
+app.delete("/plans/:id", async (request, result) => {
   try {
-    const { id } = req.params;
+    const { id } = request.params;
     const thePlan = await pool.query(
       `DELETE FROM plans 
               WHERE plan_serial_id = $1
               RETURNING *`,
       [id]
     );
-    res.json(thePlan.rows);
+    result.json(thePlan.rows);
   } catch (err) {
         console.error(err.message);
-        res.status(500).json("Server error: " + err.message);
+        result.status(500).json("Server error: " + err.message);
   }
 });
 
-/**** USERS WHO ARE MENTORS ****/
+/**** MENTORS ****/
 
 // Select all the mentors
-app.get("/mentors", async (req, res) => {
+app.get("/mentors", async (request, result) => {
   try {
     const theMentors = await pool.query(
       `SELECT * FROM users 
               WHERE user_role = 'mentor'
               ORDER BY user_lname, user_fname`
     );
-    res.json(theMentors.rows);
+    result.json(theMentors.rows);
   } catch (err) {
           console.error(err.message);
-          res.status(500).json("Server error: " + err.message);
+          result.status(500).json("Server error: " + err.message);
   }
 });
 
 
 // Get all the feedback requests for the current mentor
-app.get("/feedback_requests/:username", async (req, res) => {
+app.get("/feedback_requests/:username", async (request, result) => {
   try {
-    const { username } = req.params;
+    const { username } = request.params;
     const feedback = await pool.query(
       `SELECT feedback_req_id, feedback_req_plan_serial_id,
               feedback_req_mentor_username,
@@ -197,10 +197,10 @@ app.get("/feedback_requests/:username", async (req, res) => {
              ORDER BY feedback_req_timestamp DESC`,
       [username]
     );
-    res.json(feedback.rows);
+    result.json(feedback.rows);
   } catch (err) {
     console.error(err.message);
-    res.status(500).json("Server error: " + err.message);
+    result.status(500).json("Server error: " + err.message);
   }
 });
 
@@ -234,9 +234,9 @@ app.post("/feedback_requests/write", async (request, result) => {
 });
 
 // Delete the 'Feedback Request'
-app.delete("/feedback_requests/:id", async (req, res) => {
+app.delete("/feedback_requests/:id", async (request, result) => {
   try {
-    const { id } = req.params;
+    const { id } = request.params;
     await pool.query(
       `DELETE FROM feedback_requests 
               WHERE feedback_req_id = $1`,
@@ -245,7 +245,7 @@ app.delete("/feedback_requests/:id", async (req, res) => {
     result.status(200).send("Feedback Request record successfully deleted.");
   } catch (err) {
     console.error(err.message);
-    res.status(500).json("Server error: " + err.message);
+    result.status(500).json("Server error: " + err.message);
   }
 });
 

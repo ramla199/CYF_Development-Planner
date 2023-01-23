@@ -64,7 +64,7 @@ const FeedbackEditor = () => {
     setFeedbackCharacterCount(updatedCount);
   }
 // DG
-  const gotoSelectFeedback = () => { // dg
+  const gotoSelectFeedback = () => { // DG
     let feedbackId = location.state.feedbackSelectedInfo.theFeedback.feedback_serial_id;
     // Go to the Select Mentor page
     navigate("/select-mentor", {
@@ -150,7 +150,7 @@ console.log("WELL?",locationState, newFeedback);
         location.state.selectedInfo,
         location.state.planFetched
       );
-       setSelectedInfo(newObject);     
+      setSelectedInfo(newObject);     
       setUserName(username);
       // Indicate whether creating a new Feedback or amending Feedback
       setNewFeedback(location.state.isNew);
@@ -166,6 +166,12 @@ console.log("WELL?",locationState, newFeedback);
     location.state,
     locationState,
   ]);
+/*
+  // DG
+  useEffect(() => {
+    setSelectedInfo({ ...selectedInfo });
+  }, [backToPageToggle, selectedInfo]);
+  */
 
 /*  
   useEffect(() => {
@@ -197,7 +203,7 @@ console.log(locationState)
 console.log(newFeedback)
   return (
     locationState &&
-    newFeedback && (
+    newFeedback !== null && (
       <DisplayFeedbackEditorPage
         userName={userName}
         //displayTimeStamp={displayTimeStamp}
