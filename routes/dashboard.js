@@ -1,5 +1,4 @@
 const router = require("express").Router();
-const authorize = require("../middleware/authorize");
 const pool = require("../db");
 
 router.get("/", async (req, res) => {
@@ -16,8 +15,11 @@ router.get("/", async (req, res) => {
   }
 });
 
+
 // router.use("/feedbacks", require("./feedbacks"));
 
 // router.use("/messages", require("./messages"));
+=======
+
 
 module.exports = router;

@@ -1,20 +1,42 @@
 const router = require("express").Router();
 const pool = require("../db");
 
-// mentor dashboard: get all feedbacks
+//all user's feedbacks
+
 router.get("/", async (req, res) => {
   try {
-    const { userId } = req.params;
-    const allUserFeedbacks = await pool.query(
-      "SELECT * FROM feedbacks WHERE user_id = $1",
-      [userId]
+    // const user = await pool.query(
+    //   "SELECT user_name FROM users WHERE user_id = $1",
+    //   [req.user.id]
+    // );
+
+    const user = await pool.query(
+      "SELECT users.username, feedbacks.feedback_id, feedbacks.feedback_text FROM users LEFT JOIN feedbacks ON users.user_id = feedbacks.user_id WHERE users.user_id = $1",
+      [req.user.id]
     );
-    res.json(allUserFeedbacks.rows);
+
+    res.json(user.rows);
   } catch (err) {
-      console.error(err.message);
-      res.status(500).json("server error");
+
+    console.error(err.message);
+    res.status(500).send("Server error");
   }
 });
+
+// get all feedbacks
+
+// router.get("/", async (req, res) => {
+//   try {
+//     const allUserFeedbacks = await pool.query(
+//       "SELECT * FROM feedbacks WHERE user_id = $1",
+//       [req.user.id]
+//     );
+//     res.json(allUserFeedbacks.rows);
+//   } catch (err) {
+//     console.error(err.message);
+//     res.status(500).json("server error");
+//   }
+// });
 
 // get one feedback
 
@@ -38,13 +60,16 @@ router.post("/", async (req, res) => {
     // console.log(req.body);
     const { feedbackText } = req.body;
     const newFeedback = await pool.query(
-      "INSERT INTO feedbacks (feedback_text) VALUES ($1) RETURNING *",
-      [feedbackText]
+      "INSERT INTO feedbacks (user_id, feedback_text) VALUES ($1, $2) RETURNING *",
+      [req.user.id, feedbackText]
     );
-    res.json(newFeedback.rows);
+
+    res.json(newFeedback.rows[0]);
   } catch (err) {
+
         console.error(err.message);
         res.status(500).json("server error");
+
   }
 });
 
@@ -52,12 +77,12 @@ router.post("/", async (req, res) => {
 router.put("/:id", async (req, res) => {
   try {
     const { feedbackId } = req.params;
-    const { feedback } = req.body;
+    const { feedbackText } = req.body;
     const updateFeedback = await pool.query(
-      "UPDATE feedbacks SET feedback_text = $1 WHERE feedback_id = $2",
-      [feedback, feedbackId]
+      "UPDATE feedbacks SET feedback_text = $1 WHERE feedback_id = $2 AND user_id = $3",
+      [feedbackText, feedbackId, req.user.id]
     );
-    res.json("updated");
+    res.json("feedback updated");
   } catch (err) {
         console.error(err.message);
         res.status(500).json("server error");
@@ -69,12 +94,12 @@ router.put("/:id", async (req, res) => {
 router.delete("/:id", async (req, res) => {
   try {
     const { feedbackId } = req.params;
-    const { feedback } = req.body;
+
     const deleteFeedback = await pool.query(
-      "DELETE FROM feedbacks WHERE feedback_id = $1",
-      [feedbackId]
+      "DELETE FROM feedbacks WHERE feedback_id = $1 AND user_id = $2 RETURNING *",
+      [feedbackId, req.user.id]
     );
-    res.json("deleted");
+    res.json("feedback deleted");
   } catch (err) {
         console.error(err.message);
   }

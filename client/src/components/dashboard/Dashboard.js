@@ -1,9 +1,17 @@
 import React, { useState, useEffect } from "react";
+
 import { useNavigate } from "react-router-dom";
 
 // import Files from "./Files";
 // import Inbox from "./Inbox";
 
+/*
+// components
+import Files from "./mentor/Files";
+import Inbox from "./mentor/Inbox";
+*/
+
+import NewMessage from "./mentor/NewMessage";
 
 
 function Dashboard({ setAuth }) {
@@ -19,6 +27,12 @@ function Dashboard({ setAuth }) {
       });
 
       const parseRes = await res.json();
+
+
+     // console.log(parseRes);
+
+      // setName(parseRes.username);
+
       setName(parseRes.username);
       // Also store the username in local-storage for the usage of Plans and Feedbacks
       localStorage.setItem("username", parseRes.username);
@@ -26,6 +40,10 @@ function Dashboard({ setAuth }) {
         console.error(err.message);
     }
   };
+
+  useEffect(() => {
+    getName();
+  }, []);
 
   const logout = async (e) => {
     e.preventDefault();
@@ -35,6 +53,7 @@ function Dashboard({ setAuth }) {
     localStorage.removeItem("role");
     setAuth(false);
   };
+
 
   useEffect(() => {
     getName();
@@ -56,8 +75,21 @@ function Dashboard({ setAuth }) {
         {/* <Files />
         <Inbox /> */}
       </section>
+/*
+  return (
+    <>
+      <main>
+        <button onClick={(e) => logout(e)}>logout</button>
+        <h1>{name}'s Dashboard</h1>
+        <div className="icon-container-wrapper">
+          <Files />
+          <Inbox />
+        </div>
+      </main>
+
     </>
   );
+  */
 }
 
 export default Dashboard;

@@ -1,6 +1,11 @@
-import "./App.css";
-import React, { useState, useEffect } from "react";
+import "./styles/general.css";
+import "./styles/navbar.css";
+import "./styles/buttons.css";
+import "./styles/form.css";
+import "./styles/typography.css";
+import "./styles/media.css";
 
+import React, { useState, useEffect } from "react";
 import { Routes, Route, Navigate, useLocation } from "react-router-dom";
 
 //components
@@ -11,17 +16,17 @@ import Dashboard from "./components/dashboard/Dashboard";
 import Navbar from "./components/navbar/Navbar";
 import Home from "./components/home/Home";
 import NoMatch from "./components/NoMatch";
-import Inbox from "./components/dashboard/Inbox";
-import Messages from "./components/dashboard/Messages";
-import Message from "./components/dashboard/Message";
-// import Files from "./components/dashboard/Files";
-// import NewFeedback from "./components/dashboard/NewFeedback";
-// import NewMessage from "./components/dashboard/NewMessage";
+
 import Plans from "./components/dashboard/Plans";
 import PlanEditor from "./components/dashboard/PlanEditor";
 import SelectMentor from "./components/dashboard/SelectMentor";
+
 import FeedbackRequests from "./components/dashboard/FeedbackRequests";
 import FeedbackRequests2 from "./components/dashboard/FeedbackRequests";
+/*
+import ListFeedbacks from "./components/dashboard/mentor/ListFeedbacks";
+import ListMessages from "./components/dashboard/mentor/ListMessages";
+*/
 
 // Toastify
 import { ToastContainer } from "react-toastify";
@@ -38,7 +43,7 @@ function App() {
     try {
       const res = await fetch("/authentication/verify", {
         method: "POST",
-        headers: { token: localStorage.token },
+        headers: { jwt_token: localStorage.token },
       });
 
       const parseRes = await res.json();
@@ -60,7 +65,16 @@ function App() {
       {/* Don't show Home Icon for Plan's menus */}
       {!location.pathname.startsWith("/plan") && <Navbar />}
       <Routes>
-        <Route path="/" element={<Home />} />
+        <Route
+          path="/"
+          element={
+            !isAuthenticated ? (
+              <Home setAuth={setAuth} />
+            ) : (
+              <Navigate to="/login" />
+            )
+          }
+        />
         <Route
           path="register"
           element={
@@ -93,20 +107,20 @@ function App() {
             )
           }
         />
-        <Route path="/" element={<Home />} />
-        <Route path="*" element={<NoMatch />} />
-        <Route path="dashboard" element={<Dashboard />} />
-        <Route path="inbox" element={<Inbox />} />
-        <Route path="messages" element={<Messages />} />
-        <Route path="messages/:messageid" element={<Message />} />
-        {/* <Route path="files" element={<Files />} /> */}
-        {/* <Route path="new-feedback" element={<NewFeedback />} />
-        <Route path="new-message" element={<NewMessage />} /> */}
+
+        <Route path="list-feedbacks" element={<ListFeedbacks />} />
+        <Route path="list-messages" element={<ListMessages />} />
         <Route path="plans" element={<Plans />} />
         <Route path="plan-editor" element={<PlanEditor />} />
         <Route path="select-mentor" element={<SelectMentor />} />
+
         <Route path="feedback-requests" element={<FeedbackRequests />} />
+
+/*
+        <Route path="*" element={<NoMatch />} />
+*/
       </Routes>
+
       <ToastContainer
         position="top-center"
         autoClose={5000}
