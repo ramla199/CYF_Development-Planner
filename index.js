@@ -9,28 +9,41 @@ const pool = require("./db.js");
 app.use(cors());
 app.use(express.json());
 
-console.log(process.env.NODE_ENV);
 if (process.env.NODE_ENV === "production") {
   app.use(express.static(path.join(__dirname, "client", "build")));
 }
 
-// Plans EndPoints - Later, will refactor through middleware - ./routes/dashboard
+
+// I need the current value of the port number
+// So I retrieve it at the point that Login is successful
+// It will be stored in local-storage for the usage of Plans and Feedbacks
+app.get("/port-value", function (req, res) {
+  res.send(PORT);
+});
+
+// app.get("/*", function (req, res, next) {
+//   res.sendFile(path.join(__dirname, "client", "build", "index.html"));
+//   next();
+// });
+
+// Plans EndPoints - Later, will refactor through musernamedleware - ./routes/dashboard
+
 
 // Does the user have any plans?
 // Ordered from the newest to the oldest
-app.get("/plans/:id", async (req, res) => {
+app.get("/plans/:username", async (req, res) => {
   try {
-    const { id } = req.params;
+    const { username } = req.params;
     const thePlans = await pool.query(
       `SELECT * FROM plans 
               WHERE username = $1
               ORDER BY amended_timestamp DESC`,
-      [id]
+      [username]
     );
     res.json(thePlans.rows);
   } catch (err) {
-    console.error(err.message);
-    res.status(500).json("Server error: " + err.message);
+        console.error(err.message);
+        res.status(500).json("Server error: " + err.message);
   }
 });
 
@@ -46,8 +59,8 @@ app.delete("/plans/:id", async (req, res) => {
     );
     res.json(thePlan.rows);
   } catch (err) {
-    console.error(err.message);
-    res.status(500).json("Server error: " + err.message);
+        console.error(err.message);
+        res.status(500).json("Server error: " + err.message);
   }
 });
 
@@ -86,8 +99,8 @@ app.post("/plans/writeplan", async (request, result) => {
     ]);
     result.json(newPlan.rows);
   } catch (error) {
-    console.error(error.message);
-    result.status(500).json("Server error: " + error.message);
+            console.error(error.message);
+            result.status(500).json("Server error: " + error.message);
   }
 });
 
@@ -135,8 +148,8 @@ app.put("/plans/updateplan", async (request, result) => {
     );
     result.status(200).send("Plan updated.");
   } catch (error) {
-    console.error(error.message);
-    result.status(500).json("Server error: " + error.message);
+          console.error(error.message);
+          result.status(500).json("Server error: " + error.message);
   }
 });
 
@@ -149,8 +162,59 @@ app.get("/mentors", async (req, res) => {
     );
     res.json(theMentors.rows);
   } catch (err) {
+          console.error(err.message);
+          res.status(500).json("Server error: " + err.message);
+  }
+});
+
+
+// Get all the feedback requests for the current mentor
+app.get("/feedback_requests/:username", async (req, res) => {
+  try {
+    const { username } = req.params;
+
+
+    console.log(username, req.params)
+    const feedback = await pool.query(
+      `SELECT * FROM feedback_requests 
+             WHERE feedback_req_mentor_username = $1
+             ORDER BY feedback_req_timestamp DESC`,
+      [username]
+    );
+    res.json(feedback.rows);
+  } catch (err) {
     console.error(err.message);
     res.status(500).json("Server error: " + err.message);
+  }
+});
+
+
+
+// Write a feedback request
+app.post("/feedback_requests/write", async (request, result) => {
+  try {
+    // Destructuring
+    const { plan_serial_id, user_id, requester_username, mentor_username, timestamp } =
+      request.body;
+
+    // Insert New Record
+    const query = `INSERT INTO feedback_requests (feedback_req_plan_serial_id, 
+                                                  feedback_req_requester_username,
+                                                  feedback_req_mentor_username, 
+                                                  feedback_req_timestamp) 
+                                VALUES ($1, $2, $3, $4)
+                                RETURNING *`;
+
+    const newRequest = await pool.query(query, [
+      plan_serial_id,
+      requester_username,
+      mentor_username,
+      timestamp,
+    ]); 
+    result.json(newRequest.rows);
+  } catch (error) {
+        console.error(error.message);
+        result.status(500).json("Server error: " + error.message);
   }
 });
 
@@ -159,6 +223,11 @@ app.get("/mentors", async (req, res) => {
 app.use("/authentication", require("./routes/jwtAuth"));
 
 app.use("/dashboard", authorize, require("./routes/dashboard"));
+
+
+// app.use("/feedbacks", require("./routes/feedbacks"));
+
+// app.use("/messages", require("./routes/messages"));
 
 app.get("/*", function (req, res) {
   res.sendFile(path.join(__dirname, "client", "build", "index.html"));

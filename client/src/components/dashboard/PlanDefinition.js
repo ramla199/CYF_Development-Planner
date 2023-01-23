@@ -27,7 +27,7 @@ const PlanDefinition = ({
     let s = String(diff);
     newRemainingText =
       " ".repeat(4 - s.length) + diff + " Remaining Characters";
-    return <p className="leading-whitespace">{newRemainingText}</p>;
+    return <pre>{newRemainingText}</pre>;
   }
 
   function handleChange(event, whichPlan) {
@@ -84,7 +84,7 @@ const PlanDefinition = ({
           text={showRemainingChars(whichPlan)}
         />
         <div>
-          <button className="button-76">Expand</button>
+          <button className="button-76 expand-button-styling">Expand</button>
         </div>
       </div>
     </section>

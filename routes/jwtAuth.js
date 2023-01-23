@@ -27,7 +27,6 @@ router.post("/register", validInfo, async (req, res) => {
       "INSERT INTO users (user_fname, user_lname, username, user_email, user_password, user_role) VALUES ($1, $2, $3, $4, $5, $6) RETURNING *",
       [fname, lname, username, email, bcryptPassword, role]
     );
-
     const jwtToken = jwtGenerator(newUser.rows[0].user_id);
 
     return res.json({ jwtToken });
@@ -44,7 +43,6 @@ router.post("/login", validInfo, async (req, res) => {
     const user = await pool.query("SELECT * FROM users WHERE user_email = $1", [
       email,
     ]);
-
     if (user.rows.length === 0) {
       return res.status(401).json("Invalid Credential");
     }
@@ -58,7 +56,14 @@ router.post("/login", validInfo, async (req, res) => {
       return res.status(401).json("Invalid Credential");
     }
     const jwtToken = jwtGenerator(user.rows[0].user_id);
+    /*
+       The 'role' is also needed for Feedback Functionality
+       So fetch it at this point
+       It will be stored in local-storage
+       
     return res.json({ jwtToken });
+    */
+    return res.json({ jwtToken, role: user.rows[0].user_role });
   } catch (err) {
     console.error(err.message);
     res.status(500).send("Server error");

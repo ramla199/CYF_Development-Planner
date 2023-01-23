@@ -17,6 +17,7 @@ router.get("/", async (req, res) => {
 
     res.json(user.rows);
   } catch (err) {
+
     console.error(err.message);
     res.status(500).send("Server error");
   }
@@ -48,7 +49,7 @@ router.get("/:id", async (req, res) => {
   res.json(selectedFeedback.rows);
   try {
   } catch (err) {
-    console.error(err.message);
+      console.error(err.message);
   }
 });
 
@@ -56,7 +57,7 @@ router.get("/:id", async (req, res) => {
 
 router.post("/", async (req, res) => {
   try {
-    console.log(req.body);
+    // console.log(req.body);
     const { feedbackText } = req.body;
     const newFeedback = await pool.query(
       "INSERT INTO feedbacks (user_id, feedback_text) VALUES ($1, $2) RETURNING *",
@@ -65,7 +66,10 @@ router.post("/", async (req, res) => {
 
     res.json(newFeedback.rows[0]);
   } catch (err) {
-    console.error(err.message);
+
+        console.error(err.message);
+        res.status(500).json("server error");
+
   }
 });
 
@@ -80,8 +84,8 @@ router.put("/:id", async (req, res) => {
     );
     res.json("feedback updated");
   } catch (err) {
-    console.error(err.message);
-    res.status(500).json("server error");
+        console.error(err.message);
+        res.status(500).json("server error");
   }
 });
 
@@ -97,7 +101,7 @@ router.delete("/:id", async (req, res) => {
     );
     res.json("feedback deleted");
   } catch (err) {
-    console.error(err.message);
+        console.error(err.message);
   }
 });
 

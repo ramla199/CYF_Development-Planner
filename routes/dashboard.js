@@ -15,7 +15,11 @@ router.get("/", async (req, res) => {
   }
 });
 
-router.use("/feedbacks", require("./feedbacks"));
-router.use("/messages", require("./messages"));
+
+// router.use("/feedbacks", require("./feedbacks"));
+
+// router.use("/messages", require("./messages"));
+=======
+
 
 module.exports = router;

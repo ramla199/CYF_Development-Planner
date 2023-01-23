@@ -1,20 +1,21 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
-import PlansNavbar from "../../../src/components/dashboard/PlansNavBar";
+//import FBRequestsNavbar from "../../../src/components/dashboard/FBRequestsNavBar";
 import DisplayListItem from "./DisplayListItem";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import "../../../src/styles.css";
 
+let fbRequestsTable = [];
 
-function Plans() {
-  const [allPlansFetched, setAllPlansFetched] = useState([]);
-  const [planSelectedInfo, setPlanSelectedInfo] = useState(null);
+function FeedbackRequests() {
+  const [allFBRequestsFetched, setAllFBRequestsFetched] = useState([]);
+  const [fbRequestsSelectedInfo, setPlanSelectedInfo] = useState(null);
   const navigate = useNavigate();
 
   const handleClick = (_, theIndex) => {
     // Need to subtract one because the 0th item represents the "Create Plan" message
-    // So the first plan is indexed with the value 1
+    // So the first fbRequests is indexed with the value 1
     // The second is indexed as 2, etc.
     // Therefore subtract 1 to determine the actual true index
     const actualIndex = theIndex - 1;
@@ -22,7 +23,7 @@ function Plans() {
     setPlanSelectedInfo({
       theIndex: theIndex,
       theUserName: name,
-      thePlan: allPlansFetched[actualIndex],
+      thePlan: allFBRequestsFetched[actualIndex],
     });
   };
 
@@ -35,70 +36,99 @@ function Plans() {
 
   async function deletePlan2(deleteIndex) {
     // Need to subtract one because the 0th item represents the "Create Plan" message
-    // So the first plan is indexed with the value 1
+    // So the first fbRequests is indexed with the value 1
     // The second is indexed as 2, etc.
     // Therefore subtract 1 to determine the actual true index
 
     const actualIndex = deleteIndex - 1;
-    const serialId = allPlansFetched[actualIndex].plan_serial_id;
+    const serialId = allFBRequestsFetched[actualIndex].fbRequests_serial_id;
     const PORT = localStorage.getItem("port");
     try {
-      await fetch(`http://localhost:${PORT}/plans/${serialId}`, {
+      await fetch(`http://localhost:${PORT}/FBReq/${serialId}`, {
         method: "DELETE",
         headers: { token: localStorage.token },
       });
-      setAllPlansFetched(
-        allPlansFetched.filter((_, index) => index !== actualIndex)
+      setAllFBRequestsFetched(
+        allFBRequestsFetched.filter((_, index) => index !== actualIndex)
       );
       toast.success("Plan has been deleted.", {});
     } catch (err) {
-          console.error(err.message);
+      console.error(err.message);
     }
   }
 
-/*  
-  useEffect(() => {
-    getName();
-  }, []);
-*/
+  const AllFBRequestsCallback = useCallback(() => {
+    if (allFBRequestsFetched) {
+      if (allFBRequestsFetched.length === 0) {
+        toast("You have no Feedback Requests !", {
+          position: toast.POSITION.TOP_CENTER,
+          className: "toast-error-message",
+        });
+        // Go to the Dashboard
+        navigate("/dashboard", {
+          replace: true,
+        });
+      }
 
-  // Fetch all the user's plans
+      // Otherwise setup the Mentor Table for Display
+      fbRequestsTable = fbRequestsTable.map(
+        (element, index) => element
+        // Object.assign(element, {
+        //   rowId: index,
+        //   fullname: normaliseNames(element.user_fname, element.user_lname),
+        //        })
+      );
+      //setArrayUpdate(true);
+    }
+  }, [allFBRequestsFetched, navigate]);
+
+  // Fetch all the user's Feedback Requests
   useEffect(() => {
-    const getPlans = async () => {
+    const getFBRequests = async () => {
       const PORT = localStorage.getItem("port");
       const name = localStorage.getItem("username");
 
       try {
-        const response = await fetch(`http://localhost:${PORT}/plans/` + name);
+        const response = await fetch(
+          `http://localhost:${PORT}/feedback_requests/` + name
+        );
         const jsonData = await response.json();
-        setAllPlansFetched(jsonData);
+        setAllFBRequestsFetched(jsonData);
       } catch (err) {
             console.error(err.message);
       }
     };
 
-    getPlans();
+    getFBRequests();
   }, []);
 
+
   useEffect(() => {
-    if (planSelectedInfo) {
-      navigate("/plan-editor", {
-        state: { planSelectedInfo: planSelectedInfo },
+    AllFBRequestsCallback();
+  }, [AllFBRequestsCallback]);
+
+
+  return (null);
+
+  useEffect(() => {
+    if (fbRequestsSelectedInfo) {
+      navigate("/fbRequests-editor", {
+        state: { fbRequestsSelectedInfo: fbRequestsSelectedInfo },
         replace: true,
       });
     }
-  }, [planSelectedInfo, navigate]);
+  }, [fbRequestsSelectedInfo, navigate]);
 
   const keysArray = [];
   const preambleTextArray = [];
-  allPlansFetched.forEach((element, index) => {
+  allFBRequestsFetched.forEach((element, index) => {
     keysArray.push(element.amended_timestamp.replace(/:/g, "")); // YYYYMMDDHHMMSS
     preambleTextArray.push(element.preamble);
   });
 
   // Create a 'dummy' record for the NEW RECORD OPTION
   keysArray.unshift(0);
-  preambleTextArray.unshift("Click to create a new plan.");
+  preambleTextArray.unshift("Click to create a new fbRequests.");
 
   const orderedList = (
     <ol className="main-menu-items">
@@ -122,13 +152,13 @@ function Plans() {
 
   return (
     <>
-      <PlansNavbar />
+      {/* <FBRequestsNavbar /> */}
       <div className="username-header">{name}</div>
       <div className="main-menu-container">
-      <div className="main-menu">{orderedList}</div>
+        <div className="main-menu">{orderedList}</div>
       </div>
     </>
   );
 }
 
-export default Plans;
+export default FeedbackRequests;
