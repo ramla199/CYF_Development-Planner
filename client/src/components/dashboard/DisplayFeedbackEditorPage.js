@@ -17,9 +17,10 @@ import { useNavigate } from "react-router-dom";
 const DisplayFeedbackEditorPage = ({
   userName,
   //displayTimeStamp,
-//  theCurrentTimeStamp,
+  //  theCurrentTimeStamp,
   //splan,mplan,aplan,rplan,tplan,
   selectedInfo,
+  planFetched,
   feedbackText,
   setFeedbackText,
   feedbackCharacterCount,
@@ -31,17 +32,16 @@ const DisplayFeedbackEditorPage = ({
   setChanged,
   // feedbackCreatedTimeStamp,
   // setFeedbackCreatedTimeStamp,
-  backToPageToggle,
-  setBackToPageToggle,
   allEmpty,
   discardFeedback,
   saveThenGotoFeedback,
   newOrChanged,
-  gotoSelectFeedback,
-  handleChange
+  indicateSentThenGotoFeedback,
+  handleChange,
 }) => {
-  console.log(newFeedback)
-  console.log(selectedInfo)
+  console.log(newFeedback);
+  console.log(selectedInfo);
+  console.log(feedbackText, selectedInfo.feedbackText);
   const navigate = useNavigate();
   return (
     <div className="feedbacks-page-style">
@@ -77,7 +77,12 @@ const DisplayFeedbackEditorPage = ({
                   name="feedback"
                   autoComplete="off"
                   value={feedbackText}
-                  onChange={(event) => handleChange(event)}
+                  // onChange={(event) => handleChange(event)}
+                  // DG
+                  onChange={(event) => {
+                    console.log(event.target.value);
+                    handleChange(event);
+                  }}
                 ></textarea>
               </div>
             </form>
@@ -91,23 +96,28 @@ const DisplayFeedbackEditorPage = ({
             className="button-78"
             onClick={() => {
               saveFeedback(
-                userName,
+                "no",
+                // userName,
                 // theCurrentTimeStamp,
                 // feedbackCreatedTimeStamp,
                 feedbackText,
                 selectedInfo,
-                newFeedback,
-                setNewFeedback,
-                setSaved,
-                setChanged,
+                newFeedback
+                // setNewFeedback,
+                // setSaved,
+                // setChanged
                 // setSelectedRecordInfo,
                 // setFeedbackCreatedTimeStamp
-                backToPageToggle,
-                setBackToPageToggle
               );
-              navigate("/dashboard"); }
-            }
-                // DG navigate("/feedback-editor");
+              //navigate("/dashboard");
+              // Return to the Feedback Editor page
+              const isNew = false;
+              navigate("/feedback-editor", {
+                state: { selectedInfo, planFetched, isNew, feedbackText },
+                replace: true,
+              });
+            }}
+            // DG navigate("/feedback-editor");
             // If the Text Area is empty, disable the Save option
             disabled={allEmpty()}
           >
@@ -123,11 +133,11 @@ const DisplayFeedbackEditorPage = ({
           </button>
           <button
             className="button-78"
-            onClick={gotoSelectFeedback}
+            onClick={indicateSentThenGotoFeedback}
             // If it is an unsaved new feedback entry or changes have been made, disable this button
             disabled={newOrChanged()}
           >
-            Request Feedback
+            Send Feedback
           </button>
         </section>
       </section>

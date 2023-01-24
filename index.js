@@ -46,7 +46,7 @@ app.get("/plans/:username", async (request, result) => {
 });
 
 
-// Fetch a plan using the plan's id
+// Fetch a 'Plan' record using the Plan Id
 app.get("/planbyid/:id", async (request, result) => {
   try {
     const { id } = request.params;
@@ -252,6 +252,50 @@ app.delete("/feedback_requests/:id", async (request, result) => {
 /**** FEEDBACKS  ****/
 
 
+// Fetch a 'Feedback' record using the Feedback Id
+app.get("/feedbacks/:id", async (request, result) => {
+  try {
+    const { id } = request.params;
+    const theFeedback = await pool.query(
+      `SELECT * FROM feedbacks
+              WHERE feedback_id = $1`,
+      [id]
+    );
+    result.json(theFeedback.rows);
+  } catch (err) {
+        console.error(err.message);
+        result.status(500).json("Server error: " + err.message);
+  }
+});
+
+
+// Get all the feedbacks that have been created by the current mentor but not yet sent
+app.get("/feedbacks/notsent/:username", async (request, result) => {
+  try {
+    const { username } = request.params;
+    const feedback = await pool.query(
+      `SELECT feedback_id, feedback_plan_serial_id,
+              feedback_mentor_username,
+              feedback_student_username, 
+              feedback_request_timestamp,
+              user_fname, user_lname, preamble 
+                  FROM feedbacks
+                  INNER JOIN users 
+                      ON feedback_student_username = users.username
+                  INNER JOIN plans
+                      ON feedback_plan_serial_id = plans.plan_serial_id
+             WHERE feedback_mentor_username = $1 
+               AND feedback_sent = 'no'
+             ORDER BY feedback_request_timestamp DESC`,
+      [username]
+    );
+    result.json(feedback.rows);
+  } catch (err) {
+    console.error(err.message);
+    result.status(500).json("Server error: " + err.message);
+  }
+});
+
 // Write a 'Feedback' record
 app.post("/feedbacks/write", async (request, result) => {
   console.log(request.body)
@@ -260,7 +304,8 @@ app.post("/feedbacks/write", async (request, result) => {
     const {
       mentor_username,
       student_username,
-      timestamp,
+      request_timestamp,
+      sent_timestamp,
       feedbackText,
       thePlanSerialId,
       sent,
@@ -268,18 +313,20 @@ app.post("/feedbacks/write", async (request, result) => {
 
     // Insert New Record
     const query = `INSERT INTO feedbacks (feedback_mentor_username,
-                                          feedback_student_username, 
-                                          feedback_timestamp,
+                                          feedback_student_username,
+                                          feedback_request_timestamp, 
+                                          feedback_sent_timestamp,
                                           feedback_text,
                                           feedback_plan_serial_id,
                                           feedback_sent) 
-                                VALUES ($1, $2, $3, $4, $5, $6)
+                                VALUES ($1, $2, $3, $4, $5, $6, $7)
                                 RETURNING *`;
 
     await pool.query(query, [
       mentor_username,
       student_username,
-      timestamp,
+      request_timestamp,
+      sent_timestamp,
       feedbackText,
       thePlanSerialId,
       sent,
@@ -291,6 +338,45 @@ app.post("/feedbacks/write", async (request, result) => {
   }
 });
 
+
+// Update a 'Feedback' record
+app.put("/feedbacks/updatefeedback", async (request, result) => {
+  try {
+    // Destructuring
+    const {
+      feedback_id,
+      sentTimestamp,
+      feedbackText,
+      isSent,
+    } = request.body;
+
+    // Update Record
+    const query = `UPDATE feedbacks
+                          SET feedback_text = $1,
+                              feedback_sent_timestamp = $2,
+                              feedback_sent = $3
+                          WHERE feedback_id = $4`; 
+
+    pool.query(
+      query,
+      [
+        feedbackText,
+        sentTimestamp,
+        isSent,
+        feedback_id,
+      ],
+      (error) => {
+        if (error) {
+          throw error;
+        }
+      }
+    );
+    result.status(200).send("Feedback updated.");
+  } catch (error) {
+          console.error(error.message);
+          result.status(500).json("Server error: " + error.message);
+  }
+});
 
 //routes
 

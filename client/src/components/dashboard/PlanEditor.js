@@ -46,7 +46,9 @@ const PlanEditor = () => {
   };
 
   const gotoSelectMentor = () => {
-    let planId = location.state.planSelectedInfo.thePlan.plan_serial_id;
+    console.log(location.state)
+    console.log(selectedRecordInfo);
+    let planId = selectedRecordInfo.thePlan.plan_serial_id;
     // Go to the Select Mentor page
     navigate("/select-mentor", {
       state: {
@@ -106,6 +108,8 @@ const PlanEditor = () => {
       let { theIndex, thePlan, theUserName } = location.state.planSelectedInfo;
       setSelectedRecordInfo({ theIndex: theIndex, thePlan: thePlan });
       setUserName(theUserName);
+      console.log(location.state)
+      console.log(location.state.planSelectedInfo)
       if (theIndex === 0) {
         // This indicates that the user is creating a new plan
         setNewPlan(true);
@@ -138,6 +142,7 @@ const PlanEditor = () => {
     // Otherwise for a new plan the above fields will be empty and 0
   }, [selectedRecordInfo, newPlan]);
 
+  console.log(">>>", selectedRecordInfo);
   return (
     <DisplayPlanEditorPage
       userName={userName}

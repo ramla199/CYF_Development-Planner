@@ -185,7 +185,7 @@ CREATE TABLE feedbacks (
   -- user_id UUID,
   feedback_mentor_username VARCHAR(50) NOT NULL,
   feedback_student_username VARCHAR(50) NOT NULL,
-  feedback_req_timestamp CHAR(16) NOT NULL,
+  feedback_request_timestamp CHAR(16) NOT NULL,
   feedback_sent_timestamp CHAR(16) NOT NULL,
   feedback_text VARCHAR(4500) NOT NULL,
   feedback_sent BOOLEAN NOT NULL,

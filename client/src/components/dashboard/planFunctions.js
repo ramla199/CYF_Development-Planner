@@ -83,6 +83,7 @@ const writePlan = async (
 
     setSelectedRecordInfo({ thePlan: jsonData[0] });
     setPlanCreatedTimeStamp(jsonData[0].created_timestamp);
+    console.log(jsonData)
   } catch (err) {
         console.error(err.message);
   }
