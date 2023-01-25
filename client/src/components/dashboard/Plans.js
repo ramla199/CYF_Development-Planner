@@ -6,11 +6,30 @@ import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import "../../../src/styles.css";
 
+const PORT = process.env.PORT || 5000;
 
 function Plans() {
   const [allPlansFetched, setAllPlansFetched] = useState([]);
   const [planSelectedInfo, setPlanSelectedInfo] = useState(null);
   const navigate = useNavigate();
+
+  const [name, setName] = useState(null);
+
+  const getName = async () => {
+    try {
+      const res = await fetch("/dashboard/", {
+        method: "GET",
+        headers: { jwt_token: localStorage.token },
+      });
+
+      const parseRes = await res.json();
+
+      console.log(parseRes);
+      setName(parseRes.username);
+    } catch (err) {
+      console.error(err.message);
+    }
+  };
 
   const handleClick = (_, theIndex) => {
     // Need to subtract one because the 0th item represents the "Create Plan" message
@@ -18,7 +37,6 @@ function Plans() {
     // The second is indexed as 2, etc.
     // Therefore subtract 1 to determine the actual true index
     const actualIndex = theIndex - 1;
-    const name = localStorage.getItem("username");
     setPlanSelectedInfo({
       theIndex: theIndex,
       theUserName: name,
@@ -41,7 +59,6 @@ function Plans() {
 
     const actualIndex = deleteIndex - 1;
     const serialId = allPlansFetched[actualIndex].plan_serial_id;
-    const PORT = localStorage.getItem("port");
     try {
       await fetch(`http://localhost:${PORT}/plans/${serialId}`, {
         method: "DELETE",
@@ -52,39 +69,36 @@ function Plans() {
       );
       toast.success("Plan has been deleted.", {});
     } catch (err) {
-          console.error(err.message);
+      console.error(err.message);
     }
   }
 
-/*  
   useEffect(() => {
     getName();
   }, []);
-*/
-
+  
   // Fetch all the user's plans
   useEffect(() => {
     const getPlans = async () => {
-      const PORT = localStorage.getItem("port");
-      const name = localStorage.getItem("username");
-
       try {
-        const response = await fetch(`http://localhost:${PORT}/plans/` + name);
+        const response = await fetch(
+          "http://localhost/plans/" + name
+        );
         const jsonData = await response.json();
         setAllPlansFetched(jsonData);
       } catch (err) {
-            console.error(err.message);
+        console.error(err.message);
       }
     };
 
     getPlans();
-  }, []);
+  }, [name]);
 
   useEffect(() => {
     if (planSelectedInfo) {
       navigate("/plan-editor", {
         state: { planSelectedInfo: planSelectedInfo },
-        replace: true,
+        replace: false,
       });
     }
   }, [planSelectedInfo, navigate]);
@@ -118,14 +132,12 @@ function Plans() {
     </ol>
   );
 
-  const name = localStorage.getItem("username");
-
   return (
     <>
       <PlansNavbar />
       <div className="username-header">{name}</div>
       <div className="main-menu-container">
-      <div className="main-menu">{orderedList}</div>
+        <div className="main-menu">{orderedList}</div>
       </div>
     </>
   );

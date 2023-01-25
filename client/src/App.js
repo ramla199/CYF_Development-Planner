@@ -20,13 +20,8 @@ import NoMatch from "./components/NoMatch";
 import Plans from "./components/dashboard/Plans";
 import PlanEditor from "./components/dashboard/PlanEditor";
 import SelectMentor from "./components/dashboard/SelectMentor";
-
-import FeedbackRequests from "./components/dashboard/FeedbackRequests";
-import FeedbackRequests2 from "./components/dashboard/FeedbackRequests";
-/*
 import ListFeedbacks from "./components/dashboard/mentor/ListFeedbacks";
 import ListMessages from "./components/dashboard/mentor/ListMessages";
-*/
 
 // Toastify
 import { ToastContainer } from "react-toastify";
@@ -114,11 +109,7 @@ function App() {
         <Route path="plan-editor" element={<PlanEditor />} />
         <Route path="select-mentor" element={<SelectMentor />} />
 
-        <Route path="feedback-requests" element={<FeedbackRequests />} />
-
-/*
         <Route path="*" element={<NoMatch />} />
-*/
       </Routes>
 
       <ToastContainer

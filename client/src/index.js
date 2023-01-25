@@ -5,20 +5,10 @@ import "./index.css";
 import App from "./App";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
-/* Removed StrictMode in order to STOP Rendering Twice!
 root.render(
   <React.StrictMode>
     <BrowserRouter>
       <App />
     </BrowserRouter>
   </React.StrictMode>
-);
-*/
-
-root.render(
-  <>
-    <BrowserRouter>
-      <App />
-    </BrowserRouter>
-  </>
 );
