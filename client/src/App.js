@@ -22,6 +22,8 @@ import PlanEditor from "./components/dashboard/PlanEditor";
 import SelectMentor from "./components/dashboard/SelectMentor";
 import FeedbackRequests from "./components/dashboard/FeedbackRequests";
 import FeedbackEditor from "./components/dashboard/FeedbackEditor";
+import FeedbackReceived from "./components/dashboard/FeedbackReceived"
+import FeedbackView from "./components/dashboard/FeedbackView";
 
 // Toastify
 import { ToastContainer } from "react-toastify";
@@ -57,8 +59,7 @@ function App() {
 
   return (
     <>
-      {/* Don't show Home Icon for Plan's menus */}
-      {!location.pathname.startsWith("/plan") && <Navbar />}
+      <Navbar />
       <Routes>
         <Route path="/" element={<Home />} />
         <Route
@@ -107,6 +108,8 @@ function App() {
         <Route path="select-mentor" element={<SelectMentor />} />
         <Route path="feedback-requests" element={<FeedbackRequests />} />
         <Route path="feedback-editor" element={<FeedbackEditor />} />
+        <Route path="feedback-received" element={<FeedbackReceived />} />
+        <Route path="feedback-view" element={<FeedbackView />} />
       </Routes>
       <ToastContainer
         position="top-center"

@@ -11,7 +11,7 @@ let fbRequestsTable = [];
 function FeedbackRequests() {
   const [allFBRequestsFetched, setAllFBRequestsFetched] = useState(null);
   const [allFeedbacksFetched, setAllFeedbacksFetched] = useState(null);
-  const [arrayUpdate, setArrayUpdate] = useState(false);
+  const [arrayUpdated, setArrayUpdated] = useState(null);
   const [fbRequestsSelectedInfo, setFBRequestsSelectedInfo] = useState(null);
   const [planFetched, setPlanFetched] = useState(null);
   const [feedbackFetched, setFeedbackFetched] = useState(null);
@@ -19,7 +19,7 @@ function FeedbackRequests() {
   const navigate = useNavigate();
 
   const handleCreateEditClick = (event, isNew, rowId, planId) => {
-    //event.stopPropagation();
+    event.stopPropagation();
     const feedbackInfo = fbRequestsTable.find(
       (element) => element.rowId === rowId
     );
@@ -27,9 +27,9 @@ function FeedbackRequests() {
     getAPlanById(planId);
     // Indicate that a selection has been made
     setFBRequestsSelectedInfo({ isNew, planId, feedbackInfo });
-    console.log(isNew,feedbackInfo)
+    console.log(isNew, feedbackInfo);
 
-    // If 'Edit' then fetch the Feedback record 
+    // If 'Edit' then fetch the Feedback record
     // isNew === false indicates Editing
     if (!isNew) {
       // Fetch the Feedback details that are related to this selection
@@ -37,42 +37,70 @@ function FeedbackRequests() {
     }
   };
 
-  function deleteFeedback(index) {
-    let answer = window.confirm("Are You Sure?");
-    if (answer) {
-      deleteFeedback2(index);
-    }
-  }
-
   const createFeedback = (event, rowId, planId) =>
     handleCreateEditClick(event, true, rowId, planId);
 
   const editFeedback = (event, rowId, planId) =>
     handleCreateEditClick(event, false, rowId, planId);
 
-  async function deleteFeedback2(deleteIndex) {
-    // Need to subtract one because the 0th item represents the "Create Feedback Request" message
-    // So the first fbRequests is indexed with the value 1
-    // The second is indexed as 2, etc.
-    // Therefore subtract 1 to determine the actual true index
-
-    const actualIndex = deleteIndex - 1;
-    const serialId = allFBRequestsFetched[actualIndex].fbRequests_serial_id;
-    const PORT = localStorage.getItem("port");
-    try {
-      await fetch(`http://localhost:${PORT}/feedback_requests/${serialId}`, {
-        method: "DELETE",
-        headers: { token: localStorage.token },
-      });
-      setAllFBRequestsFetched(
-        allFBRequestsFetched.filter((_, index) => index !== actualIndex)
-      );
-      toast.success("Feedback Request has been deleted.");
-    } catch (err) {
-      console.error(err.message);
+  function deleteFeedback(event, rowId) {
+    event.stopPropagation();
+    let answer = window.confirm("Are You Sure?");
+    if (answer) {
+      deleteFeedback2(rowId);
     }
   }
 
+  /*
+    Which type of record is being deleted?
+    rowId beginning with "F" denotes a Feedback record
+    rowId beginning with "R" denotes a Feedback Request record
+    So determine which Delete to use accordingly
+  */
+
+  async function deleteFeedback2(rowId) {
+    const idNumber = rowId.slice(1);
+    const whichTable = rowId.startsWith("F")
+      ? "feedbacks"
+      : "feedback_requests";
+    const message =
+      "Feedback" +
+      (rowId.startsWith("R") ? " Request" : "") +
+      " has been deleted.";
+    const PORT = localStorage.getItem("port");
+    try {
+      await fetch(`http://localhost:${PORT}/${whichTable}/${idNumber}`, {
+        method: "DELETE",
+        headers: { token: localStorage.token },
+      });
+
+      console.log(fbRequestsTable, rowId, idNumber, whichTable);
+      fbRequestsTable = fbRequestsTable.filter(
+        (element) => element.rowId !== rowId
+      );
+      console.log(fbRequestsTable);
+
+      toast.success(message);
+    } catch (err) {
+      console.error(err.message);
+    }
+ 
+    if (fbRequestsTable.length === 0) {
+        toast("You have no more Feedback Requests !", {
+          position: toast.POSITION.TOP_CENTER,
+          className: "toast-error-message",
+        });
+        // Go to the Dashboard
+        navigate("/dashboard", {
+          replace: true,
+        });
+    }
+    
+    // Otherwise Indicate that the array has been changed
+    setArrayUpdated(fbRequestsTable);
+  }
+
+  // Add to the table in Sorted Descending Order
   function addAndSort(array, value) {
     array.push(value);
     let i = array.length - 1;
@@ -86,6 +114,8 @@ function FeedbackRequests() {
   }
 
   const AllFBRequestsCallback = useCallback(() => {
+    console.log(allFBRequestsFetched);
+    console.log(allFeedbacksFetched);
     if (allFBRequestsFetched && allFeedbacksFetched) {
       // console.log(
       //   allFBRequestsFetched.length,
@@ -150,11 +180,12 @@ function FeedbackRequests() {
           user_lname: element.user_lname,
           preamble: element.preamble,
         };
+        // Add to the table in Sorted Descending Order
         fbRequestsTable = addAndSort(fbRequestsTable, entry);
       });
-
+console.log(fbRequestsTable)
       // Indicate that the Feedback Requests Table has been populated
-      setArrayUpdate(true);
+      setArrayUpdated(fbRequestsTable);
       console.log(fbRequestsTable);
     }
   }, [allFBRequestsFetched, allFeedbacksFetched, navigate]);
@@ -197,7 +228,7 @@ function FeedbackRequests() {
         );
       }
       const jsonData = await response.json();
-      console.log(jsonData)
+      console.log(jsonData);
       setFeedbackFetched(jsonData[0]);
     } catch (err) {
       console.error(err.message);
@@ -257,52 +288,52 @@ function FeedbackRequests() {
 */
   useEffect(() => {
     if (fbRequestsSelectedInfo && planFetched) {
-        const isNew = fbRequestsSelectedInfo.isNew;
-        if (isNew) {
+      const isNew = fbRequestsSelectedInfo.isNew;
+      if (isNew) {
         // Creating a New Feedback Option
-              const selectedInfo = fbRequestsSelectedInfo.feedbackInfo;
-              const feedbackText = ""; // Empty text seeing that it is a new Feedback entry
-              navigate("/feedback-editor", {
-                  state: { selectedInfo, planFetched, feedbackText, isNew },
-                           replace: true,
-              });
+        const selectedInfo = fbRequestsSelectedInfo.feedbackInfo;
+        const feedbackText = ""; // Empty text seeing that it is a new Feedback entry
+        navigate("/feedback-editor", {
+          state: { selectedInfo, planFetched, feedbackText, isNew },
+          replace: true,
+        });
         // isNew is false therefore test 'feedbackFetched'
-        } else if (feedbackFetched) { 
+      } else if (feedbackFetched) {
         // Editing an Existent Feedback Option
-              const selectedInfo = fbRequestsSelectedInfo.feedbackInfo;
-              const feedbackText = feedbackFetched.feedback_text;
-              navigate("/feedback-editor", {
-                  state: { selectedInfo, planFetched, feedbackText, isNew },
-                           replace: true,
-              });
-        }
+        const selectedInfo = fbRequestsSelectedInfo.feedbackInfo;
+        const feedbackText = feedbackFetched.feedback_text;
+        navigate("/feedback-editor", {
+          state: { selectedInfo, planFetched, feedbackText, isNew },
+          replace: true,
+        });
+      }
     }
   }, [fbRequestsSelectedInfo, navigate, planFetched, feedbackFetched]);
 
   return (
-    arrayUpdate && (
+    arrayUpdated && (
       <>
-        <table>
+        <table className="feedback-display-table">
           <thead>
             <tr>
-              <th>
+              <th className="column1-display" width="10%">
                 Feedback
                 <br />
                 Request Date
               </th>
-              <th>
+              <th width="15%">
                 Requested
                 <br />
                 By
               </th>
-              <th>
+              <th width="60%">
                 Plan
                 <br />
                 Summary
               </th>
-              <th>Action 1</th>
-              <th>Action 2</th>
-              <th>Action 3</th>
+              <th width="5%"></th>
+              <th width="5%">Actions</th>
+              <th width="5%"></th>
             </tr>
           </thead>
           <tbody>

@@ -9,7 +9,7 @@ function Login({ setAuth }) {
 
   const { email, password } = inputs;
   
-  const onChange = (e) => {
+  const handleChange = (e) => {
     /*
     A strange bug is occurring whilst logging in
     The last character is being capitalised
@@ -84,14 +84,14 @@ function Login({ setAuth }) {
             type="email"
             name="email"
             value={email.toLowerCase()}
-            onChange={(e) => onChange(e)}
+            onChange={(e) => handleChange(e)}
           />
           <label>Password</label>
           <input
             type="password"
             name="password"
             value={password}
-            onChange={(e) => onChange(e)}
+            onChange={(e) => handleChange(e)}
           />
           <div className="login-signin-buttons">
             <button>login</button>

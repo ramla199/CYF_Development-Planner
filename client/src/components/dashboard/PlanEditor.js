@@ -59,7 +59,7 @@ const PlanEditor = () => {
     });
   };
 
-  const allEmpty = () => planCharacterCount.every((element) => element === 0);
+  const allEmpty = () => planTextArray.every((element) => element.trim() === "");
 
   const newOrChanged = () => newPlan || changed;
 
@@ -142,7 +142,7 @@ const PlanEditor = () => {
     // Otherwise for a new plan the above fields will be empty and 0
   }, [selectedRecordInfo, newPlan]);
 
-  console.log(">>>", selectedRecordInfo);
+  //console.log(">>>", selectedRecordInfo);
   return (
     <DisplayPlanEditorPage
       userName={userName}

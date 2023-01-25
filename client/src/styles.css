@@ -6,6 +6,7 @@
     /* Red */
     --expand-button-colour: rgb(255, 116, 38);
     --colour-darkblue: #00008b;
+    --attribute-colour: #b55151;
 }
 
 /* Make the placeholder italics */
@@ -176,7 +177,7 @@ button.delete-button {
     border: 3px solid rgb(255, 47, 127);
 }
 
-.plans-page-style {
+.plans-page-style, .feedbacks-page-style {
     font-family: 'futura';
     font-size: 1.3rem;
     padding: 0 2em 2em 2em;
@@ -189,7 +190,8 @@ button.delete-button {
 }
 
 .title-header,
-.title-username-header {
+.title-username-header,
+.title-viewfeedback-header {
     background-color: #282c34;
     text-align: center;
     text-transform: capitalize;
@@ -202,6 +204,10 @@ button.delete-button {
     text-transform: none;
     content: "'s Smart Plan";
 }
+.title-viewfeedback-header::after {
+    text-transform: none;
+    content: "'s Smart Plan Feedback";
+}
 
 .timestamp-header {
     font-size: calc(2em + 1vmin);
@@ -209,7 +215,7 @@ button.delete-button {
 }
 
 /* 1px */
-.grid-container-border {
+.grid-container-border, .display-flex-column-container {
     border: 0.063em solid var(--colour-white);
 }
 
@@ -272,7 +278,7 @@ button.delete-button {
     border: 0 none;
     margin: 0;
     outline: 0 none;
-    padding: 0;
+    padding-left: 0.4em;
     width: 100%;
 }
 
@@ -548,6 +554,7 @@ button.delete-button {
 .flex-child {
     flex: 1;
     border: 2px solid yellow;
+    padding:0 1em 0em 1em;
 }
 
 .flex-child:first-child {
@@ -576,3 +583,73 @@ button.delete-button {
 .HIDDEN {
     visibility: hidden
 }
+
+.feedbacks-display-flex {
+    display: flex;
+    justify-content: space-around;
+}
+
+.feedbacks-goal-attribute {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 0.4em;
+    color: var(--attribute-colour);
+}
+
+.feedbacks-show-plan {
+    color: var(--colour-white);
+ }
+
+.feedback-display-table {
+    border: 2px solid teal;
+    border-collapse: separate;
+    border-spacing: 0 15px;
+    /* 25px */
+    margin: 1.563em 1em;
+    font-size: 1.2em;
+    font-family: sans-serif;
+    /* 20px */
+    box-shadow: 0 0 1.25em rgba(0, 0, 0, 0.15);
+}
+
+.feedback-display-table thead {
+    background-color: #009879;
+    color: var(--colour-white);
+ 
+}
+
+.feedback-display-table tbody tr:last-of-type {
+    /* 2px */
+    border-bottom: 0.125em solid #009879;
+}
+
+.feedback-display-table tr {
+    border: 0px;
+    border-bottom: 2px solid teal;
+}
+
+.table-fixed-length {
+    table-layout: fixed;
+}
+
+.table-show-date {
+    padding-left:0.4em;
+}
+
+.column1-display {
+    text-align: left;
+    padding-left: 0.4em;
+}
+
+ .tt {
+    table-layout: fixed;
+    margin:1em;
+    border-collapse: separate;
+        border-spacing: 0 15px;
+}
+
+ .td-centre {
+    text-align: center;
+ }
+

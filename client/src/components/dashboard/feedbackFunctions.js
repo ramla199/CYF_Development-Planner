@@ -47,6 +47,7 @@ const deleteFeedbackRequest = async (reqId) => {
   }
 };
 
+// DG
 const deleteFeedback = async (reqId) => {
   const PORT = localStorage.getItem("port");
 
@@ -100,7 +101,7 @@ const writeFeedback = async (
       student_username: selectedInfo.req_student_username,
       request_timestamp: selectedInfo.req_timestamp,
       sent_timestamp: theCurrentTimeStamp,
-      feedbackText: feedbackText,
+      feedbackText: feedbackText.trimEnd(),
       thePlanSerialId: selectedInfo.plan_serial_id,
       sent: "no",
     };
@@ -168,7 +169,7 @@ const updateFeedback = async (
     const body = {
       feedback_id: selectedInfo.rowId.slice(1),
       sentTimestamp: theCurrentTimeStamp,
-      feedbackText: feedbackText,
+      feedbackText: feedbackText.trimEnd(),
       isSent: isSent,
     };
 
@@ -214,7 +215,7 @@ export function saveFeedback( // DG
       // setFeedbackCreatedTimeStamp
     );
 
-    /*
+/*
   Seeing that the Feedback has been successfully written 
   The next step is to Remove the corresponding Feedback Request
   That is, the next time the Mentor looks at the Feedback Requests page,

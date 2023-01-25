@@ -16,7 +16,7 @@ function Register({ setAuth }) {
 
   const { fname, lname, username, email, password,  } = inputs;
 
-  const onChange = (e) => {
+  const handleChange = (e) => {
     setInputs({ ...inputs, [e.target.name]: e.target.value });
   };
 
@@ -70,7 +70,7 @@ function Register({ setAuth }) {
             type="text"
             name="fname"
             value={fname}
-            onChange={(e) => onChange(e)}
+            onChange={(e) => handleChange(e)}
             required
           />
           <label htmlFor="lname">Last Name</label>
@@ -79,7 +79,7 @@ function Register({ setAuth }) {
             type="text"
             name="lname"
             value={lname}
-            onChange={(e) => onChange(e)}
+            onChange={(e) => handleChange(e)}
             required
           />
           <label html="username">Username</label>
@@ -88,7 +88,7 @@ function Register({ setAuth }) {
             type="text"
             name="username"
             value={username}
-            onChange={(e) => onChange(e)}
+            onChange={(e) => handleChange(e)}
             required
             minLength="3"
           />
@@ -98,7 +98,7 @@ function Register({ setAuth }) {
             type="password"
             name="password"
             value={password}
-            onChange={(e) => onChange(e)}
+            onChange={(e) => handleChange(e)}
             required
             minLength="3"
           />
@@ -109,7 +109,7 @@ function Register({ setAuth }) {
             type="email"
             name="email"
             value={email}
-            onChange={(e) => onChange(e)}
+            onChange={(e) => handleChange(e)}
             required
           />
 

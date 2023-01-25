@@ -49,6 +49,9 @@ function Dashboard({ setAuth }) {
         <div className="login-signin-buttons">
           {theRole === "student" && 
                     <button onClick={() => navigate("/plans")}>Plans</button>}
+          {theRole === "student" && 
+                    <button onClick={() => navigate("/feedback-received")}>Feedback Received</button>}
+
           {theRole === "mentor" &&  
                     <button onClick={() => navigate("/feedback-requests")}>Feedback<br/>Requests</button>}
           <button onClick={(e) => logout(e)}>Logout</button>

@@ -19,6 +19,42 @@ const FeedbackEditor = () => {
 
   const navigate = useNavigate();
 
+  const saveThenRedisplay = () => {
+    saveFeedback(
+      // userName,
+      //      theCurrentTimeStamp,
+      //      feedbackTimeStamp,
+      "no",
+      feedbackText,
+      selectedInfo,
+      newFeedback
+      // setNewFeedback,
+      // setSaved,
+      // setChanged,
+      // setSelectedInfo
+      //      setFeedbackTimeStamp
+    );
+    console.log("IAMBACKYES");
+    const isNew = false;
+    const planFetched = location.state.planFetched;
+    console.log(isNew, planFetched);
+    setNewFeedback(false);
+    navigate(location.pathname, {
+      state: { selectedInfo, planFetched, feedbackText, isNew },
+      replace: true,
+    });
+    /*
+    navigate("/feedback-editor", {
+                state: { selectedInfo, planFetched, feedbackText, isNew },
+                replace: true,
+    });
+     */   
+    // Go to the Feedback Requests page
+    // navigate("/feedback-requests", {
+    //   replace: true,
+    // });
+  };
+
   const saveThenGotoFeedback = () => {
     saveFeedback(
       // userName,
@@ -34,7 +70,7 @@ const FeedbackEditor = () => {
       // setSelectedInfo
       //      setFeedbackTimeStamp
     );
-
+console.log("IAMBACK2");
     // Go to the Feedback Requests page
     navigate("/feedback-requests", {
       replace: true,
@@ -56,7 +92,7 @@ const FeedbackEditor = () => {
       // setSelectedInfo
       //      setFeedbackTimeStamp
     );
-
+console.log("IAMBACK1")
     // Go to the Feedback Requests page
     navigate("/feedback-requests", {
       replace: true,
@@ -64,7 +100,7 @@ const FeedbackEditor = () => {
   };
 
   function handleChange(event) {
-    const enteredText = event.target.value.trim();
+    const enteredText = event.target.value;
     // Indicate there has been a change
     setChanged(true);
 
@@ -75,22 +111,8 @@ const FeedbackEditor = () => {
     const updatedCount = enteredText.length;
     setFeedbackCharacterCount(updatedCount);
   }
-  // DG
-  const gotoSelectFeedback = () => {
-    // DG
-    let feedbackId =
-      location.state.feedbackSelectedInfo.theFeedback.feedback_serial_id;
-    // Go to the Select Mentor page
-    navigate("/select-mentor", {
-      state: {
-        //username: userName,
-        feedbackSerialId: feedbackId,
-      },
-      replace: true,
-    });
-  };
 
-  const allEmpty = () => feedbackCharacterCount === 0;
+  const allEmpty = () => feedbackText.trim() === "";
 
   const newOrChanged = () => newFeedback || changed;
 
@@ -233,6 +255,7 @@ const FeedbackEditor = () => {
         newOrChanged={newOrChanged}
         indicateSentThenGotoFeedback={indicateSentThenGotoFeedback}
         handleChange={handleChange}
+        saveThenRedisplay={saveThenRedisplay}
       />
     )
   );

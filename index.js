@@ -13,6 +13,7 @@ if (process.env.NODE_ENV === "production") {
   app.use(express.static(path.join(__dirname, "client", "build")));
 }
 
+
 // I need the current value of the port number
 // So I retrieve it at the point that Login is successful
 // It will be stored in local-storage for the usage of Plans and Feedbacks
@@ -20,15 +21,18 @@ app.get("/port-value", function (request, result) {
   result.send(PORT);
 });
 
+
 // app.get("/*", function (req, res, next) {
 //   res.sendFile(path.join(__dirname, "client", "build", "index.html"));
 //   next();
 // });
 
-// Plans EndPoints - Later, will refactor through musernamedleware - ./routes/dashboard
 
-// Does the user have any plans?
-// Ordered from the newest to the oldest
+// Plans EndPoints - TODO: refactor through middleware - ./routes/dashboard
+
+
+// Does the student have any plans?
+// Return all the student's Plans - Ordered from the newest to the oldest
 app.get("/plans/:username", async (request, result) => {
   try {
     const { username } = request.params;
@@ -62,6 +66,7 @@ app.get("/planbyid/:id", async (request, result) => {
   }
 });
 
+
 // Write a new plan
 app.post("/plans/writeplan", async (request, result) => {
   try {
@@ -84,14 +89,15 @@ app.post("/plans/writeplan", async (request, result) => {
                                 VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)
                                 RETURNING *`;
 
-    const newPlan = await pool.query(query, [username, created_timestamp, amended_timestamp,
-                       splan, mplan, aplan, rplan, tplan, preamble]); 
-    result.json(newPlan.rows);
+    await pool.query(query, [username, created_timestamp, amended_timestamp,
+                       splan, mplan, aplan, rplan, tplan, preamble]);
+    result.status(200).send("New Plan written successfully.");
   } catch (error) {
             console.error(error.message);
             result.status(500).json("Server error: " + error.message);
   }
 });
+
 
 // Update a 'Plan' record
 app.put("/plans/updateplan", async (request, result) => {
@@ -147,20 +153,21 @@ app.put("/plans/updateplan", async (request, result) => {
 app.delete("/plans/:id", async (request, result) => {
   try {
     const { id } = request.params;
-    const thePlan = await pool.query(
+    await pool.query(
       `DELETE FROM plans 
               WHERE plan_serial_id = $1
               RETURNING *`,
       [id]
     );
-    result.json(thePlan.rows);
+    result.status(200).send("Plan record successfully deleted.");
   } catch (err) {
         console.error(err.message);
         result.status(500).json("Server error: " + err.message);
   }
 });
 
-/**** MENTORS ****/
+
+// Mentors handling EndPoints 
 
 // Select all the mentors
 app.get("/mentors", async (request, result) => {
@@ -177,6 +184,8 @@ app.get("/mentors", async (request, result) => {
   }
 });
 
+
+// Feedback Requests EndPoints 
 
 // Get all the feedback requests for the current mentor
 app.get("/feedback_requests/:username", async (request, result) => {
@@ -233,6 +242,7 @@ app.post("/feedback_requests/write", async (request, result) => {
   }
 });
 
+
 // Delete the 'Feedback Request'
 app.delete("/feedback_requests/:id", async (request, result) => {
   try {
@@ -249,8 +259,8 @@ app.delete("/feedback_requests/:id", async (request, result) => {
   }
 });
 
-/**** FEEDBACKS  ****/
 
+// Feedbacks EndPoints 
 
 // Fetch a 'Feedback' record using the Feedback Id
 app.get("/feedbacks/:id", async (request, result) => {
@@ -296,9 +306,38 @@ app.get("/feedbacks/notsent/:username", async (request, result) => {
   }
 });
 
+
+// Get all the feedbacks that have been sent to the current student
+app.get("/feedbacks/sent/:username", async (request, result) => {
+  try {
+    const { username } = request.params;
+    const feedback = await pool.query(
+      `SELECT feedback_id, feedback_plan_serial_id,
+              feedback_mentor_username,
+              feedback_student_username,
+              feedback_text, 
+              feedback_request_timestamp,
+              user_fname, user_lname, preamble 
+                  FROM feedbacks
+                  INNER JOIN users 
+                      ON feedback_mentor_username = users.username
+                  INNER JOIN plans
+                      ON feedback_plan_serial_id = plans.plan_serial_id
+             WHERE feedback_student_username = $1 
+               AND feedback_sent = 'yes'
+             ORDER BY feedback_request_timestamp DESC`,
+      [username]
+    );
+    result.json(feedback.rows);
+  } catch (err) {
+    console.error(err.message);
+    result.status(500).json("Server error: " + err.message);
+  }
+});
+
+
 // Write a 'Feedback' record
 app.post("/feedbacks/write", async (request, result) => {
-  console.log(request.body)
   try {
     // Destructuring
     const {
@@ -349,6 +388,8 @@ app.put("/feedbacks/updatefeedback", async (request, result) => {
       feedbackText,
       isSent,
     } = request.body;
+    console.log(sentTimestamp);
+    console.log(request.body)
 
     // Update Record
     const query = `UPDATE feedbacks
@@ -378,7 +419,25 @@ app.put("/feedbacks/updatefeedback", async (request, result) => {
   }
 });
 
-//routes
+
+// Delete the 'Feedback'
+app.delete("/feedbacks/:id", async (request, result) => {
+  try {
+    const { id } = request.params;
+    await pool.query(
+      `DELETE FROM feedbacks 
+              WHERE feedback_id = $1`,
+      [id]
+    );
+    result.status(200).send("Feedback record successfully deleted.");
+  } catch (err) {
+    console.error(err.message);
+    result.status(500).json("Server error: " + err.message);
+  }
+});
+
+
+// Routes
 
 app.use("/authentication", require("./routes/jwtAuth"));
 
@@ -387,6 +446,7 @@ app.use("/dashboard", authorize, require("./routes/dashboard"));
 // app.use("/feedbacks", require("./routes/feedbacks"));
 
 // app.use("/messages", require("./routes/messages"));
+
 app.listen(PORT, () => {
   console.log(`Server listening on ${PORT}`);
 });

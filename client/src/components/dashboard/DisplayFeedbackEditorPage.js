@@ -13,6 +13,14 @@ import { saveFeedback } from "./feedbackFunctions";
 import { useNavigate } from "react-router-dom";
 
 
+function showRemainingChars(feedbackCharacterCount) {
+  let diff = FEEDBACK_ENTRY_MAXLENGTH - feedbackCharacterCount;
+  let newRemainingText =
+    String(diff).padStart(4, "0") + " Remaining Characters";
+  let s = String(diff);
+  newRemainingText = " ".repeat(4 - s.length) + diff + " Remaining Characters";
+  return <pre>{newRemainingText}</pre>;
+}
 
 const DisplayFeedbackEditorPage = ({
   userName,
@@ -38,30 +46,28 @@ const DisplayFeedbackEditorPage = ({
   newOrChanged,
   indicateSentThenGotoFeedback,
   handleChange,
+  saveThenRedisplay
 }) => {
-  console.log(newFeedback);
-  console.log(selectedInfo);
-  console.log(feedbackText, selectedInfo.feedbackText);
   const navigate = useNavigate();
   return (
     <div className="feedbacks-page-style">
-      <header className="display-flex">
+      <header className="feedbacks-display-flex">
         <div className="title-username-header">{userName}</div>
-        {/* <div className="title-header timestamp-header">{displayTimeStamp}</div> */}
+        <div className="title-header">Feedback:</div>
       </header>
       <section className="display-flex-column-container">
         <section className="flex-container">
           <div className="flex-child scroll">
-            <h2>SPECIFIC</h2>
-            <p>{selectedInfo.splan}</p>
-            <h2>MEASURABLE</h2>
-            <p>{selectedInfo.mplan}</p>
-            <h2>ACHIEVABLE</h2>
-            <p>{selectedInfo.aplan}</p>
-            <h2>RELEVANT</h2>
-            <p>{selectedInfo.rplan}</p>
-            <h2>TIMEBOUND</h2>
-            <p>{selectedInfo.tplan}</p>
+            <h2 className="feedbacks-goal-attribute">SPECIFIC</h2>
+            <p className="feedbacks-show-plan">{selectedInfo.splan}</p>
+            <h2 className="feedbacks-goal-attribute">MEASURABLE</h2>
+            <p className="feedbacks-show-plan">{selectedInfo.mplan}</p>
+            <h2 className="feedbacks-goal-attribute">ACHIEVABLE</h2>
+            <p className="feedbacks-show-plan">{selectedInfo.aplan}</p>
+            <h2 className="feedbacks-goal-attribute">RELEVANT</h2>
+            <p className="feedbacks-show-plan">{selectedInfo.rplan}</p>
+            <h2 className="feedbacks-goal-attribute">TIMEBOUND</h2>
+            <p className="feedbacks-show-plan">{selectedInfo.tplan}</p>
           </div>
           <div className="flex-child">
             <form>
@@ -89,34 +95,20 @@ const DisplayFeedbackEditorPage = ({
           </div>
         </section>
         <section className="buttons-container">
+          <div className="td-remaining-and-button">
+            <RemainingCharactersText
+              maxLength={FEEDBACK_ENTRY_MAXLENGTH}
+              remainNum={feedbackCharacterCount}
+              text={showRemainingChars(feedbackCharacterCount)}
+            />
+          </div>
           <button className="button-78" onClick={() => discardFeedback()}>
             Discard
           </button>
           <button
             className="button-78"
-            onClick={() => {
-              saveFeedback(
-                "no",
-                // userName,
-                // theCurrentTimeStamp,
-                // feedbackCreatedTimeStamp,
-                feedbackText,
-                selectedInfo,
-                newFeedback
-                // setNewFeedback,
-                // setSaved,
-                // setChanged
-                // setSelectedRecordInfo,
-                // setFeedbackCreatedTimeStamp
-              );
-              //navigate("/dashboard");
-              // Return to the Feedback Editor page
-              const isNew = false;
-              navigate("/feedback-editor", {
-                state: { selectedInfo, planFetched, isNew, feedbackText },
-                replace: true,
-              });
-            }}
+            onClick={saveThenRedisplay}
+
             // DG navigate("/feedback-editor");
             // If the Text Area is empty, disable the Save option
             disabled={allEmpty()}

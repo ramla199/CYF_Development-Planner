@@ -20,6 +20,7 @@ const PlanDefinition = ({
   setPlanCharacterCount,
   setChanged
 }) => {
+  
   function showRemainingChars(whichPlan) {
     let diff = PLAN_ENTRY_MAXLENGTH - planCharacterCount[whichPlan];
     let newRemainingText =
@@ -31,7 +32,7 @@ const PlanDefinition = ({
   }
 
   function handleChange(event, whichPlan) {
-    let enteredPlan = event.target.value.trim();
+    let enteredPlan = event.target.value;
     // Indicate there has been a change
     setChanged(true);
 
