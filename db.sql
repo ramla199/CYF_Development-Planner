@@ -170,17 +170,3 @@ INSERT INTO plans (username, created_timestamp,  amended_timestamp,
                           'set it earlier by 30 minutes. Plus, I''ll write on my calendar the time ' ||
                           'when I actually woke up to measure progress.'
            );
- 
--- Feedback Handling
-
-
-CREATE TABLE feedback_requests (
-  feedback_req_id SERIAL,
-  feedback_req_requester_username VARCHAR(50) NOT NULL,
-  feedback_req_mentor_username VARCHAR(50) NOT NULL,
-  feedback_req_timestamp CHAR(16) NOT NULL,
-  PRIMARY KEY (feedback_req_id),
-  feedback_req_plan_serial_id SERIAL REFERENCES plans(plan_serial_id)
-);
-
-          

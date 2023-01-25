@@ -5,7 +5,6 @@
     --LESSTHAN21_COLOUR: #FF0000;
     /* Red */
     --expand-button-colour: rgb(255, 116, 38);
-    --colour-darkblue: #00008b;
 }
 
 /* Make the placeholder italics */
@@ -22,13 +21,12 @@
     background-color: #282c34;
     text-align: center;
     text-transform: capitalize;
-    font-size: 2em;
+    font-size: calc(2em);
     padding: 0.1em;
     color: var(--colour-white);
 }
 
 .username-header::after {
-    text-transform: none;
     content: "'s Plans";
 }
 
@@ -81,8 +79,8 @@
 }
 
 .main-menu-date {
-    background-color: var(--colour-black);
-    color: var(--colour-white);
+    background-color: #000;
+    color: #fff;
     /* 100px */
     width: 6.25em;
     height: 6.25em;
@@ -178,7 +176,7 @@ button.delete-button {
 
 .plans-page-style {
     font-family: 'futura';
-    font-size: 1.3rem;
+    font-size: 1.4rem;
     padding: 0 2em 2em 2em;
     background-color: var(--colour-black);
 }
@@ -264,8 +262,7 @@ button.delete-button {
 .textarea-label {
     display: block;
     font-size: 1em;
-    padding-bottom: 0.2em;
-    padding-top: 0.5em;
+    padding-bottom: 0.6em;
 }
 
 .textarea-label textarea {
@@ -297,6 +294,10 @@ button.delete-button {
 
 .td-remaining-default {
     color: var(--colour-white);
+}
+
+.leading-whitespace {
+    white-space: pre-wrap;
 }
 
 .td-remaining-less21 {
@@ -337,13 +338,14 @@ button.delete-button {
 }
 
 
-.expand-button-styling {
+@media (min-width: 1024px) {
+    .button-76 {
         font-size: 0.6em;
-        padding-bottom: 0.2em;
-        padding-top: 0.5em;
-       
+        padding: 0;
+        margin-bottom: 1.6em;
         /* 32px */
         line-height: 2em;
+    }
 }
 
 /* Button 78 from https: //getcssscan.com/css-buttons-examples */
@@ -461,81 +463,39 @@ button.delete-button {
 }
 
 /* Toasts using Toastify */
-.toast-error-message,
-.toast-display-message {
-    background: var(--colour-darkblue);
-    color: var(--colour-white);
-    /* 24 px */
-    font-size: 1.5em;
-    width: 40vw;
-    /* 30px 20px */
-    padding: 1.875em 1.25em;
-}
-
-.centre {
-    margin-left: auto;
-    margin-right: auto;
-}
-
-.centre-text {
-    text-align: center;
+.toast-error-message {
+    background: darkblue;
+    color: #fff;
+    font-size: 20px;
+    width: 34vw;
+    padding: 30px 20px;
 }
 
 .mentor-table {
-    border: 2px solid teal;
     border-collapse: collapse;
-    /* 25px */
-    margin: 1.563em 0;
-    font-size: 1.6em;
+    margin: 25px 0;
+    font-size: 0.9em;
     font-family: sans-serif;
-    /* 20px */
-    box-shadow: 0 0 1.25em rgba(0, 0, 0, 0.15);
-    margin-left: auto;
-    margin-right: auto;
+    min-width: 400px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
 }
 
-.mentor-table thead {
+.mentor-table thead tr {
     background-color: #009879;
-    color: var(--colour-white);
+    color: #ffffff;
     text-align: left;
 }
 
 .mentor-table th,
 .mentor-table td {
-    /* 12px 15px; */
-    padding: 0.75em 0.938em;
+    padding: 12px 15px;
 }
 
 .mentor-table tbody tr:last-of-type {
-    /* 2px */
-    border-bottom: 0.125em solid #009879;
+    border-bottom: 2px solid #009879;
 }
 
-.mentor-table tr {
-    border: 0px;
-    border-bottom: 2px solid teal;
-}
-
-/* Zebra Striping - lemonchiffon */
-.mentor-table tr:nth-child(even) {
-    background: #FFFACD;
-}
-
-/* .mentor-table tbody tr.active-row {
+.mentor-table tbody tr.active-row {
     font-weight: bold;
     color: #009879;
-} */
-
-.clickable-row {
-    cursor: pointer;
-    height: 40px;
-}
-
-.clickable-row:hover {
-    background-color: aquamarine;
-}
-
-.selected,
-.selected:hover {
-    background-color: aqua;
 }

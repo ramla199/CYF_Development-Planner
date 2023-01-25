@@ -41,18 +41,15 @@ const PlanEditor = () => {
 
     // Go to the Plans page
     navigate("/plans", {
+      state: { username: userName },
       replace: true,
     });
   };
 
   const gotoSelectMentor = () => {
-    let planId = location.state.planSelectedInfo.thePlan.plan_serial_id;
     // Go to the Select Mentor page
     navigate("/select-mentor", {
-      state: {
-        username: userName,
-        planSerialId: planId,
-      },
+      state: { username: userName },
       replace: true,
     });
   };
@@ -92,7 +89,8 @@ const PlanEditor = () => {
     if (leavePage || answer) {
       // Go to the Plans page
       navigate("/plans", {
-        replace: true,
+        state: { username: location.state.planSelectedInfo.theUserName },
+        replace: false,
       });
     }
   };
