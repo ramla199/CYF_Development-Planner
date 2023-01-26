@@ -176,7 +176,8 @@ button.delete-button {
     padding-left: 0.8em;
 }
 
-.plans-page-style, .feedbacks-page-style {
+.plans-page-style,
+.feedbacks-page-style {
     font-family: 'futura';
     font-size: 1.3rem;
     padding: 0 2em 2em 2em;
@@ -215,7 +216,8 @@ button.delete-button {
 }
 
 /* 1px */
-.grid-container-border, .display-flex-column-container {
+.grid-container-border,
+.display-flex-column-container {
     border: 0.063em solid var(--colour-white);
 }
 
@@ -347,13 +349,14 @@ button.delete-button {
     box-shadow: none;
 }
 
-.expand-button-styling, .collapse-button-styling {
-        font-size: 0.6em;
-        padding-bottom: 0.2em;
-        padding-top: 0.5em;
-       
-        /* 32px */
-        line-height: 2em;
+.expand-button-styling,
+.collapse-button-styling {
+    font-size: 0.6em;
+    padding-bottom: 0.2em;
+    padding-top: 0.5em;
+
+    /* 32px */
+    line-height: 2em;
 }
 
 /* Button 78 from https: //getcssscan.com/css-buttons-examples */
@@ -471,7 +474,7 @@ button.delete-button {
 }
 
 .previous-button {
-    font-size:1em;
+    font-size: 1em;
     padding-left: 0.3em;
     text-align: center;
 }
@@ -564,7 +567,7 @@ button.delete-button {
 .flex-child {
     flex: 1;
     border: 2px solid yellow;
-    padding:0 1em 0em 1em;
+    padding: 0 1em 0em 1em;
 }
 
 .flex-child:first-child {
@@ -578,10 +581,10 @@ button.delete-button {
 }
 
 .scroll {
-        height: 680px;
-        overflow-x: hidden;
-        overflow-y: auto;
-        text-align: justify;
+    height: 680px;
+    overflow-x: hidden;
+    overflow-y: auto;
+    text-align: justify;
 }
 
 .VISIBLE {
@@ -607,7 +610,7 @@ button.delete-button {
 
 .feedbacks-show-plan {
     color: var(--colour-white);
- }
+}
 
 .feedback-display-table {
     border: 2px solid teal;
@@ -642,7 +645,7 @@ button.delete-button {
 }
 
 .table-show-date {
-    padding-left:0.4em;
+    padding-left: 0.4em;
 }
 
 .column1-display {
@@ -674,7 +677,7 @@ button.delete-button {
 .non-overlay-content,
 .overlay-content {
     grid-area: 1 / 1;
-    z-index:1;
+    z-index: 1;
 }
 
 .OVERLAY-VISIBLE {

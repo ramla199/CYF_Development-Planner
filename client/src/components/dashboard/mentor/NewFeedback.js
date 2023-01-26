@@ -1,10 +1,9 @@
 import React, { useState } from "react";
-import BackButton from "../BackButton";
 
 // import { Editor } from "react-draft-wysiwyg";
 // import "../../../node_modules/react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
 
-function NewFeedback() {
+function NewFeedback({ setFeedbacksChange }) {
   const [feedbackText, setFeedbackText] = useState("");
 
   const onSubmitForm = async (e) => {
@@ -13,7 +12,7 @@ function NewFeedback() {
       const myHeaders = new Headers();
 
       myHeaders.append("Content-Type", "application/json");
-      myHeaders.append("token", localStorage.token);
+      myHeaders.append("jwt_token", localStorage.token);
       const body = { feedbackText };
       const response = await fetch("/dashboard/feedbacks", {
         method: "POST",
@@ -24,6 +23,9 @@ function NewFeedback() {
       const parseResponse = await response.json();
 
       console.log(parseResponse);
+
+      setFeedbacksChange(true);
+      setFeedbackText("");
     } catch (err) {
       console.error(err.message);
     }
@@ -31,11 +33,13 @@ function NewFeedback() {
   return (
     <>
       <section>
-        <BackButton />
-
-        <h1 className="heading">Insert Feedback</h1>
         <form onSubmit={onSubmitForm}>
-          <button>Add</button>
+          <h3 className="subheading">Insert feedback</h3>
+          <div className="buttons">
+            <button>save</button>
+            <button>send</button>
+          </div>
+
           <textarea
             placeholder="add"
             value={feedbackText}

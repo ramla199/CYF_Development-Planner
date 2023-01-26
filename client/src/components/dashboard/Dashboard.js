@@ -1,11 +1,14 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
-// import Files from "./Files";
-// import Inbox from "./Inbox";
 
+// components
+/*
+import Files from "./mentor/Files";
+import Inbox from "./mentor/Inbox";
 
-
+import NewMessage from "./mentor/NewMessage";
+*/
 function Dashboard({ setAuth }) {
   const [name, setName] = useState("");
 
@@ -19,13 +22,20 @@ function Dashboard({ setAuth }) {
       });
 
       const parseRes = await res.json();
+
+      console.log(parseRes);
+
+      // setName(parseRes.username);
+
       setName(parseRes.username);
-      // Also store the username in local-storage for the usage of Plans and Feedbacks
-      localStorage.setItem("username", parseRes.username);
     } catch (err) {
-        console.error(err.message);
+      console.error(err.message);
     }
   };
+
+  useEffect(() => {
+    getName();
+  }, []);
 
   const logout = async (e) => {
     e.preventDefault();

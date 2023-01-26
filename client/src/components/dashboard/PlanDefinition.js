@@ -22,7 +22,16 @@ const PlanDefinition = ({
   setChanged,
   setPlanNumber
 }) => {
-  
+
+  function showRemainingChars(whichPlan) {
+    let diff = PLAN_ENTRY_MAXLENGTH - planCharacterCount[whichPlan];
+    let newRemainingText =
+      String(diff).padStart(4, "0") + " Remaining Characters";
+    let s = String(diff);
+    newRemainingText =
+      " ".repeat(4 - s.length) + diff + " Remaining Characters";
+    return <p className="leading-whitespace">{newRemainingText}</p>;
+  }
 
   function handleChange(event, whichPlan) {
     let enteredPlan = event.target.value;
@@ -84,6 +93,7 @@ const PlanDefinition = ({
           >
             Expand
           </button>
+
         </div>
       </div>
     </section>
