@@ -56,11 +56,6 @@ function Plans() {
     }
   }
 
-/*  
-  useEffect(() => {
-    getName();
-  }, []);
-*/
 
   // Fetch all the user's plans
   useEffect(() => {

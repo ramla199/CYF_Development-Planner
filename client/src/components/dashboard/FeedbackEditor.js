@@ -5,10 +5,8 @@ import DisplayFeedbackEditorPage from "./DisplayFeedbackEditorPage";
 
 import { saveFeedback } from "./feedbackFunctions";
 
-import "../../../src/styles.css"; // DG
 
 const FeedbackEditor = () => {
-  //const [userName, setUserName] = useState(null);
   const [selectedInfo, setSelectedInfo] = useState(null);
   const [feedbackText, setFeedbackText] = useState("");
   const [feedbackCharacterCount, setFeedbackCharacterCount] = useState(0);
@@ -19,58 +17,15 @@ const FeedbackEditor = () => {
 
   const navigate = useNavigate();
 
-  const saveThenRedisplay = () => {
-    saveFeedback(
-      // userName,
-      //      theCurrentTimeStamp,
-      //      feedbackTimeStamp,
-      "no",
-      feedbackText,
-      selectedInfo,
-      newFeedback
-      // setNewFeedback,
-      // setSaved,
-      // setChanged,
-      // setSelectedInfo
-      //      setFeedbackTimeStamp
-    );
-    console.log("IAMBACKYES");
-    const isNew = false;
-    const planFetched = location.state.planFetched;
-    console.log(isNew, planFetched);
-    setNewFeedback(false);
-    navigate(location.pathname, {
-      state: { selectedInfo, planFetched, feedbackText, isNew },
-      replace: true,
-    });
-    /*
-    navigate("/feedback-editor", {
-                state: { selectedInfo, planFetched, feedbackText, isNew },
-                replace: true,
-    });
-     */   
-    // Go to the Feedback Requests page
-    // navigate("/feedback-requests", {
-    //   replace: true,
-    // });
-  };
 
   const saveThenGotoFeedback = () => {
     saveFeedback(
-      // userName,
-      //      theCurrentTimeStamp,
-      //      feedbackTimeStamp,
       "no",
       feedbackText,
       selectedInfo,
       newFeedback,
-      // setNewFeedback,
-      // setSaved,
-      // setChanged,
-      // setSelectedInfo
-      //      setFeedbackTimeStamp
     );
-console.log("IAMBACK2");
+
     // Go to the Feedback Requests page
     navigate("/feedback-requests", {
       replace: true,
@@ -79,20 +34,12 @@ console.log("IAMBACK2");
 
   const indicateSentThenGotoFeedback = () => {
     saveFeedback(
-      // userName,
-      //      theCurrentTimeStamp,
-      //      feedbackTimeStamp,
       "yes", // indicate that this feedback is now being sent to the student
       feedbackText,
       selectedInfo,
       newFeedback
-      // setNewFeedback,
-      // setSaved,
-      // setChanged,
-      // setSelectedInfo
-      //      setFeedbackTimeStamp
     );
-console.log("IAMBACK1")
+
     // Go to the Feedback Requests page
     navigate("/feedback-requests", {
       replace: true,
@@ -202,31 +149,7 @@ console.log("IAMBACK1")
     }
   }, [location.state.isNew,location.state.feedbackText]);
 
-  /*  
-  useEffect(() => {
-    // Check whether this is a new feedback?
-    // No!
-    if (selectedInfo !== null && !newFeedback) {
-      setFeedbackTextArray(() => [
-        selectedInfo.theFeedback.sfeedback,
-        selectedInfo.theFeedback.mfeedback,
-        selectedInfo.theFeedback.afeedback,
-        selectedInfo.theFeedback.rfeedback,
-        selectedInfo.theFeedback.tfeedback,
-      ]);
-      setFeedbackCharacterCount(() => [
-        selectedInfo.theFeedback.sfeedback.length,
-        selectedInfo.theFeedback.mfeedback.length,
-        selectedInfo.theFeedback.afeedback.length,
-        selectedInfo.theFeedback.rfeedback.length,
-        selectedInfo.theFeedback.tfeedback.length,
-      ]);
-      setFeedbackCreatedTimeStamp(selectedInfo.theFeedback.created_timestamp);
-    }
-    // Otherwise for a new feedback the above fields will be empty and 0
-  }, [selectedInfo, newFeedback]);
-*/
-
+  
   console.log(location.state.planFetched.username, selectedInfo);
   console.log(locationState);
   console.log(newFeedback);
@@ -236,26 +159,14 @@ console.log("IAMBACK1")
       <DisplayFeedbackEditorPage
         userName={location.state.planFetched.username}
         selectedInfo={selectedInfo}
-        planFetched={location.state.planFetched}
         feedbackText={feedbackText}
-        setFeedbackText={setFeedbackText}
         feedbackCharacterCount={feedbackCharacterCount}
-        setFeedbackCharacterCount={setFeedbackCharacterCount}
-        newFeedback={newFeedback}
-        setNewFeedback={setNewFeedback}
-        // setSelectedInfo={setSelectedInfo}
-        setSaved={setSaved}
-        setChanged={setChanged}
-        //      feedbackTimeStamp={feedbackTimeStamp}
-        //      setFeedbackTimeStamp={setFeedbackTimeStamp}
-
         allEmpty={allEmpty}
+        newOrChanged={newOrChanged}
         discardFeedback={discardFeedback}
         saveThenGotoFeedback={saveThenGotoFeedback}
-        newOrChanged={newOrChanged}
         indicateSentThenGotoFeedback={indicateSentThenGotoFeedback}
         handleChange={handleChange}
-        saveThenRedisplay={saveThenRedisplay}
       />
     )
   );

@@ -8,36 +8,43 @@ import "../../../src/styles.css";
 
 import RemainingCharactersText from "./RemainingCharactersText";
 
-import { normaliseNames } from "./normaliseNames";
+import { saveFeedback } from "./feedbackFunctions";
+
+import { useNavigate } from "react-router-dom";
 
 
-function showRemainingChars(feedbackCharacterCount) {
-  let diff = FEEDBACK_ENTRY_MAXLENGTH - feedbackCharacterCount;
-  let newRemainingText =
-    String(diff).padStart(4, "0") + " Remaining Characters";
-  let s = String(diff);
-  newRemainingText = " ".repeat(4 - s.length) + diff + " Remaining Characters";
-  return <pre>{newRemainingText}</pre>;
-}
 
-const DisplayFeedbackEditorPage = ({
+const ViewFeedbackPage = ({
   userName,
+  //displayTimeStamp,
+  //  theCurrentTimeStamp,
+  //splan,mplan,aplan,rplan,tplan,
   selectedInfo,
+  planFetched,
   feedbackText,
-  feedbackCharacterCount,
-  allEmpty,
-  newOrChanged,
-  discardFeedback,
-  saveThenGotoFeedback,
-  indicateSentThenGotoFeedback,
+  // setFeedbackText,
+  // feedbackCharacterCount,
+  // setFeedbackCharacterCount,
+  // newFeedback,
+  // setNewFeedback,
+  // setSelectedRecordInfo,
+  // setSaved,
+  // setChanged,
+  // feedbackCreatedTimeStamp,
+  // setFeedbackCreatedTimeStamp,
+  // allEmpty,
+  // discardFeedback,
+  gotoFeedbackReceivedPage,
+  // newOrChanged,
+  // indicateSentThenGotoFeedback,
   handleChange,
 }) => {
-  const fullname = normaliseNames(selectedInfo.user_fname, selectedInfo.user_lname);
+  const navigate = useNavigate();
+  
   return (
     <div className="feedbacks-page-style">
-      <header className="feedbacks-display-flex">
-        <div className="title-username-header">{fullname}</div>
-        <div className="title-header">Feedback:</div>
+      <header className="display-flex">
+        <div className="title-viewfeedback-header">{userName}</div>
       </header>
       <section className="display-flex-column-container">
         <section className="flex-container">
@@ -88,38 +95,18 @@ const DisplayFeedbackEditorPage = ({
                   name="feedback"
                   autoComplete="off"
                   value={feedbackText}
-                  onChange={(event) => handleChange(event)}
+                  readOnly
                 ></textarea>
               </div>
             </form>
           </div>
         </section>
         <section className="buttons-container">
-          <div className="td-remaining-and-button">
-            <RemainingCharactersText
-              maxLength={FEEDBACK_ENTRY_MAXLENGTH}
-              remainNum={feedbackCharacterCount}
-              text={showRemainingChars(feedbackCharacterCount)}
-            />
-          </div>
-          <button className="button-78" onClick={() => discardFeedback()}>
-            Discard
-          </button>
+          {/* Return to the Feedback Editor page */}
           <button
-            className="button-78"
-            onClick={saveThenGotoFeedback}
-            // If the Text Area is empty, disable the 'Save & Close' option
-            disabled={allEmpty()}
+            onClick={() => navigate("/feedback-received", { replace: true })}
           >
-            Save & Close
-          </button>
-          <button
-            className="button-78"
-            onClick={indicateSentThenGotoFeedback}
-            // If it is an unsaved new feedback entry or changes have been made, disable this button
-            disabled={newOrChanged()}
-          >
-            Send Feedback
+            Return
           </button>
         </section>
       </section>
@@ -127,4 +114,4 @@ const DisplayFeedbackEditorPage = ({
   );
 };
 
-export default DisplayFeedbackEditorPage;
+export default ViewFeedbackPage;

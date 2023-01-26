@@ -45,15 +45,17 @@ function Dashboard({ setAuth }) {
   return (
     <>
       <section>
-        <h1 className="heading">Dashboard {name}</h1>
+        <h1 className="heading db-heading">{name}</h1>
         <div className="login-signin-buttons">
           {theRole === "student" && 
                     <button onClick={() => navigate("/plans")}>Plans</button>}
           {theRole === "student" && 
-                    <button onClick={() => navigate("/feedback-received")}>Feedback Received</button>}
+                    <button onClick={() => navigate("/feedback-received")}>
+                      Feedback<br/>Received<br/>Inbox</button>}
 
           {theRole === "mentor" &&  
-                    <button onClick={() => navigate("/feedback-requests")}>Feedback<br/>Requests</button>}
+                    <button onClick={() => navigate("/feedback-requests")}>
+                      Feedback<br/>Requests<br/>Inbox</button>}
           <button onClick={(e) => logout(e)}>Logout</button>
         </div>
         {/* <Files />

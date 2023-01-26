@@ -94,10 +94,10 @@ function Login({ setAuth }) {
             onChange={(e) => handleChange(e)}
           />
           <div className="login-signin-buttons">
-            <button>login</button>
+            <button>Login</button>
           </div>
           <Link to="/register" className="signin-login-link">
-            Signup
+            Sign Up
           </Link>
         </form>
       </section>

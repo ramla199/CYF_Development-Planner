@@ -117,11 +117,6 @@ function FeedbackRequests() {
     console.log(allFBRequestsFetched);
     console.log(allFeedbacksFetched);
     if (allFBRequestsFetched && allFeedbacksFetched) {
-      // console.log(
-      //   allFBRequestsFetched.length,
-      //   allFeedbacksFetched.length,
-      //   allFBRequestsFetched.length === 0 && allFeedbacksFetched.length === 0
-      // ); DG
       if (
         allFBRequestsFetched.length === 0 &&
         allFeedbacksFetched.length === 0
@@ -136,10 +131,10 @@ function FeedbackRequests() {
         });
       }
 
-      /* Otherwise setup the Feedback Requests Table for Display
+      /* Otherwise set up the Feedback Requests Table for Display
          This table will contain both Feedback Requests and
-         created Feedback that has not been sent 
-         It will be in descending Feedback Request Date order
+         created Feedbacks that have not been sent. 
+         It will be listed in descending Feedback Request Date order
 
          Arbitrary characters "R" and "F" are used to denote
          Feedback Request and Feedback records;
@@ -148,10 +143,6 @@ function FeedbackRequests() {
 
       // First: Add the Feedback Request records to the table
       fbRequestsTable = allFBRequestsFetched.map((element, index) =>
-        // Object.assign(element, {
-        //   rowId: "R" + element.feedback_req_id, DG
-        // })
-
         ({
           rowId: "R" + element.feedback_req_id,
           plan_serial_id: element.feedback_req_plan_serial_id,
@@ -166,10 +157,6 @@ function FeedbackRequests() {
 
       // Second: Add the Feedback records to fbRequestsTable
       allFeedbacksFetched.forEach((element, index) => {
-        // Object.assign(element, {
-        //   rowId: "R" + element.feedback_req_id,
-        // })
-        console.log(element);
         const entry = {
           rowId: "F" + element.feedback_id,
           plan_serial_id: element.feedback_plan_serial_id,

@@ -1,12 +1,4 @@
-import {
-  PREAMBLE_SIZE,
-  S_PLAN,
-  M_PLAN,
-  A_PLAN,
-  R_PLAN,
-  T_PLAN,
-  monthNames,
-} from "../../../src/data/constants.js";
+
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
@@ -47,20 +39,6 @@ const deleteFeedbackRequest = async (reqId) => {
   }
 };
 
-// DG
-const deleteFeedback = async (reqId) => {
-  const PORT = localStorage.getItem("port");
-
-  console.log(reqId);
-  try {
-    await fetch(`http://localhost:${PORT}/feedback/${reqId}`, {
-      method: "DELETE",
-      headers: { token: localStorage.token },
-    });
-  } catch (err) {
-    console.error(err.message);
-  }
-}
 
 const writeFeedback = async (
   feedbackText,
@@ -178,7 +156,6 @@ const updateFeedback = async (
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(body),
     });
-    console.log(body); // DG
   } catch (err) {
     console.error(err.message);
   }
@@ -254,60 +231,3 @@ export function saveFeedback( // DG
   }
   return;
 }
-
-
-// DG ******
-
-function createPreambleText(feedbackTextArray) {
-  let result = "";
-  for (let i = 0; i < feedbackTextArray.length; i++) {
-    result += feedbackTextArray[i].trim() + " ";
-    if (result.length > PREAMBLE_SIZE) {
-      break;
-    }
-  }
-  return result.trim().slice(0, PREAMBLE_SIZE);
-}
-export const setupTimeValues = () => {
-
-  // Determine the current time
-  let [
-    dayNumber,
-    monthNumber,
-    yearNumber,
-    hoursNumber,
-    minutesNumber,
-    secondsNumber,
-  ] = determine_current_timestamp();
-
-  /* EG FOR new Date("2022-03-01") 
-   displayTimeStamp => 01 Mar 2022 00:00:00 - shown onscreen
-*/
-
-  const displayTimeStamp =
-    `${String(dayNumber).padStart(2, "0")} ${
-      monthNames[monthNumber]
-    } ${yearNumber}` +
-    ` ${String(hoursNumber).padStart(2, "0")}:${String(minutesNumber).padStart(
-      2,
-      "0"
-    )}:` +
-    `${String(secondsNumber).padStart(2, "0")}`;
-
-  /* EG FOR new Date("2022-03-01" 
-   theCurrentTimeStamp => USERNAME:20220301:000000
-                          This is used as the unique key for the Feedback SQL records
-*/
-
-  const theCurrentTimeStamp = // EG :20221122:184715
-    `:${yearNumber}${String(monthNumber).padStart(2, "0")}${String(
-      dayNumber
-    ).padStart(2, "0")}:` +
-    `${String(hoursNumber).padStart(2, "0")}${String(minutesNumber).padStart(
-      2,
-      "0"
-    )}` +
-    `${String(secondsNumber).padStart(2, "0")}`;
-
-  return [displayTimeStamp, theCurrentTimeStamp];
-};

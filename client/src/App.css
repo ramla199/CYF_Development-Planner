@@ -7,7 +7,7 @@
 
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;500;600;700&display=swap');
 
- * {
+* {
     margin: 0;
     padding:0;
     box-sizing:border-box;
@@ -92,6 +92,7 @@ nav a.active {
     .heading {
         font-size: 1.8rem;
         max-width: 350px;
+        text-transform: capitalize;
     }
 }
 
@@ -102,9 +103,17 @@ nav a.active {
     color: #b55151;
     font-weight: 700;
     text-align: center;
-
     padding: 50px 20px;
     text-shadow: -4px -4px 9px rgba(98, 0, 0, 0.16);
+}
+
+.db-heading {
+    text-transform: capitalize;
+}
+
+.db-heading::after {
+    text-transform: none;
+    content: "'s Dashboard";
 }
 
 /* HERO SECTION */
@@ -133,10 +142,9 @@ nav a.active {
 /* buttons */
 
 .login-signin-buttons {
- display: flex;
- justify-content: center;
- gap: 20px;
-
+    display: flex;
+    justify-content: center;
+    gap: 20px;
 }
 
 
@@ -154,7 +162,6 @@ button {
     font-weight: 700;
     font-size: 0.9rem;
     text-align: center;
-
 }
 
 .login-signin-buttons button :hover {
@@ -188,13 +195,12 @@ input[type=password] {
   
     border-radius: 8px;
     font-family: inherit;
-    
- 
 }
 
 input:focus {
     outline: none;
 }
+
 textarea {
     resize: none;
     overflow-y: scroll;
@@ -211,7 +217,7 @@ textarea {
     border-radius: 12px;
     align-items: center;
     box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
-font-size: 1rem;
+    font-size: 1rem;
 }
 
 fieldset {
@@ -229,7 +235,6 @@ input[type=radio] {
 
 h1 {
     color: #b55151;
-
     font-family: "Montserrat"; 
 }
 
@@ -244,16 +249,16 @@ main {
         display: flex;
         justify-content: center;
         align-items: center;
-        gap: 20px;
+        gap: 100px;
         padding: 0 0 30px 0;
         max-width: 400px;
         margin: auto;
-    }
+}
 
     .subheading {
         font-size: 1.3rem;
     }
-   }
+}
    
 
 @media only screen and (min-width: 600px) {
@@ -287,7 +292,6 @@ main {
     align-self: flex-end;
     /* margin-right: 30px; */
     margin-top: 50px; 
-
 }
 
 section {
@@ -300,7 +304,6 @@ section {
         align-items: center;
         /* box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;  */
         font-family: "Montserrat";      
-    
 }
 
 .nav-link img {

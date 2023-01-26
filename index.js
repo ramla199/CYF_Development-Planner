@@ -279,7 +279,8 @@ app.get("/feedbacks/:id", async (request, result) => {
 });
 
 
-// Get all the feedbacks that have been created by the current mentor but not yet sent
+// Get all the feedbacks that have been created by the current mentor 
+// but have not yet been sent
 app.get("/feedbacks/notsent/:username", async (request, result) => {
   try {
     const { username } = request.params;
@@ -388,8 +389,6 @@ app.put("/feedbacks/updatefeedback", async (request, result) => {
       feedbackText,
       isSent,
     } = request.body;
-    console.log(sentTimestamp);
-    console.log(request.body)
 
     // Update Record
     const query = `UPDATE feedbacks

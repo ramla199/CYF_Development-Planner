@@ -204,6 +204,7 @@ button.delete-button {
     text-transform: none;
     content: "'s Smart Plan";
 }
+
 .title-viewfeedback-header::after {
     text-transform: none;
     content: "'s Smart Plan Feedback";

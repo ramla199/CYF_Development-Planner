@@ -5,7 +5,7 @@ function Heading() {
     <>
       <h1 className="heading">
         Welcome to CYF
-        <br /> Developer Planner
+        <br /> Development Planner
       </h1>
     </>
   );
