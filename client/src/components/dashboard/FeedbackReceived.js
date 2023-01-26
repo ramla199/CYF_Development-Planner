@@ -1,6 +1,5 @@
 import { useState, useEffect, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
-//import ReceivedFeedbackNavbar from "../../../src/components/dashboard/ReceivedFeedbackNavBar";
 import PopulateReceivedFeedbackDisplay from "./PopulateReceivedFeedbackDisplay";
 
 import { toast } from "react-toastify";
@@ -10,7 +9,6 @@ import "../../../src/styles.css";
 let feedbacksTable = [];
 
 function FeedbackReceived() {
-  //const [allFeedbackFetched, setAllFeedbackFetched] = useState(null);
   const [allFeedbacksFetched, setAllFeedbacksFetched] = useState(null);
   const [arrayUpdated, setArrayUpdated] = useState(null);
   const [feedbackSelectedInfo, setFeedbackSelectedInfo] = useState(null);
@@ -20,17 +18,14 @@ function FeedbackReceived() {
   const navigate = useNavigate();
 
   const viewFeedback = (event, feedbackId, planId) => {
-    console.log(event, feedbackId, planId);
     event.stopPropagation();
     const feedbackInfo = feedbacksTable.find(
       (element) => element.feedback_id === feedbackId
     );
     // Fetch the Plan details that are related to this selection
     getAPlanById(planId);
-    console.log(planFetched)
     // Indicate that a selection has been made
     setFeedbackSelectedInfo({ planId, feedbackInfo });
-    console.log(feedbackInfo);
   };
 
   function deleteFeedback(event, feedbackId) {
@@ -49,11 +44,9 @@ function FeedbackReceived() {
         headers: { token: localStorage.token },
       });
 
-      console.log(feedbacksTable, feedbackId);
       feedbacksTable = feedbacksTable.filter(
         (element) => element.feedback_id !== feedbackId
       );
-      console.log(feedbacksTable);
 
       toast.success("Feedback has been deleted.");
     } catch (err) {
@@ -88,12 +81,11 @@ function FeedbackReceived() {
         });
       }
 
-      /* Otherwise setup the Received Feedback Table for Display */
+      /* Otherwise set up the Received Feedback Table for Display */
       feedbacksTable = [...allFeedbacksFetched];
 
       // Indicate that the Feedbacks Table has been populated
       setArrayUpdated(feedbacksTable);
-      console.log(feedbacksTable);
     }
   }, [allFeedbacksFetched, navigate]);
 
@@ -114,7 +106,6 @@ function FeedbackReceived() {
       }
       const jsonData = await response.json();
       setPlanFetched(jsonData[0]);
-      console.log(jsonData[0])
     } catch (err) {
       console.error(err.message);
     }
@@ -131,7 +122,6 @@ function FeedbackReceived() {
           `http://localhost:${PORT}/feedbacks/sent/` + name
         );
         const jsonData = await response.json();
-        console.log("FBsent", name, jsonData);
         setAllFeedbacksFetched(jsonData);
       } catch (err) {
         console.error(err.message);
@@ -139,23 +129,20 @@ function FeedbackReceived() {
     };
 
     getReceivedFeedback();
-    console.log("OK2");
   }, []);
 
   useEffect(() => {
     AllReceivedFeedbackCallback();
   }, [AllReceivedFeedbackCallback]);
 
-  /* Ensure that we have both the Plan and the selected info before going 
+/* Ensure that we have both the Plan and the Selected Info before going 
    to the Feedback Display Page
 */
   useEffect(() => {
     if (feedbackSelectedInfo && planFetched) {
       // View the Feedback
       const selectedInfo = feedbackSelectedInfo.feedbackInfo;
-      console.log(selectedInfo);
       const feedbackText = selectedInfo.feedback_text;
-      console.log(selectedInfo);
       navigate("/feedback-view", {
         state: { selectedInfo, planFetched, feedbackText },
         replace: true,

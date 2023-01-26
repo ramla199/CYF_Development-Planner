@@ -4,11 +4,8 @@ import {
   FEEDBACK_TEXTAREA_NUMCOLS,
   FEEDBACK_ENTRY_MAXLENGTH,
 } from "../../data/constants";
+
 import "../../../src/styles.css";
-
-import RemainingCharactersText from "./RemainingCharactersText";
-
-import { saveFeedback } from "./feedbackFunctions";
 
 import { useNavigate } from "react-router-dom";
 
@@ -16,28 +13,8 @@ import { useNavigate } from "react-router-dom";
 
 const ViewFeedbackPage = ({
   userName,
-  //displayTimeStamp,
-  //  theCurrentTimeStamp,
-  //splan,mplan,aplan,rplan,tplan,
   selectedInfo,
-  planFetched,
   feedbackText,
-  // setFeedbackText,
-  // feedbackCharacterCount,
-  // setFeedbackCharacterCount,
-  // newFeedback,
-  // setNewFeedback,
-  // setSelectedRecordInfo,
-  // setSaved,
-  // setChanged,
-  // feedbackCreatedTimeStamp,
-  // setFeedbackCreatedTimeStamp,
-  // allEmpty,
-  // discardFeedback,
-  gotoFeedbackReceivedPage,
-  // newOrChanged,
-  // indicateSentThenGotoFeedback,
-  handleChange,
 }) => {
   const navigate = useNavigate();
   

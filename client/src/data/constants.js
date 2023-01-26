@@ -13,7 +13,7 @@ export const monthNames = [
   "Dec",
 ];
 
-// Setup for Plan Entry
+// The Setup for Plan Entry
 
 export const S_PLAN = 0;
 export const M_PLAN = 1;
@@ -27,6 +27,14 @@ export const PLAN_PLACEHOLDERS = [
   "How will you do it?",
   "Is this relevant to your life now?",
   "When do you want to do it?",
+];
+
+export const PLAN_ATTRIBUTES= [
+  "SPECIFIC",
+  "MEASURABLE",
+  "ACHIEVABLE",
+  "RELEVANT",
+  "TIMEBOUND"
 ];
 
 export const PLAN_ENTRY_MAXLENGTH = 1500;

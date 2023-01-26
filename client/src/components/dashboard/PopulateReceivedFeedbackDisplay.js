@@ -10,8 +10,7 @@ const PopulateReceivedFeedbackDisplay = ({
   viewFeedback,
   deleteFeedback,
 }) => {
-  console.log(feedbacksTable);
-  const setupTable = feedbacksTable.map((element, index) => {
+    const setupTable = feedbacksTable.map((element, index) => {
     const feedbackId = element.feedback_id;
     const planId = element.feedback_plan_serial_id;
     let temp = element.feedback_request_timestamp.replace(/:/g, ""); // YYYYMMDDHHMMSS
@@ -30,9 +29,7 @@ const PopulateReceivedFeedbackDisplay = ({
     };
   });
 
-  console.log(feedbacksTable);
-  console.log(setupTable);
-
+  
   return setupTable.map(
     ({
       feedbackId,

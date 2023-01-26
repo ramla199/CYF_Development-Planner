@@ -344,7 +344,7 @@ button.delete-button {
 }
 
 
-.expand-button-styling {
+.expand-button-styling, .collapse-button-styling {
         font-size: 0.6em;
         padding-bottom: 0.2em;
         padding-top: 0.5em;
@@ -643,14 +643,24 @@ button.delete-button {
     padding-left: 0.4em;
 }
 
- .tt {
-    table-layout: fixed;
-    margin:1em;
-    border-collapse: separate;
-        border-spacing: 0 15px;
-}
-
  .td-centre {
     text-align: center;
  }
 
+.overlay-grid-container {
+    display: grid;
+}
+
+.non-overlay-content,
+.overlay-content {
+    grid-area: 1 / 1;
+    z-index:1;
+}
+
+.OVERLAY-VISIBLE {
+    visibility: visible
+}
+
+.OVERLAY-HIDDEN {
+    visibility: hidden
+}

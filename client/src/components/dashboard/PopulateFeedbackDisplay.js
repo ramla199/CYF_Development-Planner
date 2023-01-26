@@ -11,16 +11,13 @@ const PopulateFeedbackDisplay = ({
   editFeedback,
   deleteFeedback,
 }) => {
-  console.log(fbRequestsTable);
-  const setupTable = fbRequestsTable.map((element, index) => {
+    const setupTable = fbRequestsTable.map((element, index) => {
     const rowId = element.rowId;
     const planId = element.plan_serial_id;
     let temp = element.req_timestamp.replace(/:/g, ""); // YYYYMMDDHHMMSS
     const displayDate =
-      `${temp.slice(6, 8)} ${monthNames[+temp.slice(4, 6)]} ${temp.slice(
-        0,
-        4
-      )} ` + `${temp.slice(8, 10)}:${temp.slice(10, 12)}:${temp.slice(12, 14)}`;
+      `${temp.slice(6, 8)} ${monthNames[+temp.slice(4, 6)]} ${temp.slice(0,4)} ` + 
+      `${temp.slice(8, 10)}:${temp.slice(10, 12)}:${temp.slice(12, 14)}`;
     const fullname = normaliseNames(element.user_fname, element.user_lname);
     const summary = element.preamble;
     const showCreate =
@@ -38,8 +35,6 @@ const PopulateFeedbackDisplay = ({
     };
   });
 
-  console.log(fbRequestsTable);
-  console.log(setupTable);
 
   return setupTable.map(
     ({

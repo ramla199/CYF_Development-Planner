@@ -67,7 +67,6 @@ function Plans() {
         const response = await fetch(`http://localhost:${PORT}/plans/` + name);
         const jsonData = await response.json();
         setAllPlansFetched(jsonData);
-        console.log(jsonData)
       } catch (err) {
             console.error(err.message);
       }

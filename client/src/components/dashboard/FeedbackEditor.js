@@ -100,22 +100,15 @@ const FeedbackEditor = () => {
   };
 
   const location = useLocation();
-  console.log(newFeedback);
-  console.log(location.state);
+
   useEffect(() => {
-    console.log("SET");
     setLocationState(location.state);
   }, [location.state]);
 
-  console.log("WELL?", locationState, newFeedback);
-
   useEffect(() => {
-    console.log(locationState, newFeedback);
     // ONLY DO THIS THE ONCE! USE 'newFeedback' TO DETERMINE THIS I.E. AS IF useEffect({...}, [])
     if (locationState && newFeedback === null) {
       // Ensure done ONCE!
-      console.log(location.state.selectedInfo);
-      console.log(location.state.planFetched);
 
       const newObject = Object.assign(
         {},
@@ -125,12 +118,6 @@ const FeedbackEditor = () => {
       setSelectedInfo(newObject);
       // Indicate whether creating a new Feedback or amending Feedback
       setNewFeedback(location.state.isNew);
-      console.log(location.state);
-      console.log(
-        "SET>>",
-        location.state.planFetched.username,
-        location.state.isNew
-      );
     }
   }, [newFeedback, location.state, locationState]);
 
@@ -150,9 +137,6 @@ const FeedbackEditor = () => {
   }, [location.state.isNew,location.state.feedbackText]);
 
   
-  console.log(location.state.planFetched.username, selectedInfo);
-  console.log(locationState);
-  console.log(newFeedback);
   return (
     locationState &&
     newFeedback !== null && (

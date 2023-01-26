@@ -1,6 +1,5 @@
 import { useState, useEffect, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
-//import FBRequestsNavbar from "../../../src/components/dashboard/FBRequestsNavBar";
 import PopulateFeedbackDisplay from "./PopulateFeedbackDisplay";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -27,7 +26,6 @@ function FeedbackRequests() {
     getAPlanById(planId);
     // Indicate that a selection has been made
     setFBRequestsSelectedInfo({ isNew, planId, feedbackInfo });
-    console.log(isNew, feedbackInfo);
 
     // If 'Edit' then fetch the Feedback record
     // isNew === false indicates Editing
@@ -74,11 +72,9 @@ function FeedbackRequests() {
         headers: { token: localStorage.token },
       });
 
-      console.log(fbRequestsTable, rowId, idNumber, whichTable);
       fbRequestsTable = fbRequestsTable.filter(
         (element) => element.rowId !== rowId
       );
-      console.log(fbRequestsTable);
 
       toast.success(message);
     } catch (err) {
@@ -114,8 +110,6 @@ function FeedbackRequests() {
   }
 
   const AllFBRequestsCallback = useCallback(() => {
-    console.log(allFBRequestsFetched);
-    console.log(allFeedbacksFetched);
     if (allFBRequestsFetched && allFeedbacksFetched) {
       if (
         allFBRequestsFetched.length === 0 &&
@@ -134,11 +128,11 @@ function FeedbackRequests() {
       /* Otherwise set up the Feedback Requests Table for Display
          This table will contain both Feedback Requests and
          created Feedbacks that have not been sent. 
-         It will be listed in descending Feedback Request Date order
+         They will be listed in descending Feedback Request Date order
 
          Arbitrary characters "R" and "F" are used to denote
          Feedback Request and Feedback records;
-         and to ensure React key values are unique
+         and to ensure React Key values are unique
       */
 
       // First: Add the Feedback Request records to the table
@@ -170,10 +164,8 @@ function FeedbackRequests() {
         // Add to the table in Sorted Descending Order
         fbRequestsTable = addAndSort(fbRequestsTable, entry);
       });
-console.log(fbRequestsTable)
       // Indicate that the Feedback Requests Table has been populated
       setArrayUpdated(fbRequestsTable);
-      console.log(fbRequestsTable);
     }
   }, [allFBRequestsFetched, allFeedbacksFetched, navigate]);
 
@@ -215,7 +207,6 @@ console.log(fbRequestsTable)
         );
       }
       const jsonData = await response.json();
-      console.log(jsonData);
       setFeedbackFetched(jsonData[0]);
     } catch (err) {
       console.error(err.message);
@@ -233,7 +224,6 @@ console.log(fbRequestsTable)
           `http://localhost:${PORT}/feedback_requests/` + name
         );
         const jsonData = await response.json();
-        console.log("FBreq", name, jsonData);
         setAllFBRequestsFetched(jsonData);
       } catch (err) {
         console.error(err.message);
@@ -241,7 +231,6 @@ console.log(fbRequestsTable)
     };
 
     getFBRequests();
-    console.log("OK2");
   }, []);
 
   // Fetch all the Mentor's Feedbacks that have been created but not yet sent
@@ -255,7 +244,6 @@ console.log(fbRequestsTable)
           `http://localhost:${PORT}/feedbacks/notsent/` + name
         );
         const jsonData = await response.json();
-        console.log("FB", name, jsonData);
         setAllFeedbacksFetched(jsonData);
       } catch (err) {
         console.error(err.message);
@@ -263,16 +251,16 @@ console.log(fbRequestsTable)
     };
 
     getAllFeedbacks();
-    console.log("OKK");
   }, []);
 
   useEffect(() => {
     AllFBRequestsCallback();
   }, [AllFBRequestsCallback]);
 
-  /* Ensure that we have both the Plan and the selected info before going 
+/* Ensure that we have both the Plan and the Selected Info before going 
    to the Feedback Editor Page
 */
+
   useEffect(() => {
     if (fbRequestsSelectedInfo && planFetched) {
       const isNew = fbRequestsSelectedInfo.isNew;

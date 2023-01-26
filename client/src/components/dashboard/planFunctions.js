@@ -83,7 +83,6 @@ const writePlan = async (
 
     setSelectedRecordInfo({ thePlan: jsonData[0] });
     setPlanCreatedTimeStamp(jsonData[0].created_timestamp);
-    console.log(jsonData)
   } catch (err) {
         console.error(err.message);
   }
@@ -224,3 +223,13 @@ export function savePlan(
 
     return [displayTimeStamp, theCurrentTimeStamp];
   };
+
+  export function showRemainingChars(whichPlan,PLAN_ENTRY_MAXLENGTH,planCharacterCount) {
+    let diff = PLAN_ENTRY_MAXLENGTH - planCharacterCount[whichPlan];
+    let newRemainingText =
+      String(diff).padStart(4, "0") + " Remaining Characters";
+    let s = String(diff);
+    newRemainingText =
+      " ".repeat(4 - s.length) + diff + " Remaining Characters";
+    return <pre>{newRemainingText}</pre>;
+  }

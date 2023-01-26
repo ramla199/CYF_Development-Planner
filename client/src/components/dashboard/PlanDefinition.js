@@ -7,6 +7,7 @@ import {
 import "../../../src/styles.css"
 
 import RemainingCharactersText from "./RemainingCharactersText";
+import { showRemainingChars } from "./planFunctions";
 
 import React from "react";
 
@@ -18,18 +19,10 @@ const PlanDefinition = ({
   setPlanTextArray,
   planCharacterCount,
   setPlanCharacterCount,
-  setChanged
+  setChanged,
+  setPlanNumber
 }) => {
   
-  function showRemainingChars(whichPlan) {
-    let diff = PLAN_ENTRY_MAXLENGTH - planCharacterCount[whichPlan];
-    let newRemainingText =
-      String(diff).padStart(4, "0") + " Remaining Characters";
-    let s = String(diff);
-    newRemainingText =
-      " ".repeat(4 - s.length) + diff + " Remaining Characters";
-    return <pre>{newRemainingText}</pre>;
-  }
 
   function handleChange(event, whichPlan) {
     let enteredPlan = event.target.value;
@@ -82,10 +75,15 @@ const PlanDefinition = ({
         <RemainingCharactersText
           maxLength={PLAN_ENTRY_MAXLENGTH}
           remainNum={planCharacterCount[whichPlan]}
-          text={showRemainingChars(whichPlan)}
+          text={showRemainingChars(whichPlan, PLAN_ENTRY_MAXLENGTH, planCharacterCount)}
         />
         <div>
-          <button className="button-76 expand-button-styling">Expand</button>
+          <button
+            className="button-76 expand-button-styling"
+            onClick={() => setPlanNumber(whichPlan)}
+          >
+            Expand
+          </button>
         </div>
       </div>
     </section>

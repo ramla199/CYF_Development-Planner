@@ -29,7 +29,7 @@ function SelectMentor() {
         });
       }
 
-      // Otherwise setup the Mentor Table for Display
+      // Otherwise set up the Mentor Table for Display
       mentorTable = allMentors.map((element, index) =>
         Object.assign(element, {
           rowId: index,
@@ -95,8 +95,7 @@ function SelectMentor() {
   const process_selection = (selection) => {
     const [currentDateAndTime, created_timestamp] = setupTimeValues();
     writeFeedbackRequest(selection.username, created_timestamp);
-    toast(
-      `A feedback request has been sent to ${selection.fullname} dated ${currentDateAndTime}`,
+    toast(`A feedback request has been sent to ${selection.fullname} dated ${currentDateAndTime}`,
       {
         position: toast.POSITION.TOP_CENTER,
         className: "toast-display-message",

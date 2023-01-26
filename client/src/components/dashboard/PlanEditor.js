@@ -1,11 +1,9 @@
 import React from "react";
 import { useState, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
+
 import DisplayPlanEditorPage from "./DisplayPlanEditorPage";
-
 import { savePlan, setupTimeValues } from "./planFunctions";
-
-import "../../../src/styles.css";
 
 const PlanEditor = () => {
   const [userName, setUserName] = useState(null);
@@ -46,8 +44,6 @@ const PlanEditor = () => {
   };
 
   const gotoSelectMentor = () => {
-    console.log(location.state)
-    console.log(selectedRecordInfo);
     let planId = selectedRecordInfo.thePlan.plan_serial_id;
     // Go to the Select Mentor page
     navigate("/select-mentor", {
@@ -108,8 +104,6 @@ const PlanEditor = () => {
       let { theIndex, thePlan, theUserName } = location.state.planSelectedInfo;
       setSelectedRecordInfo({ theIndex: theIndex, thePlan: thePlan });
       setUserName(theUserName);
-      console.log(location.state)
-      console.log(location.state.planSelectedInfo)
       if (theIndex === 0) {
         // This indicates that the user is creating a new plan
         setNewPlan(true);
@@ -142,7 +136,7 @@ const PlanEditor = () => {
     // Otherwise for a new plan the above fields will be empty and 0
   }, [selectedRecordInfo, newPlan]);
 
-  //console.log(">>>", selectedRecordInfo);
+
   return (
     <DisplayPlanEditorPage
       userName={userName}
