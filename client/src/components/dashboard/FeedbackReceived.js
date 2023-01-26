@@ -161,17 +161,22 @@ function FeedbackReceived() {
                 <br />
                 Requested On
               </th>
-              <th width="16%">
+              <th width="24%">
                 Request
                 <br />
                 Sent By
               </th>
-              <th width="60%">
+              <th width="10%">
+                Request
+                <br />
+                Sent On
+              </th>
+              <th width="52%">
                 Plan
                 <br />
                 Summary
               </th>
-              <th width="7%">Actions</th>
+              <th colspan="2" width="7%">Actions</th>
               <th width="7%"></th>
             </tr>
           </thead>

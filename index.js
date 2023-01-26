@@ -89,9 +89,19 @@ app.post("/plans/writeplan", async (request, result) => {
                                 VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)
                                 RETURNING *`;
 
-    await pool.query(query, [username, created_timestamp, amended_timestamp,
-                       splan, mplan, aplan, rplan, tplan, preamble]);
-    result.status(200).send("New Plan written successfully.");
+    const newPlan = await pool.query(query, [
+      username,
+      created_timestamp,
+      amended_timestamp,
+      splan,
+      mplan,
+      aplan,
+      rplan,
+      tplan,
+      preamble,
+    ]);
+    //result.status(200).send("New Plan written successfully.");
+    result.json(newPlan.rows);
   } catch (error) {
             console.error(error.message);
             result.status(500).json("Server error: " + error.message);
@@ -318,6 +328,7 @@ app.get("/feedbacks/sent/:username", async (request, result) => {
               feedback_student_username,
               feedback_text, 
               feedback_request_timestamp,
+              feedback_sent_timestamp,
               user_fname, user_lname, preamble 
                   FROM feedbacks
                   INNER JOIN users 

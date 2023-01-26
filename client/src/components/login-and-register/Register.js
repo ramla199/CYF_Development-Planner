@@ -13,8 +13,7 @@ function Register({ setAuth }) {
 
   const [role, setRole] = useState("student"); // DEFAULT VALUE
 
-
-  const { fname, lname, username, email, password,  } = inputs;
+  const { fname, lname, username, email, password } = inputs;
 
   const handleChange = (e) => {
     setInputs({ ...inputs, [e.target.name]: e.target.value });
@@ -28,7 +27,7 @@ function Register({ setAuth }) {
   const onSubmitForm = async (e) => {
     e.preventDefault();
 
-/* Need to ensure that the email value is case-insensitive
+    /* Need to ensure that the email value is case-insensitive
    So it is converted to lowercase
 */
     try {
@@ -49,14 +48,14 @@ function Register({ setAuth }) {
 
       const parseRes = await response.json();
       localStorage.setItem("token", parseRes.jwtToken);
-    /*
+      /*
        The 'role' is also needed for Feedback Functionality
        It will be stored in local-storage
     */
       localStorage.setItem("role", role);
       setAuth(true);
     } catch (err) {
-            console.error(err.message);
+      console.error(err.message);
     }
   };
   return (

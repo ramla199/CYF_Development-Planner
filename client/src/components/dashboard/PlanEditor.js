@@ -98,6 +98,13 @@ const PlanEditor = () => {
   const location = useLocation();
 
   useEffect(() => {
+      document.body.classList.add("overflow-hidden");
+      return () => {
+          document.body.classList.remove("overflow-hidden");
+                  };
+  }, []);
+
+  useEffect(() => {
     // ONLY DO THIS THE ONCE! USE 'newPlan' TO DETERMINE THIS I.E. AS IF useEffect({...}, [])
     if (newPlan === null) {
       // Ensure done ONCE!

@@ -180,7 +180,8 @@ const DisplayPlanEditorPage = ({
       {/* The Overlay */}
       <section
         className={
-          "overlay-content " + (planNumber < 0 ? " OVERLAY-HIDDEN" : "OVERLAY-VISIBLE")
+          "overlay-content " +
+          (planNumber < 0 ? " OVERLAY-HIDDEN" : "OVERLAY-VISIBLE")
         }
       >
         <div className="plans-page-style">
@@ -214,7 +215,7 @@ const DisplayPlanEditorPage = ({
               </form>
             </div>
           </div>
-          <div className="td-remaining-and-button">
+          <div className="td-remaining-and-button td-remaining-centre">
             <RemainingCharactersText
               maxLength={PLAN_ENTRY_MAXLENGTH}
               remainNum={planCharacterCount[planNumber]}

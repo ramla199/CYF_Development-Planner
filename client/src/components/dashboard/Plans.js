@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import PlansNavbar from "../../../src/components/dashboard/PlansNavBar";
 import DisplayListItem from "./DisplayListItem";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -117,7 +116,6 @@ function Plans() {
 
   return (
     <>
-      <PlansNavbar />
       <div className="username-header">{name}</div>
       <div className="main-menu-container">
       <div className="main-menu">{orderedList}</div>

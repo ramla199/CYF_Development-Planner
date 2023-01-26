@@ -59,7 +59,6 @@
     justify-content: space-between;
 }
 
-
 .main-menu-item {
     margin: 0.625em 0 0.625em 1.25em;
     padding-left: 1.25em;
@@ -96,7 +95,6 @@
 .main-menu-date p {
     display: inline-block;
 }
-
 
 .main-menu-item:hover,
 .main-menu-item:active,
@@ -175,6 +173,7 @@ button.delete-button {
     font-size: 1.3em;
     color: black;
     border: 3px solid rgb(255, 47, 127);
+    padding-left: 0.8em;
 }
 
 .plans-page-style, .feedbacks-page-style {
@@ -311,6 +310,11 @@ button.delete-button {
     color: var(--LESSTHAN21_COLOUR);
 }
 
+.td-remaining-centre {
+    justify-content: center;
+    gap: 100px;
+}
+
 .buttons-container {
     margin-top: 1.2em;
     display: flex;
@@ -342,7 +346,6 @@ button.delete-button {
 .button-76:hover {
     box-shadow: none;
 }
-
 
 .expand-button-styling, .collapse-button-styling {
         font-size: 0.6em;
@@ -467,6 +470,17 @@ button.delete-button {
     opacity: .24;
 }
 
+.previous-button {
+    font-size:1em;
+    padding-left: 0.3em;
+    text-align: center;
+}
+
+.previous-button:after {
+    text-align: center;
+    content: "\a\2B05";
+}
+
 /* Toasts using Toastify */
 .toast-error-message,
 .toast-display-message {
@@ -528,11 +542,6 @@ button.delete-button {
     background: #FFFACD;
 }
 
-/* .mentor-table tbody tr.active-row {
-    font-weight: bold;
-    color: #009879;
-} */
-
 .clickable-row {
     cursor: pointer;
     height: 40px;
@@ -566,8 +575,6 @@ button.delete-button {
     display: flex;
     flex-direction: column;
     align-items: stretch;
-    /* align-items: center;
-    justify-content: space-between; */
 }
 
 .scroll {
@@ -617,7 +624,7 @@ button.delete-button {
 .feedback-display-table thead {
     background-color: #009879;
     color: var(--colour-white);
- 
+    text-align: left;
 }
 
 .feedback-display-table tbody tr:last-of-type {
@@ -643,9 +650,22 @@ button.delete-button {
     padding-left: 0.4em;
 }
 
- .td-centre {
+.td-centre {
     text-align: center;
- }
+}
+
+/* That is, columns 2 and 4 */
+.feedback-display-table th:nth-of-type(even) {
+    text-align: center;
+}
+
+.feedback-display-table th:nth-of-type(3) {
+    padding-left: 1em;
+}
+
+.feedback-display-table th:nth-of-type(5) {
+    text-align: center;
+}
 
 .overlay-grid-container {
     display: grid;
@@ -663,4 +683,8 @@ button.delete-button {
 
 .OVERLAY-HIDDEN {
     visibility: hidden
+}
+
+.overflow-hidden {
+    overflow: hidden;
 }

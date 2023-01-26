@@ -80,10 +80,10 @@ const ViewFeedbackPage = ({
         </section>
         <section className="buttons-container">
           {/* Return to the Feedback Editor page */}
-          <button
+          <button className="previous-button"
             onClick={() => navigate("/feedback-received", { replace: true })}
           >
-            Return
+            Previous
           </button>
         </section>
       </section>
