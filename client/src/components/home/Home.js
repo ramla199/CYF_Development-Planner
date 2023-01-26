@@ -7,24 +7,17 @@ import LoginSignInButtons from "./LoginSignInButtons";
 function Home() {
   return (
     <>
-      <main>
-        {" "}
-        <header className="header">
-          <Heading />
-
-          <div className="header-flex">
-            <div>
-              <LoginSignInButtons />
-              <h2 className="subheading">
-                CYF Dev Planner is a tool for our graduates and mentors designed
-                to help them send plans and receive feedback.
-              </h2>
-            </div>
-
-            <img alt="" src={cat} className="header-img" />
-          </div>
-        </header>
-      </main>
+      <header className="header">
+        <Heading />
+        <LoginSignInButtons />
+        <div className="header-flex">
+          <h2 className="subheading">
+            CYF Development Planner is a tool for our graduates and mentors. It is designed to
+            help graduates write SMART Plans, in order to send to their mentors and receive feedback.
+          </h2>
+          <img alt="" src={cat} className="header-img" />
+        </div>
+      </header>
     </>
   );
 }

@@ -1,12 +1,13 @@
 import {
   PLAN_ENTRY_MAXLENGTH,
-  TEXTAREA_NUMROWS,
-  TEXTAREA_NUMCOLS,
+  PLAN_TEXTAREA_NUMROWS,
+  PLAN_TEXTAREA_NUMCOLS,
   PLAN_PLACEHOLDERS,
 } from  "../../../src/data/constants";
 import "../../../src/styles.css"
 
 import RemainingCharactersText from "./RemainingCharactersText";
+import { showRemainingChars } from "./planFunctions";
 
 import React from "react";
 
@@ -18,8 +19,10 @@ const PlanDefinition = ({
   setPlanTextArray,
   planCharacterCount,
   setPlanCharacterCount,
-  setChanged
+  setChanged,
+  setPlanNumber
 }) => {
+
   function showRemainingChars(whichPlan) {
     let diff = PLAN_ENTRY_MAXLENGTH - planCharacterCount[whichPlan];
     let newRemainingText =
@@ -31,7 +34,7 @@ const PlanDefinition = ({
   }
 
   function handleChange(event, whichPlan) {
-    let enteredPlan = event.target.value.trim();
+    let enteredPlan = event.target.value;
     // Indicate there has been a change
     setChanged(true);
 
@@ -61,8 +64,8 @@ const PlanDefinition = ({
             <div className="textarea-label">
               <textarea
                 className="text-area"
-                rows={TEXTAREA_NUMROWS}
-                cols={TEXTAREA_NUMCOLS}
+                rows={PLAN_TEXTAREA_NUMROWS}
+                cols={PLAN_TEXTAREA_NUMCOLS}
                 placeholder={PLAN_PLACEHOLDERS[whichPlan]}
                 maxLength={PLAN_ENTRY_MAXLENGTH}
                 // EG "S-input"
@@ -81,10 +84,16 @@ const PlanDefinition = ({
         <RemainingCharactersText
           maxLength={PLAN_ENTRY_MAXLENGTH}
           remainNum={planCharacterCount[whichPlan]}
-          text={showRemainingChars(whichPlan)}
+          text={showRemainingChars(whichPlan, PLAN_ENTRY_MAXLENGTH, planCharacterCount)}
         />
         <div>
-          <button className="button-76">Expand</button>
+          <button
+            className="button-76 expand-button-styling"
+            onClick={() => setPlanNumber(whichPlan)}
+          >
+            Expand
+          </button>
+
         </div>
       </div>
     </section>

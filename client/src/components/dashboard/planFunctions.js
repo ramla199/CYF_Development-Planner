@@ -62,11 +62,11 @@ const writePlan = async (
       // For new records, the created date and the amended date are identical
       created_timestamp: theCurrentTimeStamp,
       amended_timestamp: theCurrentTimeStamp,
-      splan: planTextArray[S_PLAN],
-      mplan: planTextArray[M_PLAN],
-      aplan: planTextArray[A_PLAN],
-      rplan: planTextArray[R_PLAN],
-      tplan: planTextArray[T_PLAN],
+      splan: planTextArray[S_PLAN].trimEnd(),
+      mplan: planTextArray[M_PLAN].trimEnd(),
+      aplan: planTextArray[A_PLAN].trimEnd(),
+      rplan: planTextArray[R_PLAN].trimEnd(),
+      tplan: planTextArray[T_PLAN].trimEnd(),
       preamble: preambleText,
     };
 
@@ -94,6 +94,9 @@ const updatePlan = async (
   setSaved,
   setChanged
 ) => {
+  const PORT = localStorage.getItem("port");
+
+  // Determine the current time
   const [
     dayNumber,
     monthNumber,
@@ -120,11 +123,11 @@ const updatePlan = async (
       username: theUserName,
       created_timestamp: createdTimestamp,
       amended_timestamp: amendedTimeStamp,
-      splan: planTextArray[S_PLAN],
-      mplan: planTextArray[M_PLAN],
-      aplan: planTextArray[A_PLAN],
-      rplan: planTextArray[R_PLAN],
-      tplan: planTextArray[T_PLAN],
+      splan: planTextArray[S_PLAN].trimEnd(),
+      mplan: planTextArray[M_PLAN].trimEnd(),
+      aplan: planTextArray[A_PLAN].trimEnd(),
+      rplan: planTextArray[R_PLAN].trimEnd(),
+      tplan: planTextArray[T_PLAN].trimEnd(),
       preamble: preambleText,
     };
 
@@ -178,6 +181,7 @@ export function savePlan(
   return;
 }
 
+  // Determine the current time
   export const setupTimeValues = () => {
     let [
       dayNumber,
@@ -218,3 +222,13 @@ export function savePlan(
 
     return [displayTimeStamp, theCurrentTimeStamp];
   };
+
+  export function showRemainingChars(whichPlan,PLAN_ENTRY_MAXLENGTH,planCharacterCount) {
+    let diff = PLAN_ENTRY_MAXLENGTH - planCharacterCount[whichPlan];
+    let newRemainingText =
+      String(diff).padStart(4, "0") + " Remaining Characters";
+    let s = String(diff);
+    newRemainingText =
+      " ".repeat(4 - s.length) + diff + " Remaining Characters";
+    return <pre>{newRemainingText}</pre>;
+  }

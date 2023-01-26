@@ -1,11 +1,9 @@
 import React from "react";
 import { useState, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
+
 import DisplayPlanEditorPage from "./DisplayPlanEditorPage";
-
 import { savePlan, setupTimeValues } from "./planFunctions";
-
-import "../../../src/styles.css";
 
 const PlanEditor = () => {
   const [userName, setUserName] = useState(null);
@@ -47,6 +45,8 @@ const PlanEditor = () => {
   };
 
   const gotoSelectMentor = () => {
+    let planId = selectedRecordInfo.thePlan.plan_serial_id;
+
     // Go to the Select Mentor page
     navigate("/select-mentor", {
       state: { username: userName },
@@ -54,7 +54,7 @@ const PlanEditor = () => {
     });
   };
 
-  const allEmpty = () => planCharacterCount.every((element) => element === 0);
+  const allEmpty = () => planTextArray.every((element) => element.trim() === "");
 
   const newOrChanged = () => newPlan || changed;
 
@@ -89,6 +89,7 @@ const PlanEditor = () => {
     if (leavePage || answer) {
       // Go to the Plans page
       navigate("/plans", {
+        replace: true,
         state: { username: location.state.planSelectedInfo.theUserName },
         replace: false,
       });
@@ -96,6 +97,13 @@ const PlanEditor = () => {
   };
 
   const location = useLocation();
+
+  useEffect(() => {
+      document.body.classList.add("overflow-hidden");
+      return () => {
+          document.body.classList.remove("overflow-hidden");
+                  };
+  }, []);
 
   useEffect(() => {
     // ONLY DO THIS THE ONCE! USE 'newPlan' TO DETERMINE THIS I.E. AS IF useEffect({...}, [])
@@ -136,6 +144,7 @@ const PlanEditor = () => {
     // Otherwise for a new plan the above fields will be empty and 0
   }, [selectedRecordInfo, newPlan]);
 
+
   return (
     <DisplayPlanEditorPage
       userName={userName}
@@ -150,10 +159,10 @@ const PlanEditor = () => {
       setSelectedRecordInfo={setSelectedRecordInfo}
       setSaved={setSaved}
       setChanged={setChanged}
+      planCreatedTimeStamp={planCreatedTimeStamp}
       setPlanCreatedTimeStamp={setPlanCreatedTimeStamp}
       allEmpty={allEmpty}
       discardPlan={discardPlan}
-      planCreatedTimeStamp={planCreatedTimeStamp}
       saveThenGotoPlans={saveThenGotoPlans}
       newOrChanged={newOrChanged}
       gotoSelectMentor={gotoSelectMentor}

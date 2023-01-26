@@ -5,8 +5,9 @@ import "./styles/form.css";
 import "./styles/typography.css";
 import "./styles/media.css";
 
+
 import React, { useState, useEffect } from "react";
-import { Routes, Route, Navigate, useLocation } from "react-router-dom";
+import { Routes, Route, Navigate } from "react-router-dom";
 
 //components
 
@@ -20,8 +21,14 @@ import NoMatch from "./components/NoMatch";
 import Plans from "./components/dashboard/Plans";
 import PlanEditor from "./components/dashboard/PlanEditor";
 import SelectMentor from "./components/dashboard/SelectMentor";
+import FeedbackRequests from "./components/dashboard/FeedbackRequests";
+import FeedbackEditor from "./components/dashboard/FeedbackEditor";
+import FeedbackReceived from "./components/dashboard/FeedbackReceived"
+import FeedbackView from "./components/dashboard/FeedbackView";
+/*
 import ListFeedbacks from "./components/dashboard/mentor/ListFeedbacks";
 import ListMessages from "./components/dashboard/mentor/ListMessages";
+*/
 
 // Toastify
 import { ToastContainer } from "react-toastify";
@@ -49,16 +56,15 @@ function App() {
     }
   };
 
+
   useEffect(() => {
     checkAuthenticated();
   }, []);
 
-  let location = useLocation();
-
+ 
   return (
     <>
-      {/* Don't show Home Icon for Plan's menus */}
-      {!location.pathname.startsWith("/plan") && <Navbar />}
+      <Navbar />
       <Routes>
         <Route
           path="/"
@@ -103,11 +109,17 @@ function App() {
           }
         />
 
+{/*
         <Route path="list-feedbacks" element={<ListFeedbacks />} />
         <Route path="list-messages" element={<ListMessages />} />
+*/}
         <Route path="plans" element={<Plans />} />
         <Route path="plan-editor" element={<PlanEditor />} />
         <Route path="select-mentor" element={<SelectMentor />} />
+        <Route path="feedback-requests" element={<FeedbackRequests />} />
+        <Route path="feedback-editor" element={<FeedbackEditor />} />
+        <Route path="feedback-received" element={<FeedbackReceived />} />
+        <Route path="feedback-view" element={<FeedbackView />} />
 
         <Route path="*" element={<NoMatch />} />
       </Routes>

@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import PlansNavbar from "../../../src/components/dashboard/PlansNavBar";
 import DisplayListItem from "./DisplayListItem";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -81,9 +80,7 @@ function Plans() {
   useEffect(() => {
     const getPlans = async () => {
       try {
-        const response = await fetch(
-          "http://localhost/plans/" + name
-        );
+        const response = await fetch(`http://localhost:${PORT}/plans/` + name);
         const jsonData = await response.json();
         setAllPlansFetched(jsonData);
       } catch (err) {
@@ -98,7 +95,7 @@ function Plans() {
     if (planSelectedInfo) {
       navigate("/plan-editor", {
         state: { planSelectedInfo: planSelectedInfo },
-        replace: false,
+        replace: true,
       });
     }
   }, [planSelectedInfo, navigate]);
@@ -134,7 +131,6 @@ function Plans() {
 
   return (
     <>
-      <PlansNavbar />
       <div className="username-header">{name}</div>
       <div className="main-menu-container">
         <div className="main-menu">{orderedList}</div>
