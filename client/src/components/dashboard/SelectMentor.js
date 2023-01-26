@@ -3,7 +3,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import "../../../src/styles.css";
-import { normaliseNames } from "./normaliseNames";
+import { normaliseNames } from "./normaliseName";
 import { setupTimeValues } from "./planFunctions";
 
 let mentorTable = [];

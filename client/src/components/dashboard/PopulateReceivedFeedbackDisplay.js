@@ -1,6 +1,6 @@
 import React from "react";
 
-import { normaliseNames } from "./normaliseNames";
+import { normaliseNames } from "./normaliseName";
 import { monthNames } from "../../data/constants.js";
 
 import "../../../src/styles.css";
@@ -10,20 +10,24 @@ const PopulateReceivedFeedbackDisplay = ({
   viewFeedback,
   deleteFeedback,
 }) => {
-    const setupTable = feedbacksTable.map((element, index) => {
+  const setupTable = feedbacksTable.map((element, index) => {
     const feedbackId = element.feedback_id;
     const planId = element.feedback_plan_serial_id;
     let temp = element.feedback_request_timestamp.replace(/:/g, ""); // YYYYMMDDHHMMSS
     const displayRequestDate =
-          `${temp.slice(6, 8)} ${monthNames[+temp.slice(4, 6)]} ${temp.slice(0,4)} ` +
-          `${temp.slice(8, 10)}:${temp.slice(10, 12)}:${temp.slice(12, 14)}`;
+      `${temp.slice(6, 8)} ${monthNames[+temp.slice(4, 6)]} ${temp.slice(
+        0,
+        4
+      )} ` + `${temp.slice(8, 10)}:${temp.slice(10, 12)}:${temp.slice(12, 14)}`;
 
     temp = element.feedback_sent_timestamp.replace(/:/g, ""); // YYYYMMDDHHMMSS
     const displaySentDate =
-      `${temp.slice(6, 8)} ${monthNames[+temp.slice(4, 6)]} ${temp.slice(0,4)} ` + 
-      `${temp.slice(8, 10)}:${temp.slice(10, 12)}:${temp.slice(12, 14)}`;
+      `${temp.slice(6, 8)} ${monthNames[+temp.slice(4, 6)]} ${temp.slice(
+        0,
+        4
+      )} ` + `${temp.slice(8, 10)}:${temp.slice(10, 12)}:${temp.slice(12, 14)}`;
     const fullname = normaliseNames(element.user_fname, element.user_lname);
-    
+
     const summary = element.preamble;
 
     return {
@@ -36,7 +40,6 @@ const PopulateReceivedFeedbackDisplay = ({
     };
   });
 
-  
   return setupTable.map(
     ({
       feedbackId,
@@ -73,6 +76,5 @@ const PopulateReceivedFeedbackDisplay = ({
     }
   );
 };
-
 
 export default PopulateReceivedFeedbackDisplay;

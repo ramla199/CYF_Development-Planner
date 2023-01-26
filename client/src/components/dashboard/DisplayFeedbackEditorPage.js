@@ -8,8 +8,7 @@ import "../../../src/styles.css";
 
 import RemainingCharactersText from "./RemainingCharactersText";
 
-import { normaliseNames } from "./normaliseNames";
-
+import { normaliseNames } from "./normaliseName";
 
 function showRemainingChars(feedbackCharacterCount) {
   let diff = FEEDBACK_ENTRY_MAXLENGTH - feedbackCharacterCount;
@@ -32,7 +31,10 @@ const DisplayFeedbackEditorPage = ({
   indicateSentThenGotoFeedback,
   handleChange,
 }) => {
-  const fullname = normaliseNames(selectedInfo.user_fname, selectedInfo.user_lname);
+  const fullname = normaliseNames(
+    selectedInfo.user_fname,
+    selectedInfo.user_lname
+  );
   return (
     <div className="feedbacks-page-style">
       <header className="feedbacks-display-flex">
