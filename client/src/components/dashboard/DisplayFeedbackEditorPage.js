@@ -37,9 +37,9 @@ const DisplayFeedbackEditorPage = ({
     <div className="feedbacks-page-style">
       <header className="feedbacks-display-flex">
         <div className="title-username-header">{fullname}</div>
-        <div className="title-header">Feedback:</div>
+        <div className="title-header">Feedback</div>
       </header>
-      <section className="display-flex-column-container">
+      <section>
         <section className="flex-container">
           <div className="flex-child scroll">
             {/* Only show the nonnull portions of a plan */}

@@ -45,6 +45,7 @@ const PlanEditor = () => {
 
   const gotoSelectMentor = () => {
     let planId = selectedRecordInfo.thePlan.plan_serial_id;
+    
     // Go to the Select Mentor page
     navigate("/select-mentor", {
       state: {

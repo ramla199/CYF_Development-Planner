@@ -1,15 +1,15 @@
+import React from "react";
+
 import {
   PLAN_ENTRY_MAXLENGTH,
   PLAN_TEXTAREA_NUMROWS,
   PLAN_TEXTAREA_NUMCOLS,
   PLAN_PLACEHOLDERS,
-} from  "../../../src/data/constants";
-import "../../../src/styles.css"
+} from "../../../src/data/constants";
+import "../../../src/styles.css";
 
 import RemainingCharactersText from "./RemainingCharactersText";
 import { showRemainingChars } from "./planFunctions";
-
-import React from "react";
 
 const PlanDefinition = ({
   whichPlan,
@@ -20,10 +20,8 @@ const PlanDefinition = ({
   planCharacterCount,
   setPlanCharacterCount,
   setChanged,
-  setPlanNumber
+  setPlanNumber,
 }) => {
-  
-
   function handleChange(event, whichPlan) {
     let enteredPlan = event.target.value;
     // Indicate there has been a change
@@ -75,7 +73,11 @@ const PlanDefinition = ({
         <RemainingCharactersText
           maxLength={PLAN_ENTRY_MAXLENGTH}
           remainNum={planCharacterCount[whichPlan]}
-          text={showRemainingChars(whichPlan, PLAN_ENTRY_MAXLENGTH, planCharacterCount)}
+          text={showRemainingChars(
+            whichPlan,
+            PLAN_ENTRY_MAXLENGTH,
+            planCharacterCount
+          )}
         />
         <div>
           <button
