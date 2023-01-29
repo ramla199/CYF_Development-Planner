@@ -9,6 +9,7 @@ const pool = require("./db.js");
 app.use(cors());
 app.use(express.json());
 
+console.log(process.env.NODE_ENV);
 if (process.env.NODE_ENV === "production") {
   app.use(express.static(path.join(__dirname, "client", "build")));
 }
@@ -100,11 +101,10 @@ app.post("/plans/writeplan", async (request, result) => {
       tplan,
       preamble,
     ]);
-    //result.status(200).send("New Plan written successfully.");
     result.json(newPlan.rows);
   } catch (error) {
-            console.error(error.message);
-            result.status(500).json("Server error: " + error.message);
+    console.error(error.message);
+    result.status(500).json("Server error: " + error.message);
   }
 });
 
@@ -130,7 +130,7 @@ app.put("/plans/updateplan", async (request, result) => {
                           SET amended_timestamp = $1,
                           splan = $2, mplan = $3, aplan = $4, rplan = $5, tplan = $6,
                               preamble = $7
-                          WHERE username = $8 and created_timestamp = $9`; 
+                          WHERE username = $8 and created_timestamp = $9`;
 
     pool.query(
       query,
@@ -153,8 +153,8 @@ app.put("/plans/updateplan", async (request, result) => {
     );
     result.status(200).send("Plan updated.");
   } catch (error) {
-          console.error(error.message);
-          result.status(500).json("Server error: " + error.message);
+    console.error(error.message);
+    result.status(500).json("Server error: " + error.message);
   }
 });
 
@@ -183,7 +183,7 @@ app.delete("/plans/:id", async (request, result) => {
 app.get("/mentors", async (request, result) => {
   try {
     const theMentors = await pool.query(
-      `SELECT * FROM users 
+      `SELECT * FROM users
               WHERE user_role = 'mentor'
               ORDER BY user_lname, user_fname`
     );
@@ -453,7 +453,9 @@ app.use("/authentication", require("./routes/jwtAuth"));
 
 app.use("/dashboard", authorize, require("./routes/dashboard"));
 
-// app.use("/feedbacks", require("./routes/feedbacks"));
+app.get("/*", function (req, res) {
+  res.sendFile(path.join(__dirname, "client", "build", "index.html"));
+});
 
 // app.use("/messages", require("./routes/messages"));
 

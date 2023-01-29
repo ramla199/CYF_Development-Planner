@@ -1,9 +1,9 @@
-import { useState, useEffect, useCallback  } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import "../../../src/styles.css";
-import { normaliseNames } from "./normaliseNames";
+import { normaliseNames } from "./normaliseName";
 import { setupTimeValues } from "./planFunctions";
 
 let mentorTable = [];
@@ -12,7 +12,7 @@ function SelectMentor() {
   const [allMentors, setAllMentors] = useState(null);
   const [arrayUpdate, setArrayUpdate] = useState(false);
   const [selectedRow, setSelectedRow] = useState(-1);
- 
+
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -57,13 +57,12 @@ function SelectMentor() {
         const jsonData = await response.json();
         setAllMentors(jsonData);
       } catch (err) {
-            console.error(err.message);
+        console.error(err.message);
       }
     };
 
     getAllMentors();
   }, []);
-
 
   useEffect(() => {
     allMentorsCallback();
@@ -95,7 +94,8 @@ function SelectMentor() {
   const process_selection = (selection) => {
     const [currentDateAndTime, created_timestamp] = setupTimeValues();
     writeFeedbackRequest(selection.username, created_timestamp);
-    toast(`A feedback request has been sent to ${selection.fullname} dated ${currentDateAndTime}`,
+    toast(
+      `A feedback request has been sent to ${selection.fullname} dated ${currentDateAndTime}`,
       {
         position: toast.POSITION.TOP_CENTER,
         className: "toast-display-message",
@@ -106,7 +106,6 @@ function SelectMentor() {
       replace: true,
     });
   };
-
 
   return (
     mentorTable.length > 0 && (

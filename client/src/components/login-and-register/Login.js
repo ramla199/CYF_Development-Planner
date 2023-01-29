@@ -8,7 +8,7 @@ function Login({ setAuth }) {
   });
 
   const { email, password } = inputs;
-  
+
   const handleChange = (e) => {
     /*
     A strange bug is occurring whilst logging in
@@ -20,33 +20,32 @@ function Login({ setAuth }) {
     Nevertheless need to ensure that the email value is case-insensitive
     So it is converted to lowercase
     */
-   
-   if (e.target.name === "email") {
-    // Ensure email value is lowercase
-       setInputs({ ...inputs, email: e.target.value.toLowerCase() });  
-   } else {
-       setInputs({ ...inputs, password: e.target.value });
-   } 
 
+    if (e.target.name === "email") {
+      // Ensure email value is lowercase
+      setInputs({ ...inputs, email: e.target.value.toLowerCase() });
+    } else {
+      setInputs({ ...inputs, password: e.target.value });
+    }
   };
 
   const onSubmitForm = async (e) => {
     e.preventDefault();
     try {
-          const body = { email, password };
-          const response = await fetch("/authentication/login", {
-              method: "POST",
-              headers: { "Content-Type": "application/json" },
-              body: JSON.stringify(body),
-          });
+      const body = { email, password };
+      const response = await fetch("/authentication/login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(body),
+      });
 
-          const parseRes = await response.json();
-          if (parseRes.jwtToken) {
-            localStorage.setItem("token", parseRes.jwtToken);
-            // The 'role' is needed for Feedback Functionality
-            // Stored in local-storage
-            localStorage.setItem("role", parseRes.role);
-            setAuth(true);
+      const parseRes = await response.json();
+      if (parseRes.jwtToken) {
+        localStorage.setItem("token", parseRes.jwtToken);
+        // The 'role' is needed for Feedback Functionality
+        // Stored in local-storage
+        localStorage.setItem("role", parseRes.role);
+        setAuth(true);
 
         /* 
            At this point seeing that Login is successful
@@ -55,24 +54,24 @@ function Login({ setAuth }) {
            The port number will be stored in local-storage
         */
 
-            try {
-              const response = await fetch("/port-value", {
-                method: "GET",
-                headers: { "Content-Type": "application/json" },
-              });
-              const portvalue = await response.json();
-              localStorage.setItem("port", portvalue);
-            } catch (err) {
-              console.error(err.message);
-            }
-          } else { // Login Failed!
-                setAuth(false);
-                  }
+        try {
+          const response = await fetch("/port-value", {
+            method: "GET",
+            headers: { "Content-Type": "application/json" },
+          });
+          const portvalue = await response.json();
+          localStorage.setItem("port", portvalue);
         } catch (err) {
-            console.error(err.message);
+          console.error(err.message);
+        }
+      } else {
+        // Login Failed!
+        setAuth(false);
+      }
+    } catch (err) {
+      console.error(err.message);
     }
   };
-
 
   return (
     <>
