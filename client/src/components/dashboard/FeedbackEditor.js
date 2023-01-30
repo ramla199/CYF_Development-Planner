@@ -101,6 +101,15 @@ const FeedbackEditor = () => {
 
   const location = useLocation();
 
+
+  useEffect(() => {
+    document.body.classList.add("overflow-hidden");
+    return () => {
+      document.body.classList.remove("overflow-hidden");
+    };
+  }, []);
+
+
   useEffect(() => {
     setLocationState(location.state);
   }, [location.state]);

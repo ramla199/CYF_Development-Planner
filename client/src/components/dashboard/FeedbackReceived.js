@@ -167,7 +167,7 @@ function FeedbackReceived() {
                 Sent By
               </th>
               <th width="10%">
-                Request
+                Feedback
                 <br />
                 Sent On
               </th>

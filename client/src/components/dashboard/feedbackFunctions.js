@@ -145,7 +145,7 @@ const updateFeedback = async (
 };
 
 
-export function saveFeedback( // DG
+export function saveFeedback(
   isSent,
   feedbackText,
   selectedInfo,
