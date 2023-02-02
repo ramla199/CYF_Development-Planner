@@ -19,7 +19,7 @@ if (process.env.NODE_ENV === "production") {
 // So I retrieve it at the point that Login is successful
 // It will be stored in local-storage for the usage of Plans and Feedbacks
 app.get("/port-value", function (request, result) {
-  result.send(PORT);
+  result.send(`${PORT}`);
 });
 
 
