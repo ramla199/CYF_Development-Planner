@@ -53,6 +53,10 @@ router.put("/:id", async (req, res) => {
       "UPDATE messages SET message_text = $1 WHERE message_id=$2 AND user_id = $3",
       [message, messageId, req.user.id]
     );
+
+    if (updateMessage.rows.length === 0) {
+      return res.json("This message is not yours");
+    }
     res.json(" message updated");
   } catch (err) {
     console.error(err.message);
@@ -70,6 +74,10 @@ router.delete("/:id", async (req, res) => {
       "DELETE FROM messages WHERE message_id = $1 AND user_id = $2 RETURNING *",
       [messageId, req.user.id]
     );
+
+    if (deleteMessage.rows.length === 0) {
+      return res.json("This message is not yours");
+    }
     res.json("deleted");
   } catch (err) {
     console.error(err.message);

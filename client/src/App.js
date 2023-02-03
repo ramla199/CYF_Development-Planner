@@ -19,6 +19,8 @@ import NoMatch from "./components/NoMatch";
 
 import ListFeedbacks from "./components/dashboard/mentor/ListFeedbacks";
 import ListMessages from "./components/dashboard/mentor/ListMessages";
+import NewMessage from "./components/dashboard/mentor/NewMessage";
+import NewFeedback from "./components/dashboard/mentor/NewFeedback";
 
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -29,15 +31,15 @@ function App() {
 
   async function isAuth() {
     try {
-      const response = await fetch("http://localhost:4000/auth/is-verify", {
+      const response = await fetch("/authentication/verify", {
         method: "GET",
-        headers: { token: localStorage.token },
+        headers: { jwt_token: localStorage.token },
       });
 
       const parseRes = await response.json();
 
       parseRes === true ? setIsAuthenticated(true) : setIsAuthenticated(false);
-      console.log(parseRes);
+      // console.log(parseRes);
     } catch (err) {
       console.error(err.message);
     }
@@ -46,6 +48,7 @@ function App() {
   useEffect(() => {
     isAuth();
   }, []);
+
   return (
     <>
       <Navbar />
@@ -81,6 +84,47 @@ function App() {
           element={
             isAuthenticated ? (
               <Dashboard setAuth={setAuth} />
+            ) : (
+              <Navigate to="/login" />
+            )
+          }
+        />
+        <Route
+          path="list-messages"
+          element={
+            isAuthenticated ? (
+              <ListMessages setAuth={setAuth} />
+            ) : (
+              <Navigate to="/login" />
+            )
+          }
+        />
+        <Route
+          path="list-feedbacks"
+          element={
+            isAuthenticated ? (
+              <ListFeedbacks setAuth={setAuth} />
+            ) : (
+              <Navigate to="/login" />
+            )
+          }
+        />
+        <Route
+          path="new-message"
+          element={
+            isAuthenticated ? (
+              <NewMessage setAuth={setAuth} />
+            ) : (
+              <Navigate to="/login" />
+            )
+          }
+        />
+
+        <Route
+          path="new-feedback"
+          element={
+            isAuthenticated ? (
+              <NewFeedback setAuth={setAuth} />
             ) : (
               <Navigate to="/login" />
             )

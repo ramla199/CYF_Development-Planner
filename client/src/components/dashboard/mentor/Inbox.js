@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import messagesIcon from "../../../images/E-mail-icon.png";
 import { Link } from "react-router-dom";
 

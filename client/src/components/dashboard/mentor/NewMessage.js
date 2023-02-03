@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import Logout from "../Logout";
 
 // import { Editor } from "react-draft-wysiwyg";
 // import "../../../node_modules/react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
@@ -13,6 +14,7 @@ function NewMessage({ setMessagesChange }) {
 
       myHeaders.append("Content-Type", "application/json");
       myHeaders.append("jwt_token", localStorage.token);
+
       const body = { messageText };
       const response = await fetch("dashboard/messages", {
         method: "POST",
@@ -22,7 +24,7 @@ function NewMessage({ setMessagesChange }) {
 
       const parseResponse = await response.json();
 
-      console.log(parseResponse);
+      // console.log(parseResponse);
 
       setMessagesChange(true);
       setMessageText("");
@@ -33,6 +35,7 @@ function NewMessage({ setMessagesChange }) {
 
   return (
     <>
+      <Logout />
       <section>
         <form onSubmit={onSubmitForm}>
           <h3 className="subheading">Insert message</h3>

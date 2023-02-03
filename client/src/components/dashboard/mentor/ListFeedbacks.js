@@ -1,11 +1,15 @@
 import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
+import Logout from "../Logout";
 import NewFeedback from "../mentor/NewFeedback";
+import Name from "../Name";
 import EditFeedback from "./EditFeedback";
 
-function ListFeedbacks() {
-  const [feedbacks, setFeedbacks] = useState([]);
+function ListFeedbacks({ setAuth }) {
   const [allFeedbacks, setAllFeedbacks] = useState([]);
+  const [feedbacks, setFeedbacks] = useState([]);
 
+  const [feedbacksChange, setFeedbacksChange] = useState(false);
   const getFeedbacks = async () => {
     try {
       const response = await fetch("dashboard/feedbacks", {
@@ -23,7 +27,8 @@ function ListFeedbacks() {
 
   useEffect(() => {
     getFeedbacks();
-  }, []);
+    setFeedbacksChange(false);
+  }, [feedbacksChange]);
 
   // delete feedback
 
@@ -48,6 +53,13 @@ function ListFeedbacks() {
 
   return (
     <>
+      <Name />
+
+      <Logout setAuth={setAuth} />
+
+      <Link to="/new-feedback">
+        <button>new</button>
+      </Link>
       <section>
         <h1>files</h1>
         {feedbacks.length !== 0 &&
@@ -64,7 +76,7 @@ function ListFeedbacks() {
             </div>
           ))}
       </section>
-      <NewFeedback />
+      {/* <NewFeedback /> */}
     </>
   );
 }
