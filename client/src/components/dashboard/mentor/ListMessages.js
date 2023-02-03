@@ -1,20 +1,24 @@
 import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
+import Logout from "../Logout";
 import NewMessage from "../mentor/NewMessage";
+import Name from "../Name";
 
-function ListMessages() {
-  const [messages, setMessages] = useState([]);
+function ListMessages({ setAuth }) {
   const [allMessages, setAllMessages] = useState([]);
+  const [messages, setMessages] = useState([]);
 
+  const [messagesChange, setMessagesChange] = useState(false);
   const getMessages = async () => {
     try {
-      const res = await fetch("/dashboard/messages", {
+      const response = await fetch("dashboard/messages", {
         method: "GET",
         headers: { jwt_token: localStorage.token },
       });
 
-      const parseRes = await res.json();
+      const jsonData = await response.json();
 
-      setAllMessages(parseRes);
+      setAllMessages(jsonData);
     } catch (err) {
       console.error(err.message);
     }
@@ -22,46 +26,55 @@ function ListMessages() {
 
   useEffect(() => {
     getMessages();
-  }, []);
+    setMessagesChange(false);
+  }, [messagesChange]);
 
-  //delete message
+  // delete message
 
   async function deleteMessage(id) {
     try {
-      await fetch(`/dashboard/messages/${id}`, {
+      await fetch(`dashboard/messages/${id}`, {
         method: "DELETE",
         headers: { jwt_token: localStorage.token },
       });
 
       setMessages(messages.filter((message) => message.message_id !== id));
     } catch (err) {
-      console.error(err.message);
+      console.log(allMessages);
     }
   }
 
   useEffect(() => {
     setMessages(allMessages);
   }, [allMessages]);
-  // console.log(allMessages);
-  // console.log(messages);
-  // console.log(messages.length, messages[0]);
+
+  console.log(messages);
 
   return (
     <>
+      <Name />
+      <Logout setAuth={setAuth} />
+
+      <Link to="/new-message">
+        <button>new</button>
+      </Link>
       <section>
-        <h1>messages</h1>
+        <h1>files</h1>
         {messages.length !== 0 &&
           messages[0].message_id !== null &&
           messages.map((message) => (
             <div>
               <div key={message.message_id}>{message.message_text}</div>
+              {/* <div>
+                <EditFeedback />
+              </div> */}
               <button onClick={() => deleteMessage(message.message_id)}>
-                Delete
+                delete
               </button>
             </div>
           ))}
       </section>
-      <NewMessage />
+      {/* <NewMessage /> */}
     </>
   );
 }
