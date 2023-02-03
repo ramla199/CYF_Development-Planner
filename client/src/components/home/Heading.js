@@ -3,9 +3,9 @@ import React from "react";
 function Heading() {
   return (
     <>
-      <h1 className="heading">
+      <h1>
         Welcome to CYF
-        <br /> Developer Planner
+        <br /> Development Planner
       </h1>
     </>
   );

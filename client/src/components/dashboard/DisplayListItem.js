@@ -9,7 +9,13 @@ theKey => 20230007114954 for 07 Jan 2023 11:49:54am
 preambleText => Hello World
 */
 
-const DisplayListItem = ({ theIndex, theKey, preambleText, handleClick, deletePlan }) => {
+const DisplayListItem = ({
+  theIndex,
+  theKey,
+  preambleText,
+  handleClick,
+  deletePlan,
+}) => {
   let colourClass, theDateAndTime, thePreamble;
 
   if (theIndex === 0) {
@@ -45,8 +51,9 @@ const DisplayListItem = ({ theIndex, theKey, preambleText, handleClick, deletePl
         </div>
         <div className="main-menu-description">{thePreamble}</div>
       </div>
-      <button className={"delete-button"} 
-              onClick={() => deletePlan(theIndex)}>Delete</button>
+      <button className={"delete-button"} onClick={() => deletePlan(theIndex)}>
+        Delete
+      </button>
     </>
   );
 };
@@ -73,13 +80,7 @@ function createPreamble(preambleTextArray) {
       break;
     }
   }
-  return result.slice(0, PREAMBLE_SIZE) + ` TESTING 123 JDNFKF DJJFE
-  DBFJDNKJ#FKDLK
-  FKKFJGK
-  KFJFDKGKL#LKDFKFKJKMD,
-  FKGKFJKDK
-  
-  FLJGFKKFK`;
+  return result.slice(0, PREAMBLE_SIZE);
 }
 
 export default DisplayListItem;

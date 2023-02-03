@@ -5,17 +5,17 @@
 /* Extra large devices (large laptops and desktops, 1200px and up) */
 /* @media only screen and (min-width: 1200px) {...} */
 
- @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;500;600;700&display=swap');
 
- *{
+* {
     margin: 0;
     padding:0;
     box-sizing:border-box;
-    /* outline: 1px solid red; */
 }
 
-body{
-    background-color: rgb(251, 249, 249);    
+body {
+    background-color: rgb(251, 249, 249);   
+    font-family: "Montserrat"; 
 }
 
 img {
@@ -32,7 +32,7 @@ img {
 
 @media only screen and (max-width: 220px) {
     .primary-nav {
-        display:flex;
+        display: flex;
         flex-direction: column;
         align-items: center;
     }
@@ -41,7 +41,7 @@ img {
 .primary-nav {
     display: flex;
     justify-content: space-between;
-    align-items: center;   
+    align-items: center;
     gap: 20px;
     background-color: rgb(251, 249, 249);
     padding: 20px;
@@ -51,16 +51,17 @@ img {
     box-shadow: rgba(0, 0, 0, 0.1) 0px 10px 15px -3px, rgba(0, 0, 0, 0.05) 0px 4px 6px -2px;
 }
 
-.logo{
+.logo {
     width: 100px;
 }
 
 .nav-link {
     display: flex;
     flex-direction: column;
-    align-items: center;  
+    align-items: center;
     justify-content: center;
 }
+
 
 nav a {
     text-decoration: none;
@@ -69,7 +70,7 @@ nav a {
 }
 
 nav a.active {
-    font-weight: bold; 
+    font-weight: bold;
     color: rgb(122, 13, 15);
 }
 
@@ -80,35 +81,39 @@ nav a.active {
 /* heading */
 
 @media only screen and (max-width: 495px) {
- .heading{
-    font-size: 1.6rem;
-    max-width: 290px;
- }
+    .heading {
+        font-size: 1.6rem;
+        max-width: 290px;
+    }
+
 }
 
 @media only screen and (min-width: 496px) {
-    .heading{
+    .heading {
         font-size: 1.8rem;
         max-width: 350px;
-     }
+        text-transform: capitalize;
+    }
 }
 
-@media only screen and (min-width: 600px) {
-    .heading{
-        font-size: 2rem;
-        max-width: 450px;
-     } 
+.heading {
+    margin: 0 auto;
+    font-family: "Montserrat";
+    line-height: 1.7em;
+    color: #b55151;
+    font-weight: 700;
+    text-align: center;
+    padding: 50px 20px;
+    text-shadow: -4px -4px 9px rgba(98, 0, 0, 0.16);
 }
 
-.heading{
-margin: 0 auto;
-font-family: "Montserrat";
-line-height: 1.7em;
-color: #b55151;
-font-weight: 700;
-text-align: center;
-padding : 50px 20px;
-text-shadow: -4px -4px 9px rgba(98, 0, 0, 0.16);
+.db-heading {
+    text-transform: capitalize;
+}
+
+.db-heading::after {
+    text-transform: none;
+    content: "'s Dashboard";
 }
 
 /* HERO SECTION */
@@ -117,80 +122,207 @@ text-shadow: -4px -4px 9px rgba(98, 0, 0, 0.16);
 
 .subheading {
     font-family: "Montserrat";
-    font-size: 1.5rem;
+    font-size: 1.1rem;
     font-weight: 400;
-    line-height: 2.6rem; 
-    padding: 40px 20px;
+    line-height: 2.6rem;
+    padding: 40px 30px;
+    margin: auto;
 }
 
 .header-img {
     display: block;
     max-width: 100%;
-    opacity: 0.7;
+    /* opacity: 0.7; */
     margin: 20px auto;
-    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;    
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
 }
 
-@media only screen and (min-width: 1200px) {
-    .header-flex {
-        display: flex;
-        flex-direction: row-reverse;
-         align-items: center;         
-        }
-        .header-img {
-              width: 50%;
-        }
-}
+
 
 /* buttons */
 
-@media only screen and (min-width: 495px) {
-    .login-signin-buttons {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        gap: 20px;
-        padding: 0 0 30px 0;
-        max-width: 400px;
-        margin: auto;  
-    }
-   }
-
-.login-signin-buttons button {
-    padding: 15px 25px;  
-   background-color: rgb(219, 104, 104);
-   border-radius: 7px;
-   display: block; 
-   width: 110px;
-   margin: 20px auto;
-   text-decoration: none;
-   color:rgb(251, 249, 249);
-   font-family: "Montserrat";
-   font-weight: 700;
-   font-size: 0.9rem;
+.login-signin-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
 }
+
+
+button {
+    padding: 15px 25px;
+    background-color: rgb(219, 104, 104);
+    border: none;
+    border-radius: 7px;
+    display: block;
+    width: 110px;
+    margin: 20px auto;
+    text-decoration: none;
+    color: rgb(251, 249, 249);
+    font-family: "Montserrat";
+    font-weight: 700;
+    font-size: 0.9rem;
+    text-align: center;
+}
+
 .login-signin-buttons button :hover {
-    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px; 
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
 }
 
 .login-signin-buttons a {
-text-decoration: none;
+    text-decoration: none;
 }
 
 ul {
     list-style: none;
 }
 
-label, input, button {
+label,
+input,
+button {
     display: block;
+    margin:  auto;
 }
 
-input {
-    padding: 5px 20px;
-    margin-bottom: 20px;
+input[type=text],
+input[type=email],
+input[type=password] {
+    display: block;
+    padding: 15px 20px;
+    margin-bottom: 30px;
+    width: 90%;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    border: none;
+  
+    border-radius: 8px;
+    font-family: inherit;
+}
+
+input:focus {
+    outline: none;
 }
 
 textarea {
     resize: none;
     overflow-y: scroll;
 }
+
+.form {
+    max-width: 400px;
+    padding: 30px;
+    margin: 30px auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    border: 2px solid rgb(186, 63, 63);
+    border-radius: 12px;
+    align-items: center;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    font-size: 1rem;
+}
+
+fieldset {
+    border: none;
+    margin-bottom: 20px;
+}
+
+legend,
+label,
+input[type=radio] {
+    display: inline-block;
+    padding: 10px;
+    text-align: center;
+}
+
+h1 {
+    color: #b55151;
+    font-family: "Montserrat"; 
+}
+
+main {
+    padding: 20px;
+}
+
+
+
+@media only screen and (min-width: 495px) {
+    .login-signin-buttons {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 100px;
+        padding: 0 0 30px 0;
+        max-width: 400px;
+        margin: auto;
+}
+
+    .subheading {
+        font-size: 1.3rem;
+    }
+}
+   
+
+@media only screen and (min-width: 600px) {
+    .heading {
+        font-size: 2rem;
+        max-width: 450px;
+    }
+
+    .subheading {
+        font-size: 1.4rem;
+    }
+}
+
+@media only screen and (min-width: 864px) {
+    .header-flex {
+        display: flex;
+        flex-direction: row-reverse;
+        align-items: center;
+    }
+
+    .header-img {
+        width: 50%;
+    }
+}
+
+.signin-login-link {
+    font-family: "Montserrat";
+    font-size: 1rem;
+    font-weight: 500;
+    color: #b55151;
+    align-self: flex-end;
+    /* margin-right: 30px; */
+    margin-top: 50px; 
+}
+
+section {
+      /* max-width: 500px; */
+        padding: 10px;
+        /* margin: 30px; */
+        /* border: 1px dotted black;
+        border-radius: 12px; */
+        /* display: flex;    */
+        align-items: center;
+        /* box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;  */
+        font-family: "Montserrat";      
+}
+
+.nav-link img {
+    width: 24px;
+}
+
+form h1 {
+    margin-bottom: 30px;
+}
+
+.icon-heading {
+    display:flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    color: #b55151;
+    font-family: "Montserrat";
+    font-size: 1rem;
+    margin-bottom: 30px;
+}
+

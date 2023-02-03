@@ -4,9 +4,9 @@ import { Link } from "react-router-dom";
 function LoginSignInButtons() {
   return (
     <>
-      <div className="login-signin-buttons">
-        <Link to="/sign-in">
-          <button>Sign in</button>
+      <div className="buttons">
+        <Link to="/register">
+          <button>Sign Up</button>
         </Link>
 
         <Link to="/login">
