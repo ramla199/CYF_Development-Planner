@@ -5,11 +5,6 @@ const pool = require("../db");
 
 router.get("/", async (req, res) => {
   try {
-    // const user = await pool.query(
-    //   "SELECT user_name FROM users WHERE user_id = $1",
-    //   [req.user.id]
-    // );
-
     const user = await pool.query(
       "SELECT users.username, feedbacks.feedback_id, feedbacks.feedback_text FROM users LEFT JOIN feedbacks ON users.user_id = feedbacks.user_id WHERE users.user_id = $1",
       [req.user.id]
@@ -21,21 +16,6 @@ router.get("/", async (req, res) => {
     res.status(500).send("Server error");
   }
 });
-
-// get all feedbacks
-
-// router.get("/", async (req, res) => {
-//   try {
-//     const allUserFeedbacks = await pool.query(
-//       "SELECT * FROM feedbacks WHERE user_id = $1",
-//       [req.user.id]
-//     );
-//     res.json(allUserFeedbacks.rows);
-//   } catch (err) {
-//     console.error(err.message);
-//     res.status(500).json("server error");
-//   }
-// });
 
 // get one feedback
 
@@ -75,9 +55,14 @@ router.put("/:id", async (req, res) => {
     const { feedbackId } = req.params;
     const { feedbackText } = req.body;
     const updateFeedback = await pool.query(
-      "UPDATE feedbacks SET feedback_text = $1 WHERE feedback_id = $2 AND user_id = $3",
+      "UPDATE feedbacks SET feedback_text = $1 WHERE feedback_id = $2 AND user_id = $3 RETURNING *",
       [feedbackText, feedbackId, req.user.id]
     );
+
+    if (updateFeedback.rows.length === 0) {
+      return res.json("This feedback is not yours");
+    }
+
     res.json("feedback updated");
   } catch (err) {
     console.error(err.message);
@@ -95,6 +80,10 @@ router.delete("/:id", async (req, res) => {
       "DELETE FROM feedbacks WHERE feedback_id = $1 AND user_id = $2 RETURNING *",
       [feedbackId, req.user.id]
     );
+
+    if (deleteFeedback.rows.length === 0) {
+      return res.json("this feedback is not yours");
+    }
     res.json("feedback deleted");
   } catch (err) {
     console.error(err.message);
