@@ -10,7 +10,7 @@ app.use(express.json());
 
 console.log(process.env.NODE_ENV);
 if (process.env.NODE_ENV === "production") {
-  app.use(express.static(path.join(__dirname, "client", "build")));
+  app.use(express.static(path.join(__dirname, "./client/build")));
 }
 
 // Routes
