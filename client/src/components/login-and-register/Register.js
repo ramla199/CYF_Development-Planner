@@ -48,11 +48,7 @@ function Register({ setAuth }) {
 
       const parseRes = await response.json();
       localStorage.setItem("token", parseRes.jwtToken);
-      /*
-       The 'role' is also needed for Feedback Functionality
-       It will be stored in local-storage
-    */
-      localStorage.setItem("role", role);
+
       setAuth(true);
     } catch (err) {
       console.error(err.message);

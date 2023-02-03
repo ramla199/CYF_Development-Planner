@@ -5,7 +5,6 @@ import "./styles/form.css";
 import "./styles/typography.css";
 import "./styles/media.css";
 
-
 import React, { useState, useEffect } from "react";
 import { Routes, Route, Navigate } from "react-router-dom";
 
@@ -18,21 +17,8 @@ import Navbar from "./components/navbar/Navbar";
 import Home from "./components/home/Home";
 import NoMatch from "./components/NoMatch";
 
-import Plans from "./components/dashboard/Plans";
-import PlanEditor from "./components/dashboard/PlanEditor";
-import SelectMentor from "./components/dashboard/SelectMentor";
-import FeedbackRequests from "./components/dashboard/FeedbackRequests";
-import FeedbackEditor from "./components/dashboard/FeedbackEditor";
-import FeedbackReceived from "./components/dashboard/FeedbackReceived"
-import FeedbackView from "./components/dashboard/FeedbackView";
-/*
 import ListFeedbacks from "./components/dashboard/mentor/ListFeedbacks";
 import ListMessages from "./components/dashboard/mentor/ListMessages";
-*/
-
-// Toastify
-import { ToastContainer } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
 
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -41,40 +27,32 @@ function App() {
     setIsAuthenticated(boolean);
   };
 
-  const checkAuthenticated = async () => {
+  async function isAuth() {
     try {
-      const res = await fetch("/authentication/verify", {
-        method: "POST",
-        headers: { jwt_token: localStorage.token },
+      const response = await fetch("http://localhost:4000/auth/is-verify", {
+        method: "GET",
+        headers: { token: localStorage.token },
       });
 
-      const parseRes = await res.json();
+      const parseRes = await response.json();
 
       parseRes === true ? setIsAuthenticated(true) : setIsAuthenticated(false);
+      console.log(parseRes);
     } catch (err) {
       console.error(err.message);
     }
-  };
-
+  }
 
   useEffect(() => {
-    checkAuthenticated();
+    isAuth();
   }, []);
-
- 
   return (
     <>
       <Navbar />
       <Routes>
         <Route
           path="/"
-          element={
-            !isAuthenticated ? (
-              <Home setAuth={setAuth} />
-            ) : (
-              <Navigate to="/login" />
-            )
-          }
+          element={!isAuthenticated ? <Home /> : <Navigate to="/dashboard" />}
         />
         <Route
           path="register"
@@ -109,33 +87,8 @@ function App() {
           }
         />
 
-{/*
-        <Route path="list-feedbacks" element={<ListFeedbacks />} />
-        <Route path="list-messages" element={<ListMessages />} />
-*/}
-        <Route path="plans" element={<Plans />} />
-        <Route path="plan-editor" element={<PlanEditor />} />
-        <Route path="select-mentor" element={<SelectMentor />} />
-        <Route path="feedback-requests" element={<FeedbackRequests />} />
-        <Route path="feedback-editor" element={<FeedbackEditor />} />
-        <Route path="feedback-received" element={<FeedbackReceived />} />
-        <Route path="feedback-view" element={<FeedbackView />} />
-
         <Route path="*" element={<NoMatch />} />
       </Routes>
-
-      <ToastContainer
-        position="top-center"
-        autoClose={5000}
-        hideProgressBar={false}
-        newestOnTop={false}
-        closeOnClick
-        rtl={false}
-        pauseOnFocusLoss
-        draggable
-        pauseOnHover
-        theme="light"
-      />
     </>
   );
 }

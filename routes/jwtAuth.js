@@ -57,13 +57,7 @@ router.post("/login", validInfo, async (req, res) => {
       return res.status(401).json("Invalid Credential");
     }
     const jwtToken = jwtGenerator(user.rows[0].user_id);
-    /*
-       The 'role' is also needed for Feedback Functionality
-       So fetch it at this point
-       It will be stored in local-storage
-       
-    return res.json({ jwtToken });
-    */
+
     return res.json({ jwtToken, role: user.rows[0].user_role });
   } catch (err) {
     console.error(err.message);

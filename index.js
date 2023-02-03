@@ -14,7 +14,6 @@ if (process.env.NODE_ENV === "production") {
   app.use(express.static(path.join(__dirname, "client", "build")));
 }
 
-
 // I need the current value of the port number
 // So I retrieve it at the point that Login is successful
 // It will be stored in local-storage for the usage of Plans and Feedbacks
@@ -22,15 +21,12 @@ app.get("/port-value", function (request, result) {
   result.send(`${PORT}`);
 });
 
-
 // app.get("/*", function (req, res, next) {
 //   res.sendFile(path.join(__dirname, "client", "build", "index.html"));
 //   next();
 // });
 
-
 // Plans EndPoints - TODO: refactor through middleware - ./routes/dashboard
-
 
 // Does the student have any plans?
 // Return all the student's Plans - Ordered from the newest to the oldest
@@ -45,11 +41,10 @@ app.get("/plans/:username", async (request, result) => {
     );
     result.json(thePlans.rows);
   } catch (err) {
-        console.error(err.message);
-        result.status(500).json("Server error: " + err.message);
+    console.error(err.message);
+    result.status(500).json("Server error: " + err.message);
   }
 });
-
 
 // Fetch a 'Plan' record using the Plan Id
 app.get("/planbyid/:id", async (request, result) => {
@@ -62,11 +57,10 @@ app.get("/planbyid/:id", async (request, result) => {
     );
     result.json(thePlan.rows);
   } catch (err) {
-        console.error(err.message);
-        result.status(500).json("Server error: " + err.message);
+    console.error(err.message);
+    result.status(500).json("Server error: " + err.message);
   }
 });
-
 
 // Write a new plan
 app.post("/plans/writeplan", async (request, result) => {
@@ -107,7 +101,6 @@ app.post("/plans/writeplan", async (request, result) => {
     result.status(500).json("Server error: " + error.message);
   }
 });
-
 
 // Update a 'Plan' record
 app.put("/plans/updateplan", async (request, result) => {
@@ -158,7 +151,6 @@ app.put("/plans/updateplan", async (request, result) => {
   }
 });
 
-
 // Delete the plan
 app.delete("/plans/:id", async (request, result) => {
   try {
@@ -171,13 +163,12 @@ app.delete("/plans/:id", async (request, result) => {
     );
     result.status(200).send("Plan record successfully deleted.");
   } catch (err) {
-        console.error(err.message);
-        result.status(500).json("Server error: " + err.message);
+    console.error(err.message);
+    result.status(500).json("Server error: " + err.message);
   }
 });
 
-
-// Mentors handling EndPoints 
+// Mentors handling EndPoints
 
 // Select all the mentors
 app.get("/mentors", async (request, result) => {
@@ -189,13 +180,12 @@ app.get("/mentors", async (request, result) => {
     );
     result.json(theMentors.rows);
   } catch (err) {
-          console.error(err.message);
-          result.status(500).json("Server error: " + err.message);
+    console.error(err.message);
+    result.status(500).json("Server error: " + err.message);
   }
 });
 
-
-// Feedback Requests EndPoints 
+// Feedback Requests EndPoints
 
 // Get all the feedback requests for the current mentor
 app.get("/feedback_requests/:username", async (request, result) => {
@@ -223,7 +213,6 @@ app.get("/feedback_requests/:username", async (request, result) => {
   }
 });
 
-
 // Write a 'Feedback Request' record
 app.post("/feedback_requests/write", async (request, result) => {
   try {
@@ -244,14 +233,13 @@ app.post("/feedback_requests/write", async (request, result) => {
       mentor_username,
       student_username,
       timestamp,
-    ]); 
+    ]);
     result.status(200).send("Feedback Request record successfully written.");
   } catch (error) {
-        console.error(error.message);
-        result.status(500).json("Server error: " + error.message);
+    console.error(error.message);
+    result.status(500).json("Server error: " + error.message);
   }
 });
-
 
 // Delete the 'Feedback Request'
 app.delete("/feedback_requests/:id", async (request, result) => {
@@ -269,8 +257,7 @@ app.delete("/feedback_requests/:id", async (request, result) => {
   }
 });
 
-
-// Feedbacks EndPoints 
+// Feedbacks EndPoints
 
 // Fetch a 'Feedback' record using the Feedback Id
 app.get("/feedbacks/:id", async (request, result) => {
@@ -283,13 +270,12 @@ app.get("/feedbacks/:id", async (request, result) => {
     );
     result.json(theFeedback.rows);
   } catch (err) {
-        console.error(err.message);
-        result.status(500).json("Server error: " + err.message);
+    console.error(err.message);
+    result.status(500).json("Server error: " + err.message);
   }
 });
 
-
-// Get all the feedbacks that have been created by the current mentor 
+// Get all the feedbacks that have been created by the current mentor
 // but have not yet been sent
 app.get("/feedbacks/notsent/:username", async (request, result) => {
   try {
@@ -316,7 +302,6 @@ app.get("/feedbacks/notsent/:username", async (request, result) => {
     result.status(500).json("Server error: " + err.message);
   }
 });
-
 
 // Get all the feedbacks that have been sent to the current student
 app.get("/feedbacks/sent/:username", async (request, result) => {
@@ -346,7 +331,6 @@ app.get("/feedbacks/sent/:username", async (request, result) => {
     result.status(500).json("Server error: " + err.message);
   }
 });
-
 
 // Write a 'Feedback' record
 app.post("/feedbacks/write", async (request, result) => {
@@ -381,41 +365,30 @@ app.post("/feedbacks/write", async (request, result) => {
       feedbackText,
       thePlanSerialId,
       sent,
-    ]); 
+    ]);
     result.status(200).send("Feedback record successfully written.");
   } catch (error) {
-        console.error(error.message);
-        result.status(500).json("Server error: " + error.message);
+    console.error(error.message);
+    result.status(500).json("Server error: " + error.message);
   }
 });
-
 
 // Update a 'Feedback' record
 app.put("/feedbacks/updatefeedback", async (request, result) => {
   try {
     // Destructuring
-    const {
-      feedback_id,
-      sentTimestamp,
-      feedbackText,
-      isSent,
-    } = request.body;
+    const { feedback_id, sentTimestamp, feedbackText, isSent } = request.body;
 
     // Update Record
     const query = `UPDATE feedbacks
                           SET feedback_text = $1,
                               feedback_sent_timestamp = $2,
                               feedback_sent = $3
-                          WHERE feedback_id = $4`; 
+                          WHERE feedback_id = $4`;
 
     pool.query(
       query,
-      [
-        feedbackText,
-        sentTimestamp,
-        isSent,
-        feedback_id,
-      ],
+      [feedbackText, sentTimestamp, isSent, feedback_id],
       (error) => {
         if (error) {
           throw error;
@@ -424,11 +397,10 @@ app.put("/feedbacks/updatefeedback", async (request, result) => {
     );
     result.status(200).send("Feedback updated.");
   } catch (error) {
-          console.error(error.message);
-          result.status(500).json("Server error: " + error.message);
+    console.error(error.message);
+    result.status(500).json("Server error: " + error.message);
   }
 });
-
 
 // Delete the 'Feedback'
 app.delete("/feedbacks/:id", async (request, result) => {
@@ -446,7 +418,6 @@ app.delete("/feedbacks/:id", async (request, result) => {
   }
 });
 
-
 // Routes
 
 app.use("/authentication", require("./routes/jwtAuth"));
@@ -456,8 +427,6 @@ app.use("/dashboard", authorize, require("./routes/dashboard"));
 app.get("/*", function (req, res) {
   res.sendFile(path.join(__dirname, "client", "build", "index.html"));
 });
-
-// app.use("/messages", require("./routes/messages"));
 
 app.listen(PORT, () => {
   console.log(`Server listening on ${PORT}`);

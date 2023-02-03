@@ -1,14 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
-
 // components
-/*
+
 import Files from "./mentor/Files";
 import Inbox from "./mentor/Inbox";
 
 import NewMessage from "./mentor/NewMessage";
-*/
+
 function Dashboard({ setAuth }) {
   const [name, setName] = useState("");
 
@@ -50,26 +49,15 @@ function Dashboard({ setAuth }) {
     getName();
   }, []);
 
-  let theRole = localStorage.getItem("role");
-  
   return (
     <>
       <section>
         <h1 className="heading db-heading">{name}</h1>
         <div className="login-signin-buttons">
-          {theRole === "student" && 
-                    <button onClick={() => navigate("/plans")}>Plans</button>}
-          {theRole === "student" && 
-                    <button onClick={() => navigate("/feedback-received")}>
-                      Feedback<br/>Received<br/>Inbox</button>}
-
-          {theRole === "mentor" &&  
-                    <button onClick={() => navigate("/feedback-requests")}>
-                      Feedback<br/>Requests<br/>Inbox</button>}
           <button onClick={(e) => logout(e)}>Logout</button>
         </div>
-        {/* <Files />
-        <Inbox /> */}
+        <Files />
+        <Inbox />
       </section>
     </>
   );
