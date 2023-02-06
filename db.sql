@@ -26,6 +26,7 @@ CREATE TABLE feedbacks (
 
 
 --messages
+-- What are messages for? I would have expected a message to have a sender and receiver user ID, but these only seem to have one user associated?
 CREATE TABLE messages(
       message_id SERIAL,
       user_id UUID,

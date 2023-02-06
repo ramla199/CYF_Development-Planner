@@ -22,6 +22,7 @@ router.get("/", async (req, res) => {
 router.get("/:id", async (req, res) => {
   const { feedbackId } = req.params;
   const selectedFeedback = await pool.query(
+    // There should probably be an auth check here to make sure the user is allowed to see the particular feedback?
     "SELECT * FROM feedbacks WHERE feedback_id = $1",
     [feedbackId]
   );
@@ -46,6 +47,7 @@ router.post("/", async (req, res) => {
     res.json(newFeedback.rows[0]);
   } catch (err) {
     console.error(err.message);
+    // Should probably respond with a 500 status too?
   }
 });
 

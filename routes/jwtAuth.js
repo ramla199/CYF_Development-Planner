@@ -69,6 +69,7 @@ router.post("/verify", authorize, (req, res) => {
   try {
     res.json(true);
   } catch (err) {
+    // How could the above code fail? When would this catch get invoked?
     console.error(err.message);
     res.status(500).send("Server error");
   }
