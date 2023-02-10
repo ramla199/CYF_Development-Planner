@@ -12,7 +12,7 @@ function Files() {
         </div>
 
         <div className="buttons">
-          <Link to="/list-feedbacks">
+          <Link to="/list-files">
             <button>open</button>
           </Link>
         </div>

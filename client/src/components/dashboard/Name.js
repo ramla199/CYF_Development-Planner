@@ -29,7 +29,7 @@ function Name() {
   return (
     <>
       <section>
-        <h1 className="heading db-heading">{name}</h1>
+        <h1 className="heading">{name}</h1>
       </section>
     </>
   );

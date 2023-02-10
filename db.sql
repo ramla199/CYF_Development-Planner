@@ -25,12 +25,15 @@ CREATE TABLE feedbacks (
 );
 
 
+
 --messages
 CREATE TABLE messages(
       message_id SERIAL,
       user_id UUID,
+      sender VARCHAR(200),
       message_text VARCHAR(1000) NOT NULL,
+      reply_text VARCHAR(1000),
       PRIMARY KEY (message_id),
-      FOREIGN KEY (user_id) REFERENCES users(user_id)
+      FOREIGN KEY (user_id) REFERENCES users(user_id),
+      FOREIGN KEY (sender) REFERENCES users(username)
 );
-

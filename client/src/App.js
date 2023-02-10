@@ -17,10 +17,11 @@ import Navbar from "./components/navbar/Navbar";
 import Home from "./components/home/Home";
 import NoMatch from "./components/NoMatch";
 
-import ListFeedbacks from "./components/dashboard/mentor/ListFeedbacks";
 import ListMessages from "./components/dashboard/mentor/ListMessages";
 import NewMessage from "./components/dashboard/mentor/NewMessage";
 import NewFeedback from "./components/dashboard/mentor/NewFeedback";
+
+import ListFiles from "./components/dashboard/mentor/ListFiles";
 
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -99,16 +100,7 @@ function App() {
             )
           }
         />
-        <Route
-          path="list-feedbacks"
-          element={
-            isAuthenticated ? (
-              <ListFeedbacks setAuth={setAuth} />
-            ) : (
-              <Navigate to="/login" />
-            )
-          }
-        />
+
         <Route
           path="new-message"
           element={
@@ -132,6 +124,8 @@ function App() {
         />
 
         <Route path="*" element={<NoMatch />} />
+
+        <Route path="list-files" element={<ListFiles />} />
       </Routes>
     </>
   );
