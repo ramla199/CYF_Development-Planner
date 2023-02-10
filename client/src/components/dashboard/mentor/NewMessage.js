@@ -16,7 +16,7 @@ function NewMessage({ setMessagesChange }) {
       myHeaders.append("jwt_token", localStorage.token);
 
       const body = { messageText };
-      const response = await fetch("dashboard/messages", {
+      const response = await fetch("/dashboard/messages", {
         method: "POST",
         headers: myHeaders,
         body: JSON.stringify(body),
@@ -24,7 +24,7 @@ function NewMessage({ setMessagesChange }) {
 
       const parseResponse = await response.json();
 
-      // console.log(parseResponse);
+      console.log(parseResponse);
 
       setMessagesChange(true);
       setMessageText("");
@@ -41,7 +41,7 @@ function NewMessage({ setMessagesChange }) {
           <h3 className="subheading">Insert message</h3>
           <div className="buttons">
             <button>save</button>
-            <button>send</button>
+            {/* <button>send</button> */}
           </div>
 
           <textarea
