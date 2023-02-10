@@ -24,7 +24,6 @@ function ListFiles({ setAuth }) {
   const [filter, setFilter] = useState("All");
 
   const [allDrafts, setAllDrafts] = useState([]);
-  const [drafts, setDrafts] = useState([]);
 
   console.log(allDrafts);
   const getDrafts = async () => {
@@ -129,9 +128,9 @@ function ListFiles({ setAuth }) {
       <MentorForm addTask={addTask} />
       <div>
         {" "}
-        {drafts.length !== 0 &&
-          drafts[0].draft_id !== null &&
-          drafts.map((draft) => (
+        {allDrafts.length !== 0 &&
+          allDrafts[0].draft_id !== null &&
+          allDrafts.map((draft) => (
             <div key={draft.draft_id}>
               <div>{draft.draft_text}</div>
             </div>
