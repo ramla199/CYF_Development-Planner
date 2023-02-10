@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { nanoid } from "nanoid";
 //components
 import Name from "../Name";
@@ -22,6 +22,30 @@ const FILTER_NAMES = Object.keys(FILTER_MAP);
 function ListFiles({ setAuth }) {
   const [tasks, setTasks] = useState(data);
   const [filter, setFilter] = useState("All");
+
+  const [allDrafts, setAllDrafts] = useState([]);
+  const [drafts, setDrafts] = useState([]);
+
+  console.log(allDrafts);
+  const getDrafts = async () => {
+    try {
+      const res = await fetch("/dashboard/drafts", {
+        method: "GET",
+        headers: { jwt_token: localStorage.token },
+      });
+
+      const parseData = await res.json();
+      setAllDrafts(parseData);
+    } catch (err) {
+      console.error(err.message);
+    }
+  };
+
+  useEffect(() => {
+    getDrafts();
+  }, []);
+
+  console.log(drafts);
 
   function addTask(name) {
     const newTask = { id: `todo-${nanoid()}`, name, completed: false };
@@ -103,6 +127,16 @@ function ListFiles({ setAuth }) {
       <ul>{taskList}</ul>
 
       <MentorForm addTask={addTask} />
+      <div>
+        {" "}
+        {drafts.length !== 0 &&
+          drafts[0].draft_id !== null &&
+          drafts.map((draft) => (
+            <div key={draft.draft_id}>
+              <div>{draft.draft_text}</div>
+            </div>
+          ))}
+      </div>
     </div>
   );
 }

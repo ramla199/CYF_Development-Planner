@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import Logout from "../Logout";
 
 function File({
   name,
@@ -7,6 +8,7 @@ function File({
   toggleTaskCompleted,
   deleteTask,
   editTask,
+  setAuth,
 }) {
   const [isEditing, setEditing] = useState(false);
   const [newName, setNewName] = useState("");
@@ -61,6 +63,7 @@ function File({
 
   return (
     <>
+      <Logout setAuth={setAuth} />
       <li>{isEditing ? editingTemplate : viewTemplate}</li>
     </>
   );

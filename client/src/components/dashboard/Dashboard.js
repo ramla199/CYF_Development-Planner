@@ -14,7 +14,7 @@ function Dashboard({ setAuth }) {
         <BackButton />
         <Name />
         <Logout setAuth={setAuth} />
-        <Files />
+        <Files setAuth={setAuth} />
         <Inbox />
       </section>
     </>

@@ -1,12 +1,12 @@
 const router = require("express").Router();
 const pool = require("../db");
 
-//all user's feedbacks
+//all user's drafts
 
 router.get("/", async (req, res) => {
   try {
     const user = await pool.query(
-      "SELECT users.username, feedbacks.feedback_id, feedbacks.feedback_text FROM users LEFT JOIN feedbacks ON users.user_id = feedbacks.user_id WHERE users.user_id = $1",
+      "SELECT users.username, drafts.draft_id, drafts.draft_text FROM users LEFT JOIN drafts ON users.user_id = drafts.user_id WHERE users.user_id = $1",
       [req.user.id]
     );
 

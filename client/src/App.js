@@ -125,7 +125,16 @@ function App() {
 
         <Route path="*" element={<NoMatch />} />
 
-        <Route path="list-files" element={<ListFiles />} />
+        <Route
+          path="list-files"
+          element={
+            isAuthenticated ? (
+              <ListFiles setAuth={setAuth} />
+            ) : (
+              <Navigate to="/login" />
+            )
+          }
+        />
       </Routes>
     </>
   );
