@@ -44,8 +44,6 @@ function ListFiles({ setAuth }) {
     getDrafts();
   }, []);
 
-  console.log(drafts);
-
   function addTask(name) {
     const newTask = { id: `todo-${nanoid()}`, name, completed: false };
 
