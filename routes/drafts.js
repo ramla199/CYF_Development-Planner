@@ -17,74 +17,75 @@ router.get("/", async (req, res) => {
   }
 });
 
-// get one feedback
-
-router.get("/:id", async (req, res) => {
-  const { feedbackId } = req.params;
-  const selectedFeedback = await pool.query(
-    "SELECT * FROM feedbacks WHERE feedback_id = $1",
-    [feedbackId]
-  );
-  res.json(selectedFeedback.rows);
-  try {
-  } catch (err) {
-    console.error(err.message);
-  }
-});
-
-// insert feedback
+// insert new draft
 
 router.post("/", async (req, res) => {
   try {
-    console.log(req.body);
-    const { feedbackText } = req.body;
-    const newFeedback = await pool.query(
-      "INSERT INTO feedbacks (user_id, feedback_text) VALUES ($1, $2) RETURNING *",
-      [req.user.id, feedbackText]
+    const { draftText } = req.body;
+    const newDraft = await pool.query(
+      "INSERT INTO drafts (user_id, draft_text) VALUES ($1, $2) RETURNING *",
+      [req.user.id, draftText]
     );
-
-    res.json(newFeedback.rows[0]);
-  } catch (err) {
-    console.error(err.message);
-  }
-});
-
-//edit feedback
-router.put("/:id", async (req, res) => {
-  try {
-    const { feedbackId } = req.params;
-    const { feedbackText } = req.body;
-    const updateFeedback = await pool.query(
-      "UPDATE feedbacks SET feedback_text = $1 WHERE feedback_id = $2 AND user_id = $3 RETURNING *",
-      [feedbackText, feedbackId, req.user.id]
-    );
-
-    if (updateFeedback.rows.length === 0) {
-      return res.json("This feedback is not yours");
-    }
-
-    res.json("feedback updated");
+    res.json(newDraft.rows[0]);
   } catch (err) {
     console.error(err.message);
     res.status(500).json("server error");
   }
 });
 
-// delete feedback
+// get one feedback
+
+router.get("/:id", async (req, res) => {
+  const { draftId } = req.params;
+
+  const selectedDraft = await pool.query(
+    "SELECT * FROM drafts WHERE draft_id = $1",
+    [draftId]
+  );
+  res.json(selectedDraft.rows);
+  try {
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).json("server error");
+  }
+});
+
+//edit draft
+
+router.put("/:id", async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { draftText } = req.body;
+    const updateTodo = await pool.query(
+      "UPDATE drafts SET draft_text = $1 WHERE draft_id = $2 AND user_id = $3 RETURNING *",
+      [draftText, id, req.user.id]
+    );
+
+    if (updateTodo.rows.length === 0) {
+      return res.json("This draft is not yours");
+    }
+
+    res.json("Draft was updated");
+  } catch (err) {
+    console.error(err.message);
+  }
+});
+
+// delete draft
 
 router.delete("/:id", async (req, res) => {
   try {
-    const { feedbackId } = req.params;
-
-    const deleteFeedback = await pool.query(
-      "DELETE FROM feedbacks WHERE feedback_id = $1 AND user_id = $2 RETURNING *",
-      [feedbackId, req.user.id]
+    const { id } = req.params;
+    const deleteDraft = await pool.query(
+      "DELETE FROM drafts WHERE draft_id = $1 AND user_id = $2 RETURNING *",
+      [id, req.user.id]
     );
 
-    if (deleteFeedback.rows.length === 0) {
-      return res.json("this feedback is not yours");
+    if (deleteDraft.rows.length === 0) {
+      return res.json("This draft is not yours");
     }
-    res.json("feedback deleted");
+
+    res.json("Todo was deleted");
   } catch (err) {
     console.error(err.message);
   }

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { nanoid } from "nanoid";
 //components
 import Name from "../Name";
@@ -8,6 +8,8 @@ import MentorForm from "./MentorForm";
 import BackButton from "../../BackButton";
 
 import File from "./File";
+
+import Drafts from "./Drafts";
 
 let data = [];
 
@@ -21,28 +23,8 @@ const FILTER_NAMES = Object.keys(FILTER_MAP);
 
 function ListFiles({ setAuth }) {
   const [tasks, setTasks] = useState(data);
+
   const [filter, setFilter] = useState("All");
-
-  const [allDrafts, setAllDrafts] = useState([]);
-
-  console.log(allDrafts);
-  const getDrafts = async () => {
-    try {
-      const res = await fetch("/dashboard/drafts", {
-        method: "GET",
-        headers: { jwt_token: localStorage.token },
-      });
-
-      const parseData = await res.json();
-      setAllDrafts(parseData);
-    } catch (err) {
-      console.error(err.message);
-    }
-  };
-
-  useEffect(() => {
-    getDrafts();
-  }, []);
 
   function addTask(name) {
     const newTask = { id: `todo-${nanoid()}`, name, completed: false };
@@ -111,9 +93,14 @@ function ListFiles({ setAuth }) {
   return (
     <div>
       {/* heading */}
-      <Logout setAuth={setAuth} />
-      <BackButton />
+      <div className="buttons">
+        {" "}
+        <Logout setAuth={setAuth} />
+        <BackButton />
+      </div>
+
       <Name />
+
       <h1>Files</h1>
       <div className="buttons">{filterList}</div>
 
@@ -123,17 +110,8 @@ function ListFiles({ setAuth }) {
       {/* list of tasks */}
       <ul>{taskList}</ul>
 
+      <Drafts />
       <MentorForm addTask={addTask} />
-      <div>
-        {" "}
-        {allDrafts.length !== 0 &&
-          allDrafts[0].draft_id !== null &&
-          allDrafts.map((draft) => (
-            <div key={draft.draft_id}>
-              <div>{draft.draft_text}</div>
-            </div>
-          ))}
-      </div>
     </div>
   );
 }

@@ -11,11 +11,16 @@ function Dashboard({ setAuth }) {
   return (
     <>
       <section>
-        <BackButton />
+        <div className="buttons">
+          <BackButton />
+          <Logout setAuth={setAuth} />
+        </div>
+
         <Name />
-        <Logout setAuth={setAuth} />
-        <Files setAuth={setAuth} />
-        <Inbox />
+        <div className="flex">
+          <Files setAuth={setAuth} />
+          <Inbox />
+        </div>
       </section>
     </>
   );

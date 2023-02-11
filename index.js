@@ -14,20 +14,12 @@ if (process.env.NODE_ENV === "production") {
   app.use(express.static(path.join(__dirname, "./client/build")));
 }
 
-//update a message
-app.put("/reply/:id", async (req, res) => {
+app.get("/all-drafts", async (req, res) => {
   try {
-    const { messageId } = req.params;
-    const { reply, sender } = req.body;
-    const updateMessage = await pool.query(
-      "UPDATE messages SET reply_text = $1, sender = $2 WHERE message_id=$3",
-      [reply, sender, messageId]
-    );
-
-    res.json(" message updated");
+    const getDrafts = await pool.query("SELECT * FROM all_drafts");
+    res.json(getDrafts.rows);
   } catch (err) {
     console.error(err.message);
-    res.status(500).json("server error");
   }
 });
 

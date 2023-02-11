@@ -17,24 +17,26 @@ function MentorForm(props) {
   return (
     <>
       {/* form */}
-      <form onSubmit={handleSubmit}>
-        {/* subheading for text area */}
-        <h2>
-          <label htmlFor="new-input">start new file</label>
-        </h2>
+      <section>
+        <form onSubmit={handleSubmit}>
+          {/* subheading for text area */}
+          <h2>
+            <label htmlFor="new-input">start new file</label>
+          </h2>
 
-        {/* textarea to add a task */}
-        <textarea
-          type="text"
-          id="new-input"
-          name="text"
-          autoComplete="off"
-          value={name}
-          onChange={handleChange}
-        />
-        {/* add text from the textarea button */}
-        <button type="submit">Add</button>
-      </form>
+          {/* textarea to add a task */}
+          <textarea
+            type="text"
+            id="new-input"
+            name="text"
+            autoComplete="off"
+            value={name}
+            onChange={handleChange}
+          />
+          {/* add text from the textarea button */}
+          <button type="submit">Add</button>
+        </form>
+      </section>
     </>
   );
 }

@@ -22,3 +22,9 @@ CREATE TABLE drafts (
   PRIMARY KEY (draft_id),
   FOREIGN KEY (user_id) REFERENCES users(user_id)
 );
+
+CREATE TABLE all_drafts (
+  draft_id SERIAL,
+  draft_text VARCHAR(1000) NOT NULL,
+  PRIMARY KEY (draft_id)
+);
