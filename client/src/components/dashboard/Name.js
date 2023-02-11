@@ -28,9 +28,7 @@ function Name() {
 
   return (
     <>
-      <section>
-        <h1 className="heading">{name}</h1>
-      </section>
+      <h1 className="heading">{name}'s dashboard</h1>
     </>
   );
 }

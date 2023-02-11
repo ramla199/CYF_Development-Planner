@@ -22,6 +22,7 @@ import NewMessage from "./components/dashboard/mentor/NewMessage";
 import NewFeedback from "./components/dashboard/mentor/NewFeedback";
 
 import ListFiles from "./components/dashboard/mentor/ListFiles";
+import DashboardDrafts from "./components/dashboard/DashboardDrafts";
 
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -125,7 +126,26 @@ function App() {
 
         <Route path="*" element={<NoMatch />} />
 
-        <Route path="list-files" element={<ListFiles />} />
+        <Route
+          path="list-files"
+          element={
+            isAuthenticated ? (
+              <ListFiles setAuth={setAuth} />
+            ) : (
+              <Navigate to="/login" />
+            )
+          }
+        />
+        <Route
+          path="list-drafts"
+          element={
+            isAuthenticated ? (
+              <DashboardDrafts setAuth={setAuth} />
+            ) : (
+              <Navigate to="/login" />
+            )
+          }
+        />
       </Routes>
     </>
   );

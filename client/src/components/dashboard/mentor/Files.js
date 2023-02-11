@@ -16,6 +16,11 @@ function Files() {
             <button>open</button>
           </Link>
         </div>
+        <div className="buttons">
+          <Link to="/list-drafts">
+            <button>open</button>
+          </Link>
+        </div>
       </section>
     </>
   );

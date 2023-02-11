@@ -9,6 +9,8 @@ import BackButton from "../../BackButton";
 
 import File from "./File";
 
+import Drafts from "./Drafts";
+
 let data = [];
 
 const FILTER_MAP = {
@@ -21,6 +23,7 @@ const FILTER_NAMES = Object.keys(FILTER_MAP);
 
 function ListFiles({ setAuth }) {
   const [tasks, setTasks] = useState(data);
+
   const [filter, setFilter] = useState("All");
 
   function addTask(name) {
@@ -90,9 +93,14 @@ function ListFiles({ setAuth }) {
   return (
     <div>
       {/* heading */}
-      <Logout setAuth={setAuth} />
-      <BackButton />
+      <div className="buttons">
+        {" "}
+        <Logout setAuth={setAuth} />
+        <BackButton />
+      </div>
+
       <Name />
+
       <h1>Files</h1>
       <div className="buttons">{filterList}</div>
 
@@ -102,6 +110,7 @@ function ListFiles({ setAuth }) {
       {/* list of tasks */}
       <ul>{taskList}</ul>
 
+      <Drafts />
       <MentorForm addTask={addTask} />
     </div>
   );
