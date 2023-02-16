@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
 
+//components
 import InputDraft from "./InputDraft";
 import ListDrafts from "./ListDrafts";
 
@@ -37,10 +37,6 @@ function Dashboard() {
   };
   return (
     <>
-      <button>
-        <Link to="/mdn">mdn</Link>
-      </button>
-
       <h1>{name}'s dashboard</h1>
 
       <div>
