@@ -1,3 +1,4 @@
+//styles
 import "./styles/general.css";
 import "./styles/navbar.css";
 import "./styles/buttons.css";
@@ -12,17 +13,9 @@ import { Routes, Route, Navigate } from "react-router-dom";
 
 import Login from "./components/login-and-register/Login";
 import Register from "./components/login-and-register/Register";
-import Dashboard from "./components/dashboard/Dashboard";
+import Dashboard from "./components/Dashboard";
 import Navbar from "./components/navbar/Navbar";
 import Home from "./components/home/Home";
-import NoMatch from "./components/NoMatch";
-
-import ListMessages from "./components/dashboard/mentor/ListMessages";
-import NewMessage from "./components/dashboard/mentor/NewMessage";
-import NewFeedback from "./components/dashboard/mentor/NewFeedback";
-
-import ListFiles from "./components/dashboard/mentor/ListFiles";
-import DashboardDrafts from "./components/dashboard/DashboardDrafts";
 
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -86,61 +79,6 @@ function App() {
           element={
             isAuthenticated ? (
               <Dashboard setAuth={setAuth} />
-            ) : (
-              <Navigate to="/login" />
-            )
-          }
-        />
-        <Route
-          path="list-messages"
-          element={
-            isAuthenticated ? (
-              <ListMessages setAuth={setAuth} />
-            ) : (
-              <Navigate to="/login" />
-            )
-          }
-        />
-
-        <Route
-          path="new-message"
-          element={
-            isAuthenticated ? (
-              <NewMessage setAuth={setAuth} />
-            ) : (
-              <Navigate to="/login" />
-            )
-          }
-        />
-
-        <Route
-          path="new-feedback"
-          element={
-            isAuthenticated ? (
-              <NewFeedback setAuth={setAuth} />
-            ) : (
-              <Navigate to="/login" />
-            )
-          }
-        />
-
-        <Route path="*" element={<NoMatch />} />
-
-        <Route
-          path="list-files"
-          element={
-            isAuthenticated ? (
-              <ListFiles setAuth={setAuth} />
-            ) : (
-              <Navigate to="/login" />
-            )
-          }
-        />
-        <Route
-          path="list-drafts"
-          element={
-            isAuthenticated ? (
-              <DashboardDrafts setAuth={setAuth} />
             ) : (
               <Navigate to="/login" />
             )
