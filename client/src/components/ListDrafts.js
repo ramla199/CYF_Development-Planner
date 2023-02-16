@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import Draft from "./Draft";
+
 import EditDraft from "./EditDraft";
 
 const ListDrafts = ({ titlesList, draftsList, allDrafts, setDraftsChange }) => {
