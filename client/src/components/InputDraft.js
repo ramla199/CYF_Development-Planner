@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 
-const InputDraft = ({ setTodosChange }) => {
-  const [description, setDescription] = useState("");
+const InputDraft = ({ setDraftsChange }) => {
+  const [draftText, setDraftText] = useState("");
 
   const onSubmitForm = async (e) => {
     e.preventDefault();
@@ -11,7 +11,7 @@ const InputDraft = ({ setTodosChange }) => {
       myHeaders.append("Content-Type", "application/json");
       myHeaders.append("jwt_token", localStorage.token);
 
-      const body = { description };
+      const body = { draftText };
       const response = await fetch("/dashboard/drafts", {
         method: "POST",
         headers: myHeaders,
@@ -22,8 +22,8 @@ const InputDraft = ({ setTodosChange }) => {
 
       console.log(parseResponse);
 
-      setTodosChange(true);
-      setDescription("");
+      setDraftsChange(true);
+      setDraftText("");
       // window.location = "/";
     } catch (err) {
       console.error(err.message);
@@ -31,13 +31,12 @@ const InputDraft = ({ setTodosChange }) => {
   };
   return (
     <>
-      <h1>Input draft</h1>
       <form onSubmit={onSubmitForm}>
         <input
           type="text"
           placeholder="add draft"
-          value={description}
-          onChange={(e) => setDescription(e.target.value)}
+          value={draftText}
+          onChange={(e) => setDraftText(e.target.value)}
         />
         <button>Add</button>
       </form>
