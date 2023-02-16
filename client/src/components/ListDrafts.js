@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from "react";
+import DraftElement from "./DraftElement";
 
 import EditDraft from "./EditDraft";
 
-const ListDrafts = ({ titlesList, draftsList, allDrafts, setDraftsChange }) => {
+const ListDrafts = ({ allDrafts, setDraftsChange }) => {
   console.log(allDrafts);
   const [drafts, setDrafts] = useState([]); //empty array
   const [toggle, setToggle] = useState(false);
+
   //delete draft function
 
   async function deleteDraft(id) {
@@ -32,14 +34,13 @@ const ListDrafts = ({ titlesList, draftsList, allDrafts, setDraftsChange }) => {
   return (
     <>
       <div>
+        <h2>Drafts List</h2>
         <div>
           {drafts.length !== 0 &&
             drafts[0].draft_id !== null &&
             drafts.map((draft) => (
               <div>
-                <div key={draft.draft_id}>
-                  <div>{draft.draft_text}</div>
-                </div>
+                <DraftElement draft={draft} />
                 <button onClick={() => deleteDraft(draft.draft_id)}>
                   Delete
                 </button>
@@ -52,8 +53,6 @@ const ListDrafts = ({ titlesList, draftsList, allDrafts, setDraftsChange }) => {
               </div>
             ))}
         </div>
-
-        <div>{draftsList}</div>
       </div>
     </>
   );
