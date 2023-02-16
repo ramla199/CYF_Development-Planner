@@ -18,13 +18,15 @@ CREATE TABLE users(
 CREATE TABLE drafts (
   draft_id SERIAL,
   user_id UUID,
-  draft_text VARCHAR(1000) NOT NULL,
+  draft_title VARCHAR(100),
+  draft_text VARCHAR(1000),
   PRIMARY KEY (draft_id),
   FOREIGN KEY (user_id) REFERENCES users(user_id)
 );
 
 CREATE TABLE all_drafts (
   draft_id SERIAL,
+
   draft_text VARCHAR(1000) NOT NULL,
   PRIMARY KEY (draft_id)
 );

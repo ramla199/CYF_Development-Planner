@@ -3,8 +3,9 @@ import React, { useState, useEffect } from "react";
 //components
 import InputDraft from "./InputDraft";
 import ListDrafts from "./ListDrafts";
+import Logout from "./Logout";
 
-function Dashboard() {
+function Dashboard({ setAuth }) {
   const [name, setName] = useState("");
   const [allDrafts, setAllDrafts] = useState([]);
   const [draftsChange, setDraftsChange] = useState(false);
@@ -37,13 +38,12 @@ function Dashboard() {
   };
   return (
     <>
+      <Logout setAuth={setAuth} />
       <h1>{name}'s dashboard</h1>
 
-      <div>
-        <button onClick={handleToggle}>toggle new</button>
+      <button onClick={handleToggle}>toggle new</button>
+      {toggle ? <InputDraft setDraftsChange={setDraftsChange} /> : <></>}
 
-        {toggle ? <InputDraft setDraftsChange={setDraftsChange} /> : <></>}
-      </div>
       <ListDrafts allDrafts={allDrafts} setDraftsChange={setDraftsChange} />
     </>
   );

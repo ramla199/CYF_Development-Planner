@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 
 const InputDraft = ({ setDraftsChange }) => {
+  const [draftTitle, setDraftTitle] = useState("");
   const [draftText, setDraftText] = useState("");
 
   const onSubmitForm = async (e) => {
@@ -11,7 +12,7 @@ const InputDraft = ({ setDraftsChange }) => {
       myHeaders.append("Content-Type", "application/json");
       myHeaders.append("jwt_token", localStorage.token);
 
-      const body = { draftText };
+      const body = { draftTitle, draftText };
       const response = await fetch("/dashboard/drafts", {
         method: "POST",
         headers: myHeaders,
@@ -23,8 +24,9 @@ const InputDraft = ({ setDraftsChange }) => {
       console.log(parseResponse);
 
       setDraftsChange(true);
+
       setDraftText("");
-      // window.location = "/";
+      setDraftTitle("");
     } catch (err) {
       console.error(err.message);
     }
@@ -34,11 +36,18 @@ const InputDraft = ({ setDraftsChange }) => {
       <form onSubmit={onSubmitForm}>
         <input
           type="text"
-          placeholder="add draft"
+          placeholder="add title"
+          value={draftTitle}
+          onChange={(e) => setDraftTitle(e.target.value)}
+        />
+
+        <textarea
+          type="text"
+          placeholder="add text"
           value={draftText}
           onChange={(e) => setDraftText(e.target.value)}
         />
-        <button>Add</button>
+        <button>save</button>
       </form>
     </>
   );
