@@ -24,9 +24,13 @@ CREATE TABLE drafts (
   FOREIGN KEY (user_id) REFERENCES users(user_id)
 );
 
-CREATE TABLE all_drafts (
-  draft_id SERIAL,
-
-  draft_text VARCHAR(1000) NOT NULL,
-  PRIMARY KEY (draft_id)
+CREATE TABLE sent (
+  sent_id SERIAL,
+  sender_id UUID,
+  receipient_id UUID,
+  saved_draft_id SERIAL,
+  PRIMARY KEY (sent_id),
+  FOREIGN KEY (sender_id) REFERENCES users(user_id),
+  FOREIGN KEY (receipient_id) REFERENCES users(user_id),
+  FOREIGN KEY (saved_draft_id) REFERENCES drafts(draft_id)
 );
