@@ -6,7 +6,7 @@ const pool = require("../db");
 router.get("/", async (req, res) => {
   try {
     const user = await pool.query(
-      "SELECT users.username, drafts.draft_id, drafts.draft_text FROM users LEFT JOIN drafts ON users.user_id = drafts.user_id WHERE users.user_id = $1",
+      "SELECT users.username, drafts.draft_id, drafts.draft_title, drafts.draft_text FROM users LEFT JOIN drafts ON users.user_id = drafts.user_id WHERE users.user_id = $1",
       [req.user.id]
     );
 
@@ -21,10 +21,10 @@ router.get("/", async (req, res) => {
 
 router.post("/", async (req, res) => {
   try {
-    const { draftText } = req.body;
+    const { draftTitle, draftText } = req.body;
     const newDraft = await pool.query(
-      "INSERT INTO drafts (user_id, draft_text) VALUES ($1, $2) RETURNING *",
-      [req.user.id, draftText]
+      "INSERT INTO drafts (user_id, draft_title, draft_text) VALUES ($1, $2, $3) RETURNING *",
+      [req.user.id, draftTitle, draftText]
     );
     res.json(newDraft.rows[0]);
   } catch (err) {
@@ -55,10 +55,10 @@ router.get("/:id", async (req, res) => {
 router.put("/:id", async (req, res) => {
   try {
     const { id } = req.params;
-    const { draftText } = req.body;
+    const { draftTitle, draftText } = req.body;
     const updateTodo = await pool.query(
-      "UPDATE drafts SET draft_text = $1 WHERE draft_id = $2 AND user_id = $3 RETURNING *",
-      [draftText, id, req.user.id]
+      "UPDATE drafts SET draft_title = $1, draft_text = $2 WHERE draft_id = $3 AND user_id = $4 RETURNING *",
+      [draftTitle, draftText, id, req.user.id]
     );
 
     if (updateTodo.rows.length === 0) {
@@ -85,7 +85,7 @@ router.delete("/:id", async (req, res) => {
       return res.json("This draft is not yours");
     }
 
-    res.json("Todo was deleted");
+    res.json("Draft was deleted");
   } catch (err) {
     console.error(err.message);
   }

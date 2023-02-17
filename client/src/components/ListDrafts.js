@@ -40,11 +40,9 @@ const ListDrafts = ({ allDrafts, setDraftsChange }) => {
             drafts[0].draft_id !== null &&
             drafts.map((draft) => (
               <div>
-                <DraftElement draft={draft} />
-                <button onClick={() => deleteDraft(draft.draft_id)}>
-                  Delete
-                </button>
-                <button onClick={handleClick}>edit</button>
+                <DraftElement draft={draft} deleteDraft={deleteDraft} />
+
+                <button onClick={handleClick}>toggle edit</button>
                 {toggle ? (
                   <EditDraft draft={draft} setDraftsChange={setDraftsChange} />
                 ) : (

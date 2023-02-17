@@ -1,50 +1,30 @@
-import React, { useState, useEffect } from "react";
-
-//components
-import InputDraft from "./InputDraft";
-import ListDrafts from "./ListDrafts";
+import React from "react";
 import Logout from "./Logout";
+import Name from "./Name";
+import { Link } from "react-router-dom";
+import filesIcon from "../images/Documents-icon-48.png";
+import messagesIcon from "../images/E-mail-icon.png";
 
 function Dashboard({ setAuth }) {
-  const [name, setName] = useState("");
-  const [allDrafts, setAllDrafts] = useState([]);
-  const [draftsChange, setDraftsChange] = useState(false);
-  const [toggle, setToggle] = useState(false);
-
-  const getProfile = async () => {
-    try {
-      const res = await fetch("/dashboard/drafts", {
-        method: "GET",
-        headers: { jwt_token: localStorage.token },
-      });
-
-      const parseData = await res.json();
-      console.log(parseData);
-      setAllDrafts(parseData);
-
-      setName(parseData[0].username);
-    } catch (err) {
-      console.error(err.message);
-    }
-  };
-
-  useEffect(() => {
-    getProfile();
-    setDraftsChange(false);
-  }, [draftsChange]);
-
-  const handleToggle = () => {
-    setToggle(!toggle);
-  };
   return (
     <>
       <Logout setAuth={setAuth} />
-      <h1>{name}'s dashboard</h1>
+      <Name setAuth={setAuth} />
 
-      <button onClick={handleToggle}>toggle new</button>
-      {toggle ? <InputDraft setDraftsChange={setDraftsChange} /> : <></>}
-
-      <ListDrafts allDrafts={allDrafts} setDraftsChange={setDraftsChange} />
+      <div className="login-signin-buttons">
+        <Link to="/draft-files" className="icon-heading">
+          <h2>Files</h2>
+          <img alt="files icon" src={filesIcon} />
+          {/* <button>files</button> */}
+        </Link>
+      </div>
+      <div className="login-signin-buttons">
+        <Link to="/messages" className="icon-heading">
+          <h2>Messages</h2>
+          <img alt="messages icon" src={messagesIcon} />
+          {/* <button>messages</button> */}
+        </Link>
+      </div>
     </>
   );
 }

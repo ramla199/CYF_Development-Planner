@@ -5,7 +5,7 @@ const EditDraft = ({ draft, setDraftsChange }) => {
 
   const editText = async (id) => {
     try {
-      const body = { draftText };
+      const body = { draftTitle, draftText };
 
       const myHeaders = new Headers();
 
@@ -19,6 +19,7 @@ const EditDraft = ({ draft, setDraftsChange }) => {
       });
 
       setDraftsChange(true);
+      setDraftTitle("");
       setDraftText("");
 
       // window.location = "/";
@@ -28,6 +29,7 @@ const EditDraft = ({ draft, setDraftsChange }) => {
   };
 
   const [draftText, setDraftText] = useState(draft.draft_text);
+  const [draftTitle, setDraftTitle] = useState(draft.draft_title);
   return (
     <>
       <div
@@ -35,6 +37,12 @@ const EditDraft = ({ draft, setDraftsChange }) => {
         onClick={() => setDraftText(draft.draft_text)}
       >
         <input
+          type="text"
+          value={draftTitle}
+          onChange={(e) => setDraftTitle(e.target.value)}
+        />
+
+        <textarea
           type="text"
           value={draftText}
           onChange={(e) => setDraftText(e.target.value)}
