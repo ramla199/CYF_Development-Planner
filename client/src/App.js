@@ -13,9 +13,12 @@ import { Routes, Route, Navigate } from "react-router-dom";
 
 import Login from "./components/login-and-register/Login";
 import Register from "./components/login-and-register/Register";
-import Dashboard from "./components/Dashboard";
+import DraftFiles from "./components/DraftFiles";
+
 import Navbar from "./components/navbar/Navbar";
 import Home from "./components/home/Home";
+import Messages from "./components/Messages";
+import Dashboard from "./components/Dashboard";
 
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -58,7 +61,7 @@ function App() {
             !isAuthenticated ? (
               <Register setAuth={setAuth} />
             ) : (
-              <Navigate to="/login" />
+              <Navigate to="/dashboard" />
             )
           }
         />
@@ -73,12 +76,49 @@ function App() {
             )
           }
         />
+
         <Route
           exact
           path="dashboard"
           element={
             isAuthenticated ? (
               <Dashboard setAuth={setAuth} />
+            ) : (
+              <Navigate to="/login" />
+            )
+          }
+        />
+
+        <Route
+          exact
+          path="messages"
+          element={
+            isAuthenticated ? (
+              <Messages setAuth={setAuth} />
+            ) : (
+              <Navigate to="/login" />
+            )
+          }
+        />
+
+        <Route
+          exact
+          path="draft-files"
+          element={
+            isAuthenticated ? (
+              <DraftFiles setAuth={setAuth} />
+            ) : (
+              <Navigate to="/login" />
+            )
+          }
+        />
+
+        <Route
+          exact
+          path="messages"
+          element={
+            isAuthenticated ? (
+              <DraftFiles setAuth={setAuth} />
             ) : (
               <Navigate to="/login" />
             )

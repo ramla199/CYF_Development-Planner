@@ -14,15 +14,6 @@ if (process.env.NODE_ENV === "production") {
   app.use(express.static(path.join(__dirname, "./client/build")));
 }
 
-app.get("/all-drafts", async (req, res) => {
-  try {
-    const getDrafts = await pool.query("SELECT * FROM all_drafts");
-    res.json(getDrafts.rows);
-  } catch (err) {
-    console.error(err.message);
-  }
-});
-
 // Routes
 
 app.use("/authentication", require("./routes/jwtAuth"));
