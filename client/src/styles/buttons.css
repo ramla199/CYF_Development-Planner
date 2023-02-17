@@ -5,11 +5,11 @@
     justify-content: center;
     gap: 20px;
     margin: 20px auto;
-    max-width: 300px;
+    max-width: 400px;
    }
    
    button {
-       padding: 15px 25px;
+       padding: 10px;
        background-color: rgb(219, 104, 104);
        margin: 20px auto;
        border: none;
