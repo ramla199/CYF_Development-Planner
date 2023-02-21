@@ -16,7 +16,7 @@ function DraftElement({ draft, deleteDraft }) {
   return (
     <>
       <div key={draft.draft_id}>
-        <div className="flex-draft-el">
+        <div className="flex">
           <div>{draft.draft_title}</div>
           <button onClick={handleClick}>open</button>
           <button>delete</button>

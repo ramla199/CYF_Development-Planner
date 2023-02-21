@@ -1,5 +1,6 @@
 .form-container {
     padding: 80px 30px;
+
 }
 
 .form {
@@ -20,21 +21,22 @@ form h1 {
 
 input[type=text],
 input[type=email],
-input[type=password], textarea {
+input[type=password],
+textarea {
     width: 100%;
     padding: 15px 20px;
-    margin-bottom: 30px;  
+    margin-bottom: 30px;
     box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
-    border-radius: 6px;  
-    font-size: inherit;  
-    color: #4a2719; 
+    border-radius: 6px;
+    font-size: inherit;
+    color: #4a2719;
     background-color: inherit;
- }
+}
 
 textarea {
     resize: none;
-    overflow-y: scroll;   
-    height: 300px;     
+    overflow-y: scroll;
+    height: 300px;
     /* width: 90%; */
 }
 
@@ -49,30 +51,19 @@ input[type=radio] {
     padding: 15px;
 }
 
-.form-link { 
+.form-link {
     color: #b55151;
     font-size: 1.rem;
-    font-weight: 500;   
+    font-weight: 500;
     float: right;
 }
 
-.form-link:hover{
-font-weight: 700;  
+.form-link:hover {
+    font-weight: 700;
 }
 
-input::placeholder, textarea::placeholder{
+input::placeholder,
+textarea::placeholder {
     color: rgb(187, 85, 85);
     font-weight: 300;
-  }
-
-
-
-
-
-
-
-
-
-
-
-
+}

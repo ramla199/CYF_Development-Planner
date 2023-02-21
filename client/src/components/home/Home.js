@@ -12,8 +12,9 @@ function Home() {
         <LoginSignInButtons />
         <div className="header-flex">
           <h2 className="subheading">
-            CYF Development Planner is a tool for our graduates and mentors. It is designed to
-            help graduates write SMART Plans, in order to send to their mentors and receive feedback.
+            CYF Development Planner is a tool for our graduates and mentors. It
+            is designed to help graduates write SMART Plans send them to their
+            mentors and receive feedback.
           </h2>
           <img alt="" src={cat} className="header-img" />
         </div>

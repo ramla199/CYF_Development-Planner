@@ -18,7 +18,8 @@ import DraftFiles from "./components/DraftFiles";
 import Navbar from "./components/navbar/Navbar";
 import Home from "./components/home/Home";
 import Messages from "./components/Messages";
-import Dashboard from "./components/Dashboard";
+import Dashboard from "./components/dashboard/Dashboard";
+import Account from "./components/dashboard/Account";
 
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -91,18 +92,6 @@ function App() {
 
         <Route
           exact
-          path="messages"
-          element={
-            isAuthenticated ? (
-              <Messages setAuth={setAuth} />
-            ) : (
-              <Navigate to="/login" />
-            )
-          }
-        />
-
-        <Route
-          exact
           path="draft-files"
           element={
             isAuthenticated ? (
@@ -119,6 +108,18 @@ function App() {
           element={
             isAuthenticated ? (
               <DraftFiles setAuth={setAuth} />
+            ) : (
+              <Navigate to="/login" />
+            )
+          }
+        />
+
+        <Route
+          exact
+          path="account"
+          element={
+            isAuthenticated ? (
+              <Account setAuth={setAuth} />
             ) : (
               <Navigate to="/login" />
             )
