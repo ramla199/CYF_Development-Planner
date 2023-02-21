@@ -76,3 +76,10 @@ section {
 section{
     margin: 15px;
 }
+
+.flex-draft-el {
+    display: flex;
+    /* justify-content: center; */
+    align-items: center;
+    width: 300px;
+}

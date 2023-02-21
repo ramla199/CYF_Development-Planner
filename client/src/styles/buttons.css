@@ -7,25 +7,33 @@
     margin: 20px auto;
     max-width: 400px;
    }
-   
-   button {
-       padding: 10px;
-       background-color: rgb(219, 104, 104);
-       margin: 20px auto;
-       border: none;
-       border-radius: 7px;   
-       width: 100px;
-       text-decoration: none;
-       color: rgb(251, 249, 249);    
-       font-weight: 700;
-       font-size: 0.9rem;
-       text-align: center;      
-       box-shadow: rgba(0, 0, 0, 0.1) 0px 10px 15px -3px, rgba(0, 0, 0, 0.05) 0px 4px 6px -2px;
-    }
-   
- 
-  button :hover {  
-       box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
-   }
+
+button {
+    padding: 10px;
+    background-color: rgb(219, 104, 104);
+    margin: 20px auto;
+    border: none;
+    border-radius: 7px;
+    width: 100px;
+    text-decoration: none;
+    color: rgb(251, 249, 249);
+    font-weight: 700;
+    font-size: 0.9rem;
+    text-align: center;
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 10px 15px -3px, rgba(0, 0, 0, 0.05) 0px 4px 6px -2px;
+}
 
 
+button :hover {
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
+
+.controls {
+    display: flex;
+    width: 200px;
+    margin: auto;
+}
+
+.controls button {
+    width: 60px;
+}

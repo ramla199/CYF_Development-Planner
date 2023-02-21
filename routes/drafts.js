@@ -39,8 +39,8 @@ router.get("/:id", async (req, res) => {
   const { draftId } = req.params;
 
   const selectedDraft = await pool.query(
-    "SELECT * FROM drafts WHERE draft_id = $1",
-    [draftId]
+    "SELECT * FROM drafts WHERE user_id=$1 and draft_id=$2",
+    [req.user.id, draftId]
   );
   res.json(selectedDraft.rows);
   try {
@@ -90,5 +90,11 @@ router.delete("/:id", async (req, res) => {
     console.error(err.message);
   }
 });
+
+// display mentors list
+// "SELECT username FROM USERS WHERE user_role="mentor"
+
+//display sent messages
+// SELECT user_id, drafts.draft_id, drafts_draft_title, drafts.draft_text from drafts where user_id=$1 and draft_id=$2;
 
 module.exports = router;

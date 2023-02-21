@@ -34,6 +34,7 @@ const InputDraft = ({ setDraftsChange }) => {
   return (
     <>
       <form onSubmit={onSubmitForm}>
+        <button>save</button>
         <input
           type="text"
           placeholder="add title"
@@ -47,7 +48,6 @@ const InputDraft = ({ setDraftsChange }) => {
           value={draftText}
           onChange={(e) => setDraftText(e.target.value)}
         />
-        <button>save</button>
       </form>
     </>
   );

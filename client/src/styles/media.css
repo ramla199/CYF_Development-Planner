@@ -3,19 +3,22 @@
         font-size: 1.8rem;
         max-width: 350px;
     }
-
-    .icon-container-wrapper{
+    .flex-icons{
       display: flex;
       justify-content: center;
       max-width: 500px;
       margin: auto;
+      gap: 100px;
     }
+
 }
 
 @media only screen and (min-width: 864px) {
 
     .flex {
         display: flex;
+        width: 600px;
+        margin: auto;
     }
     .header-flex {
         display: flex;
