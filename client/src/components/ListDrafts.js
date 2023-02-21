@@ -2,8 +2,7 @@ import React, { useState, useEffect } from "react";
 import DraftElement from "./DraftElement";
 
 import EditDraft from "./EditDraft";
-import MentorsList from "./MentorsList";
-import SharedDrafts from "./SharedDrafts";
+// import MentorsList from "./MentorsList";
 
 const ListDrafts = ({ allDrafts, setDraftsChange }) => {
   console.log(allDrafts);
@@ -46,7 +45,7 @@ const ListDrafts = ({ allDrafts, setDraftsChange }) => {
                 ) : (
                   <></>
                 )}
-                <button onClick={handleClick}>toggle edit</button>
+                {/* <button onClick={handleClick}>toggle edit</button> */}
                 <DraftElement draft={draft} deleteDraft={deleteDraft} />
               </div>
             ))}

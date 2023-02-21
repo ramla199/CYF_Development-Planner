@@ -10,7 +10,6 @@ function Dashboard({ setAuth }) {
         <Name setAuth={setAuth} />
         <Logout setAuth={setAuth} />
       </div>
-
       <DashboardNavigation />
     </>
   );

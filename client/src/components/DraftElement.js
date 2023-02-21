@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import SharedDrafts from "./SharedDrafts";
+
 import MentorsList from "./MentorsList";
 
 function DraftElement({ draft, deleteDraft }) {
@@ -7,10 +7,6 @@ function DraftElement({ draft, deleteDraft }) {
 
   const handleClick = () => {
     setToggle(!toggle);
-  };
-
-  const handleShare = () => {
-    console.log("this draft will be shared");
   };
 
   return (
@@ -28,16 +24,15 @@ function DraftElement({ draft, deleteDraft }) {
           <div>
             {draft.draft_text}
             <button onClick={() => deleteDraft(draft.draft_id)}>Delete</button>
-            <button onClick={handleShare}>share</button>
           </div>
         ) : (
           <></>
         )}
       </div>
-      <div>
+      {/* <div>
         <SharedDrafts />
         <MentorsList />
-      </div>
+      </div> */}
     </>
   );
 }
