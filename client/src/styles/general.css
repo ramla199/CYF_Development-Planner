@@ -69,10 +69,13 @@ section {
     align-items: center;
     gap: 20px;
     color: #b55151;
-    font-size: 1rem;
+    font-size: 0.8rem;
     margin-bottom: 30px;
 }
 
 section{
     margin: 15px;
 }
+
+
+

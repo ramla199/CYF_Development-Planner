@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-const InputDraft = ({ setDraftsChange }) => {
+function Form() {
   const [draftTitle, setDraftTitle] = useState("");
   const [draftText, setDraftText] = useState("");
 
@@ -23,7 +23,7 @@ const InputDraft = ({ setDraftsChange }) => {
 
       console.log(parseResponse);
 
-      setDraftsChange(true);
+      // setDraftsChange(true);
 
       setDraftText("");
       setDraftTitle("");
@@ -32,8 +32,10 @@ const InputDraft = ({ setDraftsChange }) => {
     }
   };
   return (
-    <>
+    <section>
+      {" "}
       <form onSubmit={onSubmitForm}>
+        <button>save</button>
         <input
           type="text"
           placeholder="add title"
@@ -47,10 +49,9 @@ const InputDraft = ({ setDraftsChange }) => {
           value={draftText}
           onChange={(e) => setDraftText(e.target.value)}
         />
-        <button>save</button>
       </form>
-    </>
+    </section>
   );
-};
+}
 
-export default InputDraft;
+export default Form;

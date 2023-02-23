@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 
+import MentorsList from "../MentorsList";
+
 function DraftElement({ draft, deleteDraft }) {
   const [toggle, setToggle] = useState(false);
 
@@ -7,24 +9,29 @@ function DraftElement({ draft, deleteDraft }) {
     setToggle(!toggle);
   };
 
-  const handleSend = () => {
-    console.log("this draft will be sent");
-  };
-
   return (
     <>
-      <div key={draft.draft_id}>
-        <div>{draft.draft_title}</div>
-        <button onClick={handleClick}>open</button>
+      <div>
+        <div className="flex">
+          <div>{draft.draft_title}</div>
+          <button onClick={handleClick}>open</button>
+          <button>delete</button>
+          <button>edit</button>
+          <button>send</button>
+        </div>
+
         {toggle ? (
           <div>
             {draft.draft_text}
             <button onClick={() => deleteDraft(draft.draft_id)}>Delete</button>
-            <button onClick={handleSend}>send</button>
           </div>
         ) : (
           <></>
         )}
+      </div>
+      <div>
+        {/* <SharedDrafts /> */}
+        <MentorsList />
       </div>
     </>
   );
