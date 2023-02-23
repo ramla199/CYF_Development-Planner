@@ -1,50 +1,59 @@
 import React, { useState } from "react";
 
-//images import
+//images
 import filesIcon from "../../images/Documents-icon-48.png";
 import messagesIcon from "../../images/E-mail-icon.png";
 import accountIcon from "../../images/icons8-test-account-48.png";
-import Controls from "./Controls";
 
-const navItems = [
-  {
-    id: 1,
-    description: "Files",
-    image: filesIcon,
-  },
-  {
-    id: 2,
-    description: "Messages",
-    image: messagesIcon,
-  },
-  {
-    id: 4,
-    description: "Account",
-    image: accountIcon,
-  },
-];
-
-const nav = navItems.map((item) => {
-  return (
-    <div key={item.id}>
-      <h2 className="icon-heading">{item.description}</h2>
-      <img src={item.image} alt="files icon" />
-    </div>
-  );
-});
+//components
+import FilesControls from "./controls/FilesControls";
+import MessagesControls from "./controls/MessagesControls";
+import AccountControls from "./controls/AccountControls";
 
 function DashboardNavigation() {
-  const [toggle, setToggle] = useState(false);
+  const [filesControlButtons, setFilesControlButtons] = useState(false);
+  const [messagesControlButtons, setMessagesControlButtons] = useState(false);
+  const [accountControlButtons, setAccountControlButtons] = useState(false);
 
-  const handleToggle = () => {
-    setToggle(!toggle);
+  const handleToggleFiles = () => {
+    setFilesControlButtons(!filesControlButtons);
+    setMessagesControlButtons(false);
+    setAccountControlButtons(false);
   };
+
+  const handleToggleMessages = () => {
+    setMessagesControlButtons(!messagesControlButtons);
+    setFilesControlButtons(false);
+    setAccountControlButtons(false);
+  };
+
+  const handleToggleAccount = () => {
+    setAccountControlButtons(!accountControlButtons);
+    setFilesControlButtons(false);
+    setMessagesControlButtons(false);
+  };
+
   return (
     <>
-      <div className="flex" onClick={handleToggle}>
-        {nav}
+      <div className="flex">
+        <div className="icon-heading" onClick={handleToggleFiles}>
+          <h2>Files</h2>
+          <img src={filesIcon} alt="files icon" />
+        </div>
+
+        <div className="icon-heading" onClick={handleToggleMessages}>
+          <h2>Messages</h2>
+          <img src={messagesIcon} alt="messages icon" />
+        </div>
+
+        <div className="icon-heading" onClick={handleToggleAccount}>
+          <h2>Account</h2>
+          <img src={accountIcon} alt="account icon" />
+        </div>
       </div>
-      {toggle ? <Controls /> : <></>}
+      {filesControlButtons ? <FilesControls /> : <></>}
+      {messagesControlButtons ? <MessagesControls /> : <></>}
+      {accountControlButtons ? <AccountControls /> : <></>}
     </>
   );
 }

@@ -16,6 +16,7 @@ import Register from "./components/login-and-register/Register";
 import Navbar from "./components/navbar/Navbar";
 import Home from "./components/home/Home";
 import Dashboard from "./components/dashboard/Dashboard";
+// import MdnDashboard from "./components/dashboard/MdnDashboard";
 
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -85,6 +86,7 @@ function App() {
             )
           }
         />
+        {/* <Route path="mdn-dashboard" element={<MdnDashboard />} /> */}
       </Routes>
     </>
   );

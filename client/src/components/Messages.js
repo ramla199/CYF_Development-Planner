@@ -1,7 +1,7 @@
 import React from "react";
 
-function Messages() {
-  return <div>Messages</div>;
+function AllMessages() {
+  return <div>AllMessages</div>;
 }
 
-export default Messages;
+export default AllMessages;

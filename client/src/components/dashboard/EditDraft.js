@@ -32,6 +32,9 @@ const EditDraft = ({ draft, setDraftsChange }) => {
   const [draftTitle, setDraftTitle] = useState(draft.draft_title);
   return (
     <>
+      <button type="button" onClick={() => editText(draft.draft_id)}>
+        save
+      </button>
       <div
         id={`id${draft.draft_id}`}
         onClick={() => setDraftText(draft.draft_text)}
@@ -47,10 +50,6 @@ const EditDraft = ({ draft, setDraftsChange }) => {
           value={draftText}
           onChange={(e) => setDraftText(e.target.value)}
         />
-
-        <button type="button" onClick={() => editText(draft.draft_id)}>
-          save
-        </button>
       </div>
     </>
   );
