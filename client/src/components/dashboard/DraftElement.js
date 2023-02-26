@@ -1,12 +1,12 @@
 import React, { useState } from "react";
 
-import MentorsList from "../MentorsList";
-
 function DraftElement({ draft, deleteDraft }) {
   const [toggle, setToggle] = useState(false);
+  const [openButtonText, setOpenButtonText] = useState("open");
 
   const handleClick = () => {
     setToggle(!toggle);
+    setOpenButtonText((state) => (state === "open" ? "close" : "open"));
   };
 
   return (
@@ -14,7 +14,7 @@ function DraftElement({ draft, deleteDraft }) {
       <div>
         <div className="flex">
           <div>{draft.draft_title}</div>
-          <button onClick={handleClick}>open</button>
+          <button onClick={handleClick}>{openButtonText}</button>
           <button>delete</button>
           <button>edit</button>
           <button>send</button>
@@ -29,10 +29,7 @@ function DraftElement({ draft, deleteDraft }) {
           <></>
         )}
       </div>
-      <div>
-        {/* <SharedDrafts /> */}
-        <MentorsList />
-      </div>
+      <div>{/* <SharedDrafts /> */}</div>
     </>
   );
 }

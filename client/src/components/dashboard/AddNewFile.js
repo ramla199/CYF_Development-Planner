@@ -32,25 +32,22 @@ function Form() {
     }
   };
   return (
-    <section>
-      {" "}
-      <form onSubmit={onSubmitForm}>
-        <button>save</button>
-        <input
-          type="text"
-          placeholder="add title"
-          value={draftTitle}
-          onChange={(e) => setDraftTitle(e.target.value)}
-        />
+    <form onSubmit={onSubmitForm}>
+      <button>save</button>
+      <input
+        type="text"
+        placeholder="add title"
+        value={draftTitle}
+        onChange={(e) => setDraftTitle(e.target.value)}
+      />
 
-        <textarea
-          type="text"
-          placeholder="add text"
-          value={draftText}
-          onChange={(e) => setDraftText(e.target.value)}
-        />
-      </form>
-    </section>
+      <textarea
+        type="text"
+        placeholder="add text"
+        value={draftText}
+        onChange={(e) => setDraftText(e.target.value)}
+      />
+    </form>
   );
 }
 

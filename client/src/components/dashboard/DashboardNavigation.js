@@ -51,9 +51,29 @@ function DashboardNavigation() {
           <img src={accountIcon} alt="account icon" />
         </div>
       </div>
-      {filesControlButtons ? <FilesControls /> : <></>}
-      {messagesControlButtons ? <MessagesControls /> : <></>}
-      {accountControlButtons ? <AccountControls /> : <></>}
+      {filesControlButtons ? (
+        <section>
+          {" "}
+          <FilesControls />
+        </section>
+      ) : (
+        <></>
+      )}
+      {messagesControlButtons ? (
+        <section>
+          <MessagesControls />
+        </section>
+      ) : (
+        <></>
+      )}
+
+      {accountControlButtons ? (
+        <section>
+          <AccountControls />
+        </section>
+      ) : (
+        <></>
+      )}
     </>
   );
 }

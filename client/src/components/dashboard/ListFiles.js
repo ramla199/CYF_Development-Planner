@@ -1,62 +1,7 @@
 import React, { useState, useEffect } from "react";
 
-import EditDraft from "./EditDraft";
-import MentorsList from "../MentorsList";
-function ListingElement({ draft, deleteDraft, allDrafts, setDraftsChange }) {
-  const [open, setOpen] = useState(false);
+import ListingElement from "./ListingElement";
 
-  const handleOpen = () => {
-    setOpen(!open);
-  };
-
-  return (
-    <>
-      {" "}
-      <section>
-        <div className="flex">
-          <li>{draft.draft_title}</li>
-          <button onClick={handleOpen}>open</button>
-        </div>
-        {open ? (
-          <Element
-            draft={draft}
-            deleteDraft={deleteDraft}
-            allDrafts={allDrafts}
-            setDraftsChange={setDraftsChange}
-          />
-        ) : (
-          <></>
-        )}
-      </section>
-    </>
-  );
-}
-
-function Element({ draft, deleteDraft, setDraftsChange }) {
-  const [toggle, setToggle] = useState(false);
-  const handleEdit = () => {
-    setToggle(!toggle);
-  };
-  return (
-    <>
-      <section>
-        <section className="flex" key={draft.draft_id}>
-          <button onClick={handleEdit}>edit</button>
-          <button onClick={() => deleteDraft(draft.draft_id)}>Delete</button>
-          <button>send</button>
-        </section>
-
-        <div key={draft.draft_id}>{draft.draft_text}</div>
-      </section>
-
-      {toggle ? (
-        <EditDraft draft={draft} setDraftsChange={setDraftsChange} />
-      ) : (
-        <></>
-      )}
-    </>
-  );
-}
 const ListFiles = () => {
   const [allDrafts, setAllDrafts] = useState([]);
   const [draftsChange, setDraftsChange] = useState(false);
@@ -119,7 +64,6 @@ const ListFiles = () => {
             );
           })}
       </div>
-      <MentorsList />
     </>
   );
 };

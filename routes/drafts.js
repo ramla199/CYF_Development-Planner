@@ -91,10 +91,4 @@ router.delete("/:id", async (req, res) => {
   }
 });
 
-// display mentors list
-// "SELECT username FROM USERS WHERE user_role="mentor"
-
-//display sent messages
-// SELECT user_id, drafts.draft_id, drafts_draft_title, drafts.draft_text from drafts where user_id=$1 and draft_id=$2;
-
 module.exports = router;
