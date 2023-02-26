@@ -10,6 +10,7 @@ function AccountControls() {
   return (
     <>
       <div className="controls">
+        <h2 className="icon-heading">Account</h2>
         <button onClick={handleShowAccount}>settings</button>
       </div>
       <div> {showAccount ? <Account /> : false}</div>

@@ -23,20 +23,18 @@ function Draft({
   }
 
   const editingTemplate = (
-    <form className="stack-small" onSubmit={handleSubmit}>
-      <div className="form-group">
-        <label className="todo-label" htmlFor={id}>
-          New name for {name}
-        </label>
+    <form onSubmit={handleSubmit}>
+      <div>
+        <label htmlFor={id}>New name for {name}</label>
         <input id={id} type="text" value={newName} onChange={handleChange} />
       </div>
-      <div className="btn-group">
+      <div>
         <button type="button" onClick={() => setEditing(false)}>
           Cancel
           <span className="visually-hidden">renaming {name}</span>
         </button>
 
-        <button type="submit" className="btn btn__primary todo-edit">
+        <button type="submit">
           Save
           <span className="visually-hidden">new name for {name}</span>
         </button>
@@ -44,17 +42,15 @@ function Draft({
     </form>
   );
   const viewTemplate = (
-    <div className="stack-small">
-      <div className="c-cb">
+    <div>
+      <div>
         <input
           id={id}
           type="checkbox"
           defaultChecked={completed}
           onChange={() => toggleTaskCompleted(id)}
         />
-        <label className="todo-label" htmlFor={id}>
-          {name}
-        </label>
+        <label htmlFor={id}>{name}</label>
       </div>
       <div>
         <button type="button" onClick={() => setEditing(true)}>
@@ -63,7 +59,7 @@ function Draft({
       </div>
     </div>
   );
-  return <li className="todo">{isEditing ? editingTemplate : viewTemplate}</li>;
+  return <li>{isEditing ? editingTemplate : viewTemplate}</li>;
 }
 
 export default Draft;
