@@ -32,13 +32,33 @@ router.get("/:id", async (req, res) => {
 // insert a message
 router.post("/", async (req, res) => {
   try {
-    const { messageTitle, messageText } = req.body;
-    const { receipientId, senderUsername } = req.params;
+    const { receipientId, messageTitle, messageText, senderUsername } =
+      req.body;
     const newMessage = await pool.query(
       "INSERT INTO messages (sender_id, receipient_id, message_title, message_text, sender_username) VALUES ($1, $2, $3, $4, $5) RETURNING *",
       [req.user.id, receipientId, messageTitle, messageText, senderUsername]
     );
     res.json(newMessage.rows[0]);
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).json("server error");
+  }
+});
+
+//update a message
+router.put("/:id", async (req, res) => {
+  try {
+    const { messageId } = req.params;
+    const { message } = req.body;
+    const updateMessage = await pool.query(
+      "UPDATE messages SET message_text = $1 WHERE message_id=$2 AND user_id = $3",
+      [message, messageId, req.user.id]
+    );
+
+    if (updateMessage.rows.length === 0) {
+      return res.json("This message is not yours");
+    }
+    res.json(" message updated");
   } catch (err) {
     console.error(err.message);
     res.status(500).json("server error");

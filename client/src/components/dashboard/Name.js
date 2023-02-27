@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 
+//this function is not receiving prop setAuth but still works, why? TODO: find out why
 function Name() {
   const [name, setName] = useState("");
 

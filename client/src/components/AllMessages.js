@@ -5,6 +5,7 @@ function AllMessages() {
   const [buttonText, setButtonText] = useState("open");
   const [answerField, setAnswerField] = useState(false);
   const [answerButtonText, setAnswerButtonText] = useState("answer");
+
   function handleMessageClicked() {
     setMessageClicked(!messageClicked);
     setButtonText((state) => (state === "open" ? "close" : "open"));
@@ -39,6 +40,49 @@ function AllMessages() {
   const handleSend = () => {
     console.log("I am a sending button but I'm not working yet");
   };
+
+  const [messageTitle, setMessageTitle] = useState("");
+  const [messageText, setMessageText] = useState("");
+
+  async function onSubmitForm(e) {
+    e.preventDefault();
+    try {
+      // TODO: fetch receipientId and senderUsername
+      const receipientId = "2ddc9080-32ca-4942-a452-4fc53dbf4bbe";
+
+      const res = await fetch("/dashboard/", {
+        method: "GET",
+        headers: { jwt_token: localStorage.token },
+      });
+
+      const parseRes = await res.json();
+
+      const senderUsername = parseRes.username;
+
+      const myHeaders = new Headers();
+
+      myHeaders.append("Content-Type", "application/json");
+      myHeaders.append("jwt_token", localStorage.token);
+
+      const body = { messageTitle, messageText, receipientId, senderUsername };
+      const response = await fetch("/dashboard/messages", {
+        method: "POST",
+        headers: myHeaders,
+        body: JSON.stringify(body),
+      });
+
+      const parseResponse = await response.json();
+
+      console.log(parseResponse);
+
+      // setDraftsChange(true);
+
+      setMessageText("");
+      setMessageTitle("");
+    } catch (err) {
+      console.error(err.message);
+    }
+  }
   return (
     <>
       <h2>All Messages</h2>
@@ -54,8 +98,21 @@ function AllMessages() {
                 <button onClick={sendAnswer}>{answerButtonText}</button>
                 {answerField ? (
                   <section>
-                    <textarea />
-                    <button onClick={handleSend}>send</button>
+                    <form onSubmit={onSubmitForm}>
+                      <section>{`message to: ${message.sender_username}`}</section>
+                      <input
+                        type="text"
+                        placeholder="add title"
+                        value={messageTitle}
+                        onChange={(e) => setMessageTitle(e.target.value)}
+                      />
+                      <textarea
+                        placeholder="add text"
+                        value={messageText}
+                        onChange={(e) => setMessageText(e.target.value)}
+                      />
+                      <button onClick={handleSend}>send</button>
+                    </form>
                   </section>
                 ) : (
                   <></>
