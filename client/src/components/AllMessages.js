@@ -49,7 +49,15 @@ function AllMessages() {
     try {
       // TODO: fetch receipientId and senderUsername
       const receipientId = "2ddc9080-32ca-4942-a452-4fc53dbf4bbe";
-      const senderUsername = "ken";
+
+      const res = await fetch("/dashboard/", {
+        method: "GET",
+        headers: { jwt_token: localStorage.token },
+      });
+
+      const parseRes = await res.json();
+
+      const senderUsername = parseRes.username;
 
       const myHeaders = new Headers();
 
