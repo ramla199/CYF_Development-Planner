@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import SendNewMessage from "./dashboard/SendNewMessage";
 
 function AllMessages() {
   const [messageClicked, setMessageClicked] = useState(false);
@@ -12,7 +13,7 @@ function AllMessages() {
   }
 
   const [allMessages, setAllMessages] = useState([]);
-
+  const [username, setUsername] = useState("");
   const getMessages = async () => {
     try {
       const res = await fetch("/dashboard/messages", {
@@ -27,9 +28,6 @@ function AllMessages() {
       console.error(err.message);
     }
   };
-  useEffect(() => {
-    getMessages();
-  }, []);
 
   const sendAnswer = () => {
     console.log("I was clicked");
@@ -37,52 +35,23 @@ function AllMessages() {
     setAnswerButtonText((state) => (state === "answer" ? "cancel" : "answer"));
   };
 
-  const handleSend = () => {
-    console.log("I am a sending button but I'm not working yet");
-  };
-
-  const [messageTitle, setMessageTitle] = useState("");
-  const [messageText, setMessageText] = useState("");
-
-  async function onSubmitForm(e) {
-    e.preventDefault();
+  const getCurrentUsername = async () => {
     try {
-      // TODO: fetch receipientId and senderUsername
-      const receipientId = "2ddc9080-32ca-4942-a452-4fc53dbf4bbe";
-
       const res = await fetch("/dashboard/", {
         method: "GET",
         headers: { jwt_token: localStorage.token },
       });
 
       const parseRes = await res.json();
-
-      const senderUsername = parseRes.username;
-
-      const myHeaders = new Headers();
-
-      myHeaders.append("Content-Type", "application/json");
-      myHeaders.append("jwt_token", localStorage.token);
-
-      const body = { messageTitle, messageText, receipientId, senderUsername };
-      const response = await fetch("/dashboard/messages", {
-        method: "POST",
-        headers: myHeaders,
-        body: JSON.stringify(body),
-      });
-
-      const parseResponse = await response.json();
-
-      console.log(parseResponse);
-
-      // setDraftsChange(true);
-
-      setMessageText("");
-      setMessageTitle("");
+      setUsername(parseRes.username);
     } catch (err) {
       console.error(err.message);
     }
-  }
+  };
+  useEffect(() => {
+    getMessages();
+    getCurrentUsername();
+  }, []);
   return (
     <>
       <h2>All Messages</h2>
@@ -92,27 +61,17 @@ function AllMessages() {
           <section>
             <section>{`message from: ${message.sender_username}`}</section>
             <section>{`Title: ${message.message_title}`}</section>
+            <section>{`Id: ${message.sender_id}`}</section>
             {messageClicked ? (
               <section>
                 {message.message_text}
                 <button onClick={sendAnswer}>{answerButtonText}</button>
                 {answerField ? (
                   <section>
-                    <form onSubmit={onSubmitForm}>
-                      <section>{`message to: ${message.sender_username}`}</section>
-                      <input
-                        type="text"
-                        placeholder="add title"
-                        value={messageTitle}
-                        onChange={(e) => setMessageTitle(e.target.value)}
-                      />
-                      <textarea
-                        placeholder="add text"
-                        value={messageText}
-                        onChange={(e) => setMessageText(e.target.value)}
-                      />
-                      <button onClick={handleSend}>send</button>
-                    </form>
+                    <SendNewMessage
+                      senderUsername={username}
+                      receipientId={message.sender_id}
+                    />
                   </section>
                 ) : (
                   <></>
