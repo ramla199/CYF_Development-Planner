@@ -37,3 +37,19 @@ CREATE TABLE messages (
   FOREIGN KEY (sender_username) REFERENCES users(username)
 );
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-- ba9ca488-6484-4bd2-a29b-547ab891a078 pumba
+--  2ddc9080-32ca-4942-a452-4fc53dbf4bbe barbie

@@ -3,10 +3,9 @@ const pool = require("../db");
 
 router.get("/", async (req, res) => {
   try {
-    const user = await pool.query(
-      "SELECT username FROM users WHERE user_id = $1",
-      [req.user.id]
-    );
+    const user = await pool.query("SELECT * FROM users WHERE user_id = $1", [
+      req.user.id,
+    ]);
     console.log(user);
     res.json(user.rows[0]);
   } catch (err) {

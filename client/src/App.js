@@ -13,10 +13,10 @@ import { Routes, Route, Navigate } from "react-router-dom";
 
 import Login from "./components/login-and-register/Login";
 import Register from "./components/login-and-register/Register";
+import RegisterConfirmation from "./components/login-and-register/RegisterConfirmation";
 import Navbar from "./components/navbar/Navbar";
 import Home from "./components/home/Home";
 import Dashboard from "./components/dashboard/Dashboard";
-// import MdnDashboard from "./components/dashboard/MdnDashboard";
 
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -59,7 +59,7 @@ function App() {
             !isAuthenticated ? (
               <Register setAuth={setAuth} />
             ) : (
-              <Navigate to="/dashboard" />
+              <Navigate to="/register-confirmation" />
             )
           }
         />
@@ -86,7 +86,16 @@ function App() {
             )
           }
         />
-        {/* <Route path="mdn-dashboard" element={<MdnDashboard />} /> */}
+        <Route
+          path="register-confirmation"
+          element={
+            isAuthenticated ? (
+              <RegisterConfirmation setAuth={setAuth} />
+            ) : (
+              <Navigate to="/login" />
+            )
+          }
+        />
       </Routes>
     </>
   );
