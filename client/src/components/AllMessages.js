@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import SendNewMessage from "./dashboard/SendNewMessage";
 
-function AllMessages() {
+function AllMessages({ name }) {
   const [messageClicked, setMessageClicked] = useState(false);
   const [buttonText, setButtonText] = useState("open");
   const [answerField, setAnswerField] = useState(false);
@@ -13,7 +13,7 @@ function AllMessages() {
   }
 
   const [allMessages, setAllMessages] = useState([]);
-  const [username, setUsername] = useState("");
+
   const getMessages = async () => {
     try {
       const res = await fetch("/dashboard/messages", {
@@ -35,31 +35,20 @@ function AllMessages() {
     setAnswerButtonText((state) => (state === "answer" ? "cancel" : "answer"));
   };
 
-  const getCurrentUsername = async () => {
-    try {
-      const res = await fetch("/dashboard/", {
-        method: "GET",
-        headers: { jwt_token: localStorage.token },
-      });
-
-      const parseRes = await res.json();
-      setUsername(parseRes.username);
-    } catch (err) {
-      console.error(err.message);
-    }
-  };
   useEffect(() => {
     getMessages();
-    getCurrentUsername();
   }, []);
+
   return (
     <>
       <h2>All Messages</h2>
 
-      {allMessages.map((message) => {
+      {allMessages.map((message, index) => {
         return (
           <section>
-            <section>{`message from: ${message.sender_username}`}</section>
+            <section
+              key={index}
+            >{`message from: ${message.sender_username}`}</section>
             <section>{`Title: ${message.message_title}`}</section>
             <section>{`Id: ${message.sender_id}`}</section>
             {messageClicked ? (
@@ -69,7 +58,7 @@ function AllMessages() {
                 {answerField ? (
                   <section>
                     <SendNewMessage
-                      senderUsername={username}
+                      senderUsername={name}
                       receipientId={message.sender_id}
                     />
                   </section>

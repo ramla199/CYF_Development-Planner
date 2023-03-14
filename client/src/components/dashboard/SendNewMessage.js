@@ -6,6 +6,7 @@ function SendNewMessage({ senderUsername, receipientId }) {
 
   console.log(senderUsername);
   console.log(receipientId);
+
   async function onSubmitForm(e) {
     e.preventDefault();
     try {

@@ -53,3 +53,8 @@ CREATE TABLE messages (
 
 -- ba9ca488-6484-4bd2-a29b-547ab891a078 pumba
 --  2ddc9080-32ca-4942-a452-4fc53dbf4bbe barbie
+
+
+-- e65edccf-d4b2-4a14-9fbd-70b3d57429c7 bobafett
+
+-- 697e6d96-4291-4151-b153-79c36d5b89cc sawgererra

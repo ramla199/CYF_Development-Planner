@@ -48,22 +48,21 @@ const ListFiles = () => {
 
   return (
     <>
-      <div>
-        {drafts.length !== 0 &&
-          drafts[0].draft_id !== null &&
-          drafts.map((draft) => {
-            return (
-              <>
-                <ListingElement
-                  draft={draft}
-                  deleteDraft={deleteDraft}
-                  allDrafts={allDrafts}
-                  setDraftsChange={setDraftsChange}
-                />
-              </>
-            );
-          })}
-      </div>
+      {drafts.length !== 0 &&
+        drafts[0].draft_id !== null &&
+        drafts.map((draft, index) => {
+          return (
+            <>
+              <ListingElement
+                key={index}
+                draft={draft}
+                deleteDraft={deleteDraft}
+                allDrafts={allDrafts}
+                setDraftsChange={setDraftsChange}
+              />
+            </>
+          );
+        })}
     </>
   );
 };
