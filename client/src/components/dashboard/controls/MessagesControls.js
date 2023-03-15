@@ -3,7 +3,7 @@ import AllMessages from "../../AllMessages";
 import UnreadMessages from "../UnreadMessages";
 import SentMessages from "../SentMessages";
 
-function MessagesControls({ name, setName, getName }) {
+function MessagesControls({ name }) {
   const [showAllMessages, setShowAllMessages] = useState(false);
   const [allTextButton, setAllTextButton] = useState("all");
   const [unreadTextButton, setUnreadTextButton] = useState("unread");
@@ -42,13 +42,7 @@ function MessagesControls({ name, setName, getName }) {
         <button onClick={handleShowUnreadMessages}>{unreadTextButton}</button>
         <button onClick={handleShowSentMessages}>{sentTextButton}</button>
       </div>
-      <div>
-        {showAllMessages ? (
-          <AllMessages name={name} setName={setName} getName={getName} />
-        ) : (
-          false
-        )}
-      </div>
+      <div>{showAllMessages ? <AllMessages name={name} /> : false}</div>
       <div> {showUnreadMessages ? <UnreadMessages /> : false}</div>
       <div> {showSentMessages ? <SentMessages /> : false}</div>
     </>

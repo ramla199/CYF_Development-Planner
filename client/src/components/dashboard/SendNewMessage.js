@@ -35,7 +35,8 @@ function SendNewMessage({ senderUsername, receipientId }) {
   return (
     <>
       <form onSubmit={onSubmitForm}>
-        <section>{`message to: ${receipientId}`}</section>
+        <button>send</button>
+        {/* <section>{`message to: ${receipientId}`}</section> */}
         <input
           type="text"
           placeholder="add title"
@@ -47,7 +48,6 @@ function SendNewMessage({ senderUsername, receipientId }) {
           value={messageText}
           onChange={(e) => setMessageText(e.target.value)}
         />
-        <button>send</button>
       </form>
     </>
   );

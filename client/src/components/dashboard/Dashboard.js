@@ -32,7 +32,7 @@ function Dashboard({ setAuth }) {
         <h1 className="heading">Dashboard {name}</h1>
         <Logout setAuth={setAuth} />
       </div>
-      <DashboardNavigation name={name} setName={setName} getName={getName} />
+      <DashboardNavigation name={name} />
     </>
   );
 }

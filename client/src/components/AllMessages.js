@@ -30,7 +30,7 @@ function AllMessages({ name }) {
   };
 
   const sendAnswer = () => {
-    console.log("I was clicked");
+    // console.log("I was clicked");
     setAnswerField(!answerField);
     setAnswerButtonText((state) => (state === "answer" ? "cancel" : "answer"));
   };
@@ -41,36 +41,36 @@ function AllMessages({ name }) {
 
   return (
     <>
-      <h2>All Messages</h2>
-
-      {allMessages.map((message, index) => {
+      {allMessages.map((message) => {
         return (
-          <section>
-            <section
-              key={index}
-            >{`message from: ${message.sender_username}`}</section>
-            <section>{`Title: ${message.message_title}`}</section>
-            <section>{`Id: ${message.sender_id}`}</section>
-            {messageClicked ? (
-              <section>
-                {message.message_text}
-                <button onClick={sendAnswer}>{answerButtonText}</button>
-                {answerField ? (
-                  <section>
+          <>
+            <div>
+              <h3>{`message from: ${message.sender_username}`}</h3>
+              <div>
+                {/* <h3>{`Title: ${message.message_title}`}</h3>
+        <h3> {`Id: ${message.sender_id}`}</h3> */}
+              </div>
+              <button onClick={handleMessageClicked}>{buttonText}</button>
+            </div>
+            <div>
+              {messageClicked ? (
+                <section>
+                  {message.message_text}
+                  <button onClick={sendAnswer}>{answerButtonText}</button>
+                  {answerField ? (
                     <SendNewMessage
                       senderUsername={name}
                       receipientId={message.sender_id}
                     />
-                  </section>
-                ) : (
-                  <></>
-                )}
-              </section>
-            ) : (
-              <></>
-            )}
-            <button onClick={handleMessageClicked}>{buttonText}</button>
-          </section>
+                  ) : (
+                    <></>
+                  )}
+                </section>
+              ) : (
+                <></>
+              )}
+            </div>
+          </>
         );
       })}
     </>
