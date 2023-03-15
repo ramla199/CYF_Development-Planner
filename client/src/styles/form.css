@@ -67,3 +67,7 @@ textarea::placeholder {
     color: rgb(187, 85, 85);
     font-weight: 300;
 }
+
+.open-to-the-side{
+    display: flex;
+}

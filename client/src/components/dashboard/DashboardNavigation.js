@@ -10,7 +10,7 @@ import FilesControls from "./controls/FilesControls";
 import MessagesControls from "./controls/MessagesControls";
 import AccountControls from "./controls/AccountControls";
 
-function DashboardNavigation() {
+function DashboardNavigation({ name }) {
   const [filesControlButtons, setFilesControlButtons] = useState(false);
   const [messagesControlButtons, setMessagesControlButtons] = useState(false);
   const [accountControlButtons, setAccountControlButtons] = useState(false);
@@ -53,15 +53,14 @@ function DashboardNavigation() {
       </div>
       {filesControlButtons ? (
         <section>
-          {" "}
-          <FilesControls />
+          <FilesControls name={name} />
         </section>
       ) : (
         <></>
       )}
       {messagesControlButtons ? (
         <section>
-          <MessagesControls />
+          <MessagesControls name={name} />
         </section>
       ) : (
         <></>
