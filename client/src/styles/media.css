@@ -23,8 +23,7 @@
         align-items: center;
         justify-content: space-around;
         gap: 30px;
-        margin: 0 30px;
-        width: 100%;
+        margin: 0 30px;    
     }
 
     .header-img {

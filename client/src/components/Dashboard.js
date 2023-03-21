@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
-import Logout from "./Logout";
+import Logout from "./dashboard/Logout";
 
-import DashboardNavigation from "./DashboardNavigation";
+import DashboardNavigation from "./dashboard/DashboardNavigation";
 
 function Dashboard({ setAuth }) {
   const [name, setName] = useState("");

@@ -17,7 +17,7 @@ router.get("/", async (req, res) => {
 router.get("/mentors", async (req, res) => {
   try {
     const user = await pool.query(
-      "SELECT username from users where user_role='mentor'"
+      "SELECT user_id, username from users where user_role='mentor'"
     );
 
     res.json(user.rows);
@@ -40,6 +40,7 @@ router.get("/mentors/:id", async (req, res) => {
     console.error(err.message);
   }
 });
+
 router.use("/drafts", require("./drafts"));
 
 router.use("/messages", require("./messages"));

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import AllMessages from "../../AllMessages";
-import UnreadMessages from "../UnreadMessages";
-import SentMessages from "../SentMessages";
+import AllMessages from "../messages/AllMessages";
+import UnreadMessages from "../messages/UnreadMessages";
+import SentMessages from "../messages/SentMessages";
 
 function MessagesControls({ name }) {
   const [showAllMessages, setShowAllMessages] = useState(false);
@@ -43,7 +43,7 @@ function MessagesControls({ name }) {
         <button onClick={handleShowSentMessages}>{sentTextButton}</button>
       </div>
       <div>{showAllMessages ? <AllMessages name={name} /> : false}</div>
-      <div> {showUnreadMessages ? <UnreadMessages /> : false}</div>
+      <div> {showUnreadMessages ? <UnreadMessages name={name} /> : false}</div>
       <div> {showSentMessages ? <SentMessages /> : false}</div>
     </>
   );
