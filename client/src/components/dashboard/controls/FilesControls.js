@@ -1,8 +1,8 @@
 import React, { useState } from "react";
-import ListFiles from "../ListFiles";
-import Drafts from "../Drafts";
-import CompletedFiles from "../CompletedFiles";
-import AddNewFile from "../AddNewFile";
+import ListFiles from "../drafts/ListFiles";
+import Drafts from "../drafts/Drafts";
+import CompletedFiles from "../drafts/CompletedFiles";
+import AddNewFile from "../drafts/AddNewFile";
 
 function FilesControls() {
   const [showAll, setShowAll] = useState(false);

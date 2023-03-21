@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import SendNewMessage from "./dashboard/SendNewMessage";
+import SendNewMessage from "./SendNewMessage";
 
 function AllMessages({ name }) {
   const [messageClicked, setMessageClicked] = useState(false);
@@ -48,7 +48,7 @@ function AllMessages({ name }) {
               <h3>{`message from: ${message.sender_username}`}</h3>
               <div>
                 {/* <h3>{`Title: ${message.message_title}`}</h3>
-        <h3> {`Id: ${message.sender_id}`}</h3> */}
+                <h3> {`Id: ${message.sender_id}`}</h3> */}
               </div>
               <button onClick={handleMessageClicked}>{buttonText}</button>
             </div>

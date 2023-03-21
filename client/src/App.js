@@ -16,7 +16,7 @@ import Register from "./components/login-and-register/Register";
 import RegisterConfirmation from "./components/login-and-register/RegisterConfirmation";
 import Navbar from "./components/navbar/Navbar";
 import Home from "./components/home/Home";
-import Dashboard from "./components/dashboard/Dashboard";
+import Dashboard from "./components/Dashboard";
 
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);

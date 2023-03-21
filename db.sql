@@ -1,6 +1,6 @@
 CREATE DATABASE dev_planner;
 
--- CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
+CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
 
 --users
 CREATE TABLE users(
