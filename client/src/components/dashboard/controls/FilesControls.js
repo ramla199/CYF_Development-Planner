@@ -4,7 +4,7 @@ import Drafts from "../drafts/Drafts";
 import CompletedFiles from "../drafts/CompletedFiles";
 import AddNewFile from "../drafts/AddNewFile";
 
-function FilesControls() {
+function FilesControls({ name }) {
   const [showAll, setShowAll] = useState(false);
   const [allButtonText, setAllButtonText] = useState("all");
   const [draftsButtonText, setDraftsButtonText] = useState("drafts");
@@ -58,7 +58,7 @@ function FilesControls() {
         <button onClick={handleShowCompleted}>{sentButtonText}</button>
         <button onClick={handleShowAddNew}>{newButtonText}</button>
       </div>
-      <div> {showAll ? <ListFiles /> : false}</div>
+      <div> {showAll ? <ListFiles name={name} /> : false}</div>
       <div>{showDrafts ? <Drafts /> : <></>}</div>
       <div>{showCompleted ? <CompletedFiles /> : false}</div>
       <div> {showAddNew ? <AddNewFile /> : false}</div>

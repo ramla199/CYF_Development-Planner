@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from "react";
 
-function MentorsDropdown({ setCurrentlySelectedMentorId, onSubmitForm }) {
+function MentorsDropdown({ name }) {
   const [list, setList] = useState([]);
-  const [id, setId] = useState("");
-
+  console.log(name);
   const getMentors = async () => {
     try {
       const res = await fetch("/dashboard/mentors", {
@@ -25,23 +24,22 @@ function MentorsDropdown({ setCurrentlySelectedMentorId, onSubmitForm }) {
   }, []);
 
   const onChange = (e) => {
-    setCurrentlySelectedMentorId(e.target.value);
-
     console.log(e.target.value);
   };
 
   return (
     <>
-      <form onSubmit={onSubmitForm}>
+      <form>
+        <button type="button">send</button>
+
         <select onChange={onChange}>
           <option>--select mentor--</option>
           {list.map((mentor) => (
-            <option value={mentor.mentor_id} key={mentor.mentor_id}>
+            <option value={mentor.user_id} key={mentor.mentor_id}>
               {mentor.username}
             </option>
           ))}
         </select>
-        <button>send</button>
       </form>
     </>
   );

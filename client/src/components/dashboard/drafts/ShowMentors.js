@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import MentorsDropdown from "./MentorsDropdown";
-function ShowMentors({ setCurrentlySelectedMentorId, onSubmitForm }) {
+
+function ShowMentors({ name }) {
   const [toggleshowMentors, setToggleShowMentors] = useState(false);
 
   function handleToggleSelectMentor() {
@@ -9,14 +10,7 @@ function ShowMentors({ setCurrentlySelectedMentorId, onSubmitForm }) {
   return (
     <>
       <button onClick={handleToggleSelectMentor}>select mentor</button>
-      {toggleshowMentors ? (
-        <MentorsDropdown
-          setCurrentlySelectedMentorId={setCurrentlySelectedMentorId}
-          onSubmitForm={onSubmitForm}
-        />
-      ) : (
-        <></>
-      )}
+      {toggleshowMentors ? <MentorsDropdown name={name} /> : <></>}
     </>
   );
 }
