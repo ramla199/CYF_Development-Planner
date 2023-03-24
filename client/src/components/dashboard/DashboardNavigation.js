@@ -10,7 +10,7 @@ import FilesControls from "./controls/FilesControls";
 import MessagesControls from "./controls/MessagesControls";
 import AccountControls from "./controls/AccountControls";
 
-function DashboardNavigation({ name, userId }) {
+function DashboardNavigation({ name }) {
   const [filesControlButtons, setFilesControlButtons] = useState(false);
   const [messagesControlButtons, setMessagesControlButtons] = useState(false);
   const [accountControlButtons, setAccountControlButtons] = useState(false);

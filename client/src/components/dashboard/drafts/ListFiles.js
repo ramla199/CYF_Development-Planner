@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
 
 // components
-import SendMessageToMentor from "./SendMessageToMentor";
+
 import Element from "./Element";
 
-const ListFiles = ({ senderUsername, receipientId }) => {
+const ListFiles = ({ name }) => {
   const [allDrafts, setAllDrafts] = useState([]);
   const [draftsChange, setDraftsChange] = useState(false);
 
@@ -48,49 +48,6 @@ const ListFiles = ({ senderUsername, receipientId }) => {
     setDrafts(allDrafts);
   }, [allDrafts]);
 
-  const [messageTitle, setMessageTitle] = useState("");
-  const [messageText, setMessageText] = useState("");
-
-  const [currentlySelectedMentorId, setCurrentlySelectedMentorId] =
-    useState(null);
-
-  console.log(senderUsername);
-
-  async function onSubmitForm(e) {
-    console.log("onSubmitForm");
-    e.preventDefault();
-    try {
-      const myHeaders = new Headers();
-
-      myHeaders.append("Content-Type", "application/json");
-      myHeaders.append("jwt_token", localStorage.token);
-
-      const body = {
-        messageTitle,
-        messageText,
-        senderUsername,
-        currentlySelectedMentorId,
-      };
-
-      console.log(body);
-
-      const response = await fetch("/dashboard/messages", {
-        method: "POST",
-        headers: myHeaders,
-        body: JSON.stringify(body),
-      });
-
-      const parseResponse = await response.json();
-
-      console.log(parseResponse);
-
-      setMessageText("");
-      setMessageTitle("");
-    } catch (err) {
-      console.error(err.message);
-    }
-  }
-
   const [open, setOpen] = useState(false);
 
   const handleOpen = () => {
@@ -115,8 +72,7 @@ const ListFiles = ({ senderUsername, receipientId }) => {
                     deleteDraft={deleteDraft}
                     allDrafts={allDrafts}
                     setDraftsChange={setDraftsChange}
-                    setCurrentlySelectedMentorId={setCurrentlySelectedMentorId}
-                    onSubmitForm={onSubmitForm}
+                    name={name}
                   />
                 ) : (
                   <></>
@@ -125,10 +81,6 @@ const ListFiles = ({ senderUsername, receipientId }) => {
             </>
           );
         })}
-      <SendMessageToMentor
-        senderUsername={senderUsername}
-        receipientId={receipientId}
-      />
     </>
   );
 };
