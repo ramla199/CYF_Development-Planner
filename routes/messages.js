@@ -26,6 +26,8 @@ router.get("/:id", async (req, res) => {
     res.json(message.rows);
   } catch (err) {
     console.error(err.message);
+    // It seems like you have a lot of code which does try-catch with exactly the same catch, but sometimes the catch has a bug like a missing response.
+    // Can you think of a pattern you could use to avoid repeating this code so much (and in doing som make it less likely some versions of it will be buggy)?
   }
 });
 

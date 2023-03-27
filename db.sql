@@ -14,6 +14,7 @@ CREATE TABLE users(
     PRIMARY KEY (user_id)
 );
 
+
 --drafts
 CREATE TABLE drafts (
   draft_id SERIAL,
@@ -35,6 +36,15 @@ CREATE TABLE messages (
   FOREIGN KEY (sender_id) REFERENCES users(user_id),
   FOREIGN KEY (receipient_id) REFERENCES users(user_id), 
   FOREIGN KEY (sender_username) REFERENCES users(username)
+
+
+CREATE TABLE messages(
+      message_id SERIAL,
+      user_id UUID,
+      message_text VARCHAR(1000) NOT NULL,
+      PRIMARY KEY (message_id),
+      FOREIGN KEY (user_id) REFERENCES users(user_id)
+
 );
 
 
