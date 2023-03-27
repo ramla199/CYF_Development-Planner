@@ -19,11 +19,6 @@ app.use("/authentication", require("./routes/jwtAuth"));
 
 app.use("/dashboard", authorize, require("./routes/dashboard"));
 
-// app.get("/*", function (req, res, next) {
-//   res.sendFile(path.join(__dirname, "client", "build", "index.html"));
-//   next();
-// });
-
 app.get("/*", function (req, res) {
   res.sendFile(path.join(__dirname, "client", "build", "index.html"));
 });

@@ -42,31 +42,29 @@ function Login({ setAuth }) {
 
   return (
     <>
-      <section>
-        <form onSubmit={onSubmitForm} className="form">
-          <h1>Login</h1>
-          <label>Email</label>
-          <input
-            type="email"
-            name="email"
-            value={email.toLowerCase()}
-            onChange={(e) => handleChange(e)}
-          />
-          <label>Password</label>
-          <input
-            type="password"
-            name="password"
-            value={password}
-            onChange={(e) => handleChange(e)}
-          />
-          <div className="login-signin-buttons">
-            <button>Login</button>
-          </div>
-          <Link to="/register" className="signin-login-link">
-            Sign Up
-          </Link>
-        </form>
-      </section>
+      <form onSubmit={onSubmitForm} className="form">
+        <h1>Login</h1>
+        <label>Email</label>
+        <input
+          type="email"
+          name="email"
+          value={email.toLowerCase()}
+          onChange={(e) => handleChange(e)}
+        />
+        <label>Password</label>
+        <input
+          type="password"
+          name="password"
+          value={password}
+          onChange={(e) => handleChange(e)}
+        />
+        <div className="buttons">
+          <button>Login</button>
+        </div>
+        <Link to="/register" className="form-link">
+          Sign Up
+        </Link>
+      </form>
     </>
   );
 }

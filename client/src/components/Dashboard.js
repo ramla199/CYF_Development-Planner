@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from "react";
+import Logout from "./dashboard/Logout";
 
-function Name() {
+import DashboardNavigation from "./dashboard/DashboardNavigation";
+
+function Dashboard({ setAuth }) {
   const [name, setName] = useState("");
 
   const getName = async () => {
@@ -12,10 +15,7 @@ function Name() {
 
       const parseRes = await res.json();
 
-      // console.log(parseRes);
-
-      // setName(parseRes.username);
-
+      console.log(parseRes);
       setName(parseRes.username);
     } catch (err) {
       console.error(err.message);
@@ -28,11 +28,13 @@ function Name() {
 
   return (
     <>
-      <section>
-        <h1 className="heading db-heading">{name}</h1>
-      </section>
+      <div className="flex">
+        <h1 className="heading">Dashboard {name}</h1>
+        <Logout setAuth={setAuth} />
+      </div>
+      <DashboardNavigation name={name} />
     </>
   );
 }
 
-export default Name;
+export default Dashboard;

@@ -5,7 +5,7 @@ const pool = require("../db");
 router.get("/", async (req, res) => {
   try {
     const allMessages = await pool.query(
-      "SELECT users.username, messages.message_id, messages.message_text FROM users LEFT JOIN messages ON users.user_id = messages.user_id WHERE users.user_id = $1",
+      "SELECT * FROM messages WHERE messages.receipient_id = $1",
       [req.user.id]
     );
     res.json(allMessages.rows);
@@ -34,10 +34,11 @@ router.get("/:id", async (req, res) => {
 // insert a message
 router.post("/", async (req, res) => {
   try {
-    const { messageText } = req.body;
+    const { receipientId, messageTitle, messageText, senderUsername } =
+      req.body;
     const newMessage = await pool.query(
-      "INSERT INTO messages (user_id, message_text) VALUES ($1, $2) RETURNING *",
-      [req.user.id, messageText]
+      "INSERT INTO messages (sender_id, receipient_id, message_title, message_text, sender_username) VALUES ($1, $2, $3, $4, $5) RETURNING *",
+      [req.user.id, receipientId, messageTitle, messageText, senderUsername]
     );
     res.json(newMessage.rows[0]);
   } catch (err) {
