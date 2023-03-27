@@ -2,7 +2,13 @@ import React, { useState } from "react";
 import EditDraft from "./EditDraft";
 import ShowMentors from "./ShowMentors";
 
-function Element({ draft, deleteDraft, setDraftsChange, name, allDrafts }) {
+function Element({
+  draft,
+  deleteDraft,
+  setDraftsChange,
+  senderUsername,
+  allDrafts,
+}) {
   console.log(allDrafts);
   console.log(draft);
   const [toggle, setToggle] = useState(false);
@@ -26,7 +32,11 @@ function Element({ draft, deleteDraft, setDraftsChange, name, allDrafts }) {
       <div className="flex">
         {" "}
         <button onClick={handleToggleSendToMentor}>send to mentor</button>
-        {toggleSendToMentor ? <ShowMentors name={name} /> : <></>}
+        {toggleSendToMentor ? (
+          <ShowMentors senderUsername={senderUsername} />
+        ) : (
+          <></>
+        )}
       </div>
 
       {toggle ? (
