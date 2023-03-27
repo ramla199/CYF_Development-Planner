@@ -4,7 +4,7 @@ import React, { useState, useEffect } from "react";
 
 import Element from "./Element";
 
-const ListFiles = ({ name }) => {
+const ListFiles = ({ senderUsername }) => {
   const [allDrafts, setAllDrafts] = useState([]);
   const [draftsChange, setDraftsChange] = useState(false);
 
@@ -72,7 +72,7 @@ const ListFiles = ({ name }) => {
                     deleteDraft={deleteDraft}
                     allDrafts={allDrafts}
                     setDraftsChange={setDraftsChange}
-                    name={name}
+                    senderUsername={senderUsername}
                   />
                 ) : (
                   <></>

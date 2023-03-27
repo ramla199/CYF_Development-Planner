@@ -58,10 +58,10 @@ function FilesControls({ name }) {
         <button onClick={handleShowCompleted}>{sentButtonText}</button>
         <button onClick={handleShowAddNew}>{newButtonText}</button>
       </div>
-      <div> {showAll ? <ListFiles name={name} /> : false}</div>
+      <div> {showAll ? <ListFiles senderUsername={name} /> : false}</div>
       <div>{showDrafts ? <Drafts /> : <></>}</div>
       <div>{showCompleted ? <CompletedFiles /> : false}</div>
-      <div> {showAddNew ? <AddNewFile /> : false}</div>
+      <div> {showAddNew ? <AddNewFile senderUsername={name} /> : false}</div>
     </>
   );
 }

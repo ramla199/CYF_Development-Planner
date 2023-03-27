@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import MentorsDropdown from "./MentorsDropdown";
 
-function ShowMentors({ name }) {
+function ShowMentors({ senderUsername }) {
   const [toggleshowMentors, setToggleShowMentors] = useState(false);
 
   function handleToggleSelectMentor() {
@@ -10,7 +10,11 @@ function ShowMentors({ name }) {
   return (
     <>
       <button onClick={handleToggleSelectMentor}>select mentor</button>
-      {toggleshowMentors ? <MentorsDropdown name={name} /> : <></>}
+      {toggleshowMentors ? (
+        <MentorsDropdown senderUsername={senderUsername} />
+      ) : (
+        <></>
+      )}
     </>
   );
 }
