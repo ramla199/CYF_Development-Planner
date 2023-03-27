@@ -25,10 +25,8 @@ function MentorsDropdown({ senderUsername }) {
     getMentors();
   }, []);
 
-  const onChange = (e) => {
-    console.log(e.target.value);
+  const onMentorDropdownMenuChange = (e) => {
     setReceipientId(e.target.value);
-    console.log(receipientId);
   };
 
   const onSubmit = async (e) => {
@@ -61,7 +59,7 @@ function MentorsDropdown({ senderUsername }) {
       <form onSubmit={onSubmit}>
         <button type="button">send</button>
 
-        <select onChange={onChange}>
+        <select onChange={onMentorDropdownMenuChange}>
           <option>--select mentor--</option>
           {list.map((mentor) => (
             <option value={mentor.user_id} key={mentor.mentor_id}>
