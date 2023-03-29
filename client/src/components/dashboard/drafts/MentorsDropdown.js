@@ -1,6 +1,15 @@
 import React, { useState, useEffect } from "react";
 
-function MentorsDropdown({ senderUsername }) {
+function MentorsDropdown({ senderUsername, draft }) {
+  // console.log(draft);
+  // console.log(draft.draft_title);
+  // console.log(draft.draft_text);
+  const msgTitle = draft.draft_title;
+  const msgText = draft.draft_text;
+  console.log(msgText);
+  // console.log(msgTitle);
+  const [messageTitle, setMessageTitle] = useState("");
+  const [messageText, setMessageText] = useState("");
   const [list, setList] = useState([]);
 
   const [receipientId, setReceipientId] = useState("");
@@ -25,13 +34,11 @@ function MentorsDropdown({ senderUsername }) {
     getMentors();
   }, []);
 
-  const onChange = (e) => {
-    console.log(e.target.value);
+  const onMentorDropdownMenuChange = (e) => {
     setReceipientId(e.target.value);
-    console.log(receipientId);
   };
 
-  const onSubmit = async (e) => {
+  const onSubmit = async (e, onClickButton) => {
     e.preventDefault();
 
     try {
@@ -40,7 +47,7 @@ function MentorsDropdown({ senderUsername }) {
       myHeaders.append("Content-Type", "application/json");
       myHeaders.append("jwt_token", localStorage.token);
 
-      const body = { receipientId, senderUsername };
+      const body = { receipientId, senderUsername, messageTitle, messageText };
       const response = await fetch("/dashboard/messages", {
         method: "POST",
         headers: myHeaders,
@@ -50,18 +57,29 @@ function MentorsDropdown({ senderUsername }) {
       const parseResponse = await response.json();
 
       console.log(parseResponse);
+      setMessageTitle(msgTitle);
+      // console.log(messageTitle);
+      setMessageText(msgText);
+      console.log(msgText);
 
       // setDraftsChange(true);
     } catch (err) {
       console.error(err.message);
     }
   };
+
+  console.log(receipientId);
+
+  const onClickButton = () => {
+    setMessageTitle(messageTitle);
+  };
   return (
     <>
       <form onSubmit={onSubmit}>
-        <button type="button">send</button>
-
-        <select onChange={onChange}>
+        <button onClick={onClickButton}>send</button>
+        <div>{messageTitle}</div>
+        <div>{messageText}</div>
+        <select onChange={onMentorDropdownMenuChange}>
           <option>--select mentor--</option>
           {list.map((mentor) => (
             <option value={mentor.user_id} key={mentor.mentor_id}>
