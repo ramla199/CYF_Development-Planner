@@ -9,8 +9,9 @@ function Element({
   senderUsername,
   allDrafts,
 }) {
-  console.log(allDrafts);
-  console.log(draft);
+  // console.log(allDrafts);
+  // console.log(draft);
+  // console.log(senderUsername);
   const [toggle, setToggle] = useState(false);
   const [toggleSendToMentor, setToggleSendToMentor] = useState(false);
 
@@ -33,7 +34,7 @@ function Element({
         {" "}
         <button onClick={handleToggleSendToMentor}>send to mentor</button>
         {toggleSendToMentor ? (
-          <ShowMentors senderUsername={senderUsername} />
+          <ShowMentors senderUsername={senderUsername} draft={draft} />
         ) : (
           <></>
         )}
