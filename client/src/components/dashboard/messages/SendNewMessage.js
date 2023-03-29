@@ -7,16 +7,25 @@ function SendNewMessage({ senderUsername, receipientId }) {
   console.log(senderUsername);
   console.log(receipientId);
 
-  async function onSubmitForm(e) {
-    e.preventDefault();
+  async function sendMessage(isDraft) {
     try {
       const myHeaders = new Headers();
 
       myHeaders.append("Content-Type", "application/json");
       myHeaders.append("jwt_token", localStorage.token);
 
-      const body = { messageTitle, messageText, receipientId, senderUsername };
-      const response = await fetch("/dashboard/messages", {
+      let body;
+      let endpoint;
+      if (isDraft) {
+        body = { draftTitle: messageTitle, draftText: messageText };
+        endpoint = "/dashboard/drafts";
+      } else {
+        body = { messageTitle, messageText, receipientId, senderUsername };
+        endpoint = "/dashboard/messages";
+      }
+
+      // const body = { messageTitle, messageText, receipientId, senderUsername };
+      const response = await fetch(endpoint, {
         method: "POST",
         headers: myHeaders,
         body: JSON.stringify(body),
@@ -32,10 +41,16 @@ function SendNewMessage({ senderUsername, receipientId }) {
       console.error(err.message);
     }
   }
+
   return (
     <>
-      <form onSubmit={onSubmitForm}>
-        <button>send</button>
+      <form>
+        <button type="button" onClick={() => sendMessage(false)}>
+          send
+        </button>
+        <button type="button" onClick={() => sendMessage(true)}>
+          save
+        </button>
         {/* <section>{`message to: ${receipientId}`}</section> */}
         <input
           type="text"
