@@ -2,10 +2,39 @@ const router = require("express").Router();
 const pool = require("../db");
 
 // get all user messages
+
 router.get("/", async (req, res) => {
   try {
     const allMessages = await pool.query(
+      "SELECT * FROM messages WHERE sender_id=$1 OR receipient_id= $2 ",
+      [req.user.id, req.user.id]
+    );
+    res.json(allMessages.rows);
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).json("server error");
+  }
+});
+// get all user received messages
+router.get("/received", async (req, res) => {
+  try {
+    const allMessages = await pool.query(
       "SELECT * FROM messages WHERE messages.receipient_id = $1",
+      [req.user.id]
+    );
+    res.json(allMessages.rows);
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).json("server error");
+  }
+});
+
+// get all user sent messages
+
+router.get("/sent", async (req, res) => {
+  try {
+    const allMessages = await pool.query(
+      "SELECT * FROM messages WHERE messages.sender_id = $1",
       [req.user.id]
     );
     res.json(allMessages.rows);

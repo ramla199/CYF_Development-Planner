@@ -71,3 +71,7 @@ textarea::placeholder {
 .open-to-the-side{
     display: flex;
 }
+
+select{
+    cursor: pointer;
+}
