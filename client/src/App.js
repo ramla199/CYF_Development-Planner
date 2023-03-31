@@ -17,6 +17,7 @@ import RegisterConfirmation from "./components/login-and-register/RegisterConfir
 import Navbar from "./components/navbar/Navbar";
 import Home from "./components/home/Home";
 import Dashboard from "./components/Dashboard";
+import Hi from "./components/Hi";
 
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -35,7 +36,7 @@ function App() {
       const parseRes = await response.json();
 
       parseRes === true ? setIsAuthenticated(true) : setIsAuthenticated(false);
-      // console.log(parseRes);
+      console.log(parseRes);
     } catch (err) {
       console.error(err.message);
     }
@@ -48,6 +49,7 @@ function App() {
   return (
     <>
       <Navbar />
+      <Hi />
       <Routes>
         <Route
           path="/"

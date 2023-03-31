@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import Logout from "./dashboard/Logout";
 
 import DashboardNavigation from "./dashboard/DashboardNavigation";
-
+// import Menu from "./dashboard/Menu";
 function Dashboard({ setAuth }) {
   const [name, setName] = useState("");
 
@@ -33,6 +33,7 @@ function Dashboard({ setAuth }) {
         <Logout setAuth={setAuth} />
       </div>
       <DashboardNavigation name={name} />
+      {/* <Menu /> */}
     </>
   );
 }

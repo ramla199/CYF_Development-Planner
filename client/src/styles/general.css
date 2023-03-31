@@ -26,6 +26,7 @@ img {
 
 a {
     text-decoration: none;
+    cursor: pointer;
 }
 
 .active {
@@ -72,6 +73,7 @@ section {
     color: #b55151;
     font-size: 0.8rem;
     margin-bottom: 30px;
+    cursor: pointer;
 }
 
 

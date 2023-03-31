@@ -16,7 +16,7 @@ function AllMessages({ name }) {
 
   const getMessages = async () => {
     try {
-      const res = await fetch("/dashboard/messages", {
+      const res = await fetch("/dashboard/messages/", {
         method: "GET",
         headers: { jwt_token: localStorage.token },
       });
