@@ -29,7 +29,7 @@ function Account() {
         </section>
         <section>
           <h3> change email</h3>
-          <label htmlFor="new-email">type new email</label>
+          <label htmlFor="new-email">type old email</label>
           <input id="new-email" type="text" placeholder="type here..." />s
         </section>
         <section>
